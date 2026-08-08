@@ -14,6 +14,8 @@ venv/
 # --- QROS derived working dirs ---
 # _extracted/ regenerated from the authoritative .docx handbook sources
 _extracted/
+# runtime registries (hypothesis locks, experiment records, snapshots)
+registry/
 
 # --- Local secrets / env ---
 .env

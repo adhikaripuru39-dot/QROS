@@ -23,3 +23,5 @@ registry/
 # --- OS ---
 .DS_Store
 Thumbs.db
+# Claude local session state
+.claude/

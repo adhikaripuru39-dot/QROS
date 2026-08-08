@@ -1,0 +1,23 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+.pytest_cache/
+.mpy_cache/
+.ipynb_checkpoints/
+
+# --- QROS derived working dirs ---
+# _extracted/ regenerated from the authoritative .docx handbook sources
+_extracted/
+
+# --- Local secrets / env ---
+.env
+
+# --- OS ---
+.DS_Store
+Thumbs.db

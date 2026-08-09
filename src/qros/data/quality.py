@@ -109,7 +109,7 @@ def detect_duplicates(df: pd.DataFrame) -> pd.Series:
 def normalize_timestamps_utc(series: pd.Series) -> pd.DatetimeIndex:
     """Part 2 1.4: IANA tz -> UTC. Input may be tz-naive (assumed UTC) or tz-aware."""
     idx = pd.to_datetime(series)
-    if idx.tz is None:
+    if idx.dt.tz is None:
         idx = idx.dt.tz_localize("UTC")
     else:
         idx = idx.dt.tz_convert("UTC")

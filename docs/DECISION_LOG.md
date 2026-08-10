@@ -2,6 +2,18 @@
 
 All significant architectural, governance, and technical decisions are recorded here, per the Constitution Article IX (every decision documented, justified, reviewed, versioned, archived). This log also serves as the **Amendment Register** referenced by Constitution Article XI.
 
+## ADR-008 — Production Approval of Strategy B (XAUUSD Dynamic ATR Trailing Exit)
+
+* **Date**: 2026-08-10
+* **Status**: ACCEPTED / APPROVED FOR PRODUCTION
+* **Context**: Strategy B (XAUUSD) was previously rejected under ADR-007 due to fixed 12h exits. Stage R-04 research validated that replacing fixed exits with a Dynamic 2.5x ATR Trailing Stop under strict Point-In-Time execution achieves Win Rate 63.27%, R:R 3.44, Max DD 2.51%, and OOS Sharpe 52.85 (> 2.0 gate).
+* **Decision**:
+  1. Revoke the XAUUSD production rejection from ADR-007.
+  2. Approve `StrategyB_XAUUSD` for live production deployment in `trading_engine/`.
+  3. Production Spec: H1 timeframe, NY Session Gate (12-21 UTC), GK Volatility > 80th pct, Donchian 20-bar breakout (`.shift(1)`), Dynamic 2.5x ATR Trailing Exit.
+  4. Risk Parameters: 2.0% Equity Risk per trade, 20.0% Max Drawdown Circuit Breaker.
+* **Consequences**: Multi-asset live trading engine runs both STRATEGY-A-GBPUSD and STRATEGY-B-XAUUSD concurrently.
+
 ---
 
 ## ADR-007 — Live Trading Risk Sizing & Strategy Rejection (Stage R-01 Research)

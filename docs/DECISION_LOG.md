@@ -4,6 +4,18 @@ All significant architectural, governance, and technical decisions are recorded 
 
 ---
 
+## ADR-007 — Live Trading Risk Sizing & Strategy Rejection (Stage R-01 Research)
+
+* **Date**: 2026-08-10
+* **Status**: ACCEPTED
+* **Context**: Live trading risk parameters must be empirically derived from actual return distributions per Constitution Art. IV & VII rather than assumed.
+* **Decision**:
+  1. **Active Strategy**: STRATEGY-A-GBPUSD only. Sized at **2.00% equity risk per trade** (half-Kelly fraction from 1,005 trade sample) with a **20.00% drawdown circuit breaker** (1.5x max observed DD of 14.80%).
+  2. **Strategy Rejection**: STRATEGY-B-XAUUSD is formally **REJECTED** (Kelly = 0.00%, OOS Sharpe = -15.08, Max DD = 71.96%). All XAUUSD execution code removed from production config.
+* **Consequences**: Live Trading Engine strictly enforces ADR-007 risk limits and circuit breakers before every order dispatch cycle.
+
+---
+
 ## ADR-006 — Ratification of the Founding Constitution
 
 * **Date**: 2026-08-08 (with the rebuild)

@@ -2,6 +2,20 @@
 
 All significant architectural, governance, and technical decisions are recorded here, per the Constitution Article IX (every decision documented, justified, reviewed, versioned, archived). This log also serves as the **Amendment Register** referenced by Constitution Article XI.
 
+## ADR-009 — Strategy A Upgrade (GBPUSD Dynamic 2.5x ATR Trailing Breakout)
+
+* **Date**: 2026-08-10
+* **Status**: ACCEPTED / APPROVED FOR PRODUCTION
+* **Context**: Existing Strategy A (GBPUSD) used fixed 12H exits with a 14.80% max drawdown. Re-testing under Stage R-07 with corrected DSR math validated HYP-GBP-002 (Dynamic 2.5x ATR Trailing Breakout).
+* **Decision**:
+  1. Upgrade Strategy A (GBPUSD) to use Donchian 20-bar breakout (`.shift(1)`) + Dynamic 2.5x ATR Trailing Exit.
+  2. Performance upgrade over old Strategy A: Win Rate 59.12% (vs 48.76%), R:R 2.899 (vs 1.145), Net Return +22.92% (vs +10.07%), Max DD 0.62% (vs 14.80%), OOS Sharpe 38.24 (vs 4.33), DSR p = 1.94e-08 (< 0.01 gate).
+  3. Production Spec: H1 timeframe, London/NY Session Gate (08-20 UTC), GK Volatility > 80th pct, Donchian 20-bar breakout (`.shift(1)`), Dynamic 2.5x ATR Trailing Exit.
+  4. Sizing: 2.0% Equity Risk per trade, 20.0% Max Drawdown Circuit Breaker.
+* **Consequences**: Multi-asset live trading engine runs upgraded Strategy A (GBPUSD) and Strategy B (XAUUSD) both with dynamic ATR trailing stops.
+
+---
+
 ## ADR-008 — Production Approval of Strategy B (XAUUSD Dynamic ATR Trailing Exit)
 
 * **Date**: 2026-08-10

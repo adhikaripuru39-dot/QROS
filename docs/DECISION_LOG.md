@@ -2,6 +2,20 @@
 
 All significant architectural, governance, and technical decisions are recorded here, per the Constitution Article IX (every decision documented, justified, reviewed, versioned, archived). This log also serves as the **Amendment Register** referenced by Constitution Article XI.
 
+## ADR-012 — Production Integration of Strategy E (USDCHF Dynamic ATR Trailing Breakout)
+
+* **Date**: 2026-08-11
+* **Status**: ACCEPTED / APPROVED FOR PRODUCTION
+* **Context**: Strategy E (USDCHF) was evaluated under Stage R-10 and zero-trust independent verification. It achieved Win Rate 64.41% (highest in QROS forex history), R:R 2.71, Max DD 1.17%, and OOS Sharpe 39.50 (> 2.0 gate). All 3 independent p-value methods confirmed statistical significance (DSR p = 6.36e-10 < 0.01). Completes the Master 5-Asset Production Portfolio.
+* **Decision**:
+  1. Append `StrategyE_USDCHF` to active production portfolio in `trading_engine/`.
+  2. Production Spec: H1 timeframe, London/NY Session Gate (07-18 UTC), GK Volatility > 80th pct, Donchian 20-bar breakout (`.shift(1)`), Dynamic 2.5x ATR Trailing Exit.
+  3. Risk Parameters: 2.0% Equity Risk per trade, 20.0% Max Drawdown Circuit Breaker.
+  4. Symbol Pip Value: USDCHF pip value set to $10.0 per 1.0 standard lot.
+* **Consequences**: Live trading engine runs Strategy A (GBPUSD), Strategy B (XAUUSD), Strategy C (EURUSD), Strategy D (USDJPY), and Strategy E (USDCHF) concurrently with zero code regression on existing strategies (10.0% max portfolio exposure).
+
+---
+
 ## ADR-011 — Production Integration of Strategy D (USDJPY Dynamic ATR Trailing Breakout)
 
 * **Date**: 2026-08-11

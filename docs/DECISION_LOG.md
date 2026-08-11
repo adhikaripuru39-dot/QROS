@@ -2,6 +2,20 @@
 
 All significant architectural, governance, and technical decisions are recorded here, per the Constitution Article IX (every decision documented, justified, reviewed, versioned, archived). This log also serves as the **Amendment Register** referenced by Constitution Article XI.
 
+## ADR-011 — Production Integration of Strategy D (USDJPY Dynamic ATR Trailing Breakout)
+
+* **Date**: 2026-08-11
+* **Status**: ACCEPTED / APPROVED FOR PRODUCTION
+* **Context**: Strategy D (USDJPY) was evaluated under Stage R-09 and zero-trust independent verification. It achieved Win Rate 62.70%, R:R 2.78, Max DD 0.65%, and OOS Sharpe 43.29 (> 2.0 gate). All 3 independent p-value methods confirmed statistical significance (DSR p = 5.78e-10 < 0.01).
+* **Decision**:
+  1. Append `StrategyD_USDJPY` to active production portfolio in `trading_engine/`.
+  2. Production Spec: H1 timeframe, Tokyo/NY Session Gate (00-21 UTC), GK Volatility > 80th pct, Donchian 20-bar breakout (`.shift(1)`), Dynamic 2.5x ATR Trailing Exit.
+  3. Risk Parameters: 2.0% Equity Risk per trade, 20.0% Max Drawdown Circuit Breaker.
+  4. Symbol Pip Value: USDJPY pip value set dynamically per lot (at USDJPY = 150.0, 1 pip = 100 JPY / 150.0 $\approx \$6.67$ per 1.0 lot).
+* **Consequences**: Live trading engine runs Strategy A (GBPUSD), Strategy B (XAUUSD), Strategy C (EURUSD), and Strategy D (USDJPY) concurrently with zero code regression on existing strategies.
+
+---
+
 ## ADR-010 — Production Integration of Strategy C (EURUSD Dynamic ATR Trailing Breakout)
 
 * **Date**: 2026-08-10

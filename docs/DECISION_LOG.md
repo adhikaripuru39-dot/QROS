@@ -55,3 +55,12 @@ This log records governance decisions, amendments, and baseline clarifications f
 - Decision: Accept the Stage 10 charter, checklist, scope, and robustness map as the current operating baseline for robustness-testing governance.
 - Rationale: These artifacts define the governed robustness checks, parameter sensitivity rules, stress-testing expectations, regime-shift analysis, sample perturbation rules, and the blockers that prevent fragile results from moving forward.
 - Next action: Use the Stage 10 package as the mandatory pre-task check before any Stage 11 work is opened.
+
+## ADR-012 - Stage 11 walk-forward validation baseline acceptance
+
+- Date: 2026-08-12
+- Status: Accepted
+- Context: Stage 11 governance artifacts exist in `docs/GOVERNANCE/`.
+- Decision: Accept the Stage 11 charter, checklist, scope, and validation map as the current operating baseline for walk-forward validation governance.
+- Rationale: These artifacts define the governed walk-forward windows, embargo/purge controls, train/validation/test splits, regime-aware acceptance thresholds, required validation artifacts, and promotion blockers.
+- Next action: Use the Stage 11 package as the mandatory pre-task check before any Stage 12 work is opened.

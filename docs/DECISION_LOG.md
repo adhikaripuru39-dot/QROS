@@ -28,3 +28,12 @@ This log records governance decisions, amendments, and baseline clarifications f
 - Decision: Accept the Stage 7 charter, checklist, scope, and pipeline map as the current operating baseline for research-pipeline governance.
 - Rationale: These artifacts define the governed 15-stage research workflow, mandatory gates, rollback handling, and the boundary between approved hypothesis/feature inputs and research execution.
 - Next action: Use the Stage 7 package as the mandatory pre-task check before any Stage 8 work is opened.
+
+## ADR-009 - Stage 8 statistical methodology baseline acceptance
+
+- Date: 2026-08-12
+- Status: Accepted
+- Context: Stage 8 governance artifacts exist in `docs/GOVERNANCE/` and were corrected to remove implied Bayesian-mandate language and to treat the full 17-field experiment record as a downstream dependency rather than a Stage 8 authority.
+- Decision: Accept the Stage 8 charter, checklist, scope, and statistics map as the current operating baseline for statistical-methodology governance.
+- Rationale: These artifacts define the governed statistical evidence rules, multiple-testing correction protocol, cross-validation expectations, robustness requirements, and promotion blockers for research results.
+- Next action: Use the Stage 8 package as the mandatory pre-task check before any Stage 9 work is opened.

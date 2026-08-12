@@ -6,7 +6,7 @@ QROS is currently in a governance-lock state.
 
 - Constitution status: Draft for Ratification
 - Operating baseline: Stage 1 Governance Lock
-- Baselined governance packages: Stage 1, Stage 2, Stage 3, Stage 4, Stage 5, Stage 6, Stage 7
+- Baselined governance packages: Stage 1, Stage 2, Stage 3, Stage 4, Stage 5, Stage 6, Stage 7, Stage 8
 - Allowed work: documentation, scope definition, inputs/outputs definition, edge-confirmation rules, and governance records
 - Prohibited work: engine implementation, research code, backtests, live execution, or any claim of approval not supported by the governing documents
 
@@ -51,8 +51,12 @@ These folders may be read for context, comparison, or supervision, but future Cl
 - `docs/GOVERNANCE/STAGE_7_CHECKLIST.md`
 - `docs/GOVERNANCE/STAGE_7_SCOPE.md`
 - `docs/GOVERNANCE/STAGE_7_PIPELINE_MAP.md`
+- `docs/GOVERNANCE/STAGE_8_CHARTER.md`
+- `docs/GOVERNANCE/STAGE_8_CHECKLIST.md`
+- `docs/GOVERNANCE/STAGE_8_SCOPE.md`
+- `docs/GOVERNANCE/STAGE_8_STATISTICS_MAP.md`
 
 ## Supervisor rule
 
 No later stage may begin until the governance lock is satisfied and the project state has been updated with a new approved stage assignment.
-Stage 8 remains closed until the next governed package is explicitly opened by the supervisor.
+Stage 9 remains closed until the next governed package is explicitly opened by the supervisor.

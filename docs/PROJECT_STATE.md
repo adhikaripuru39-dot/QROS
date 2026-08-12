@@ -6,7 +6,7 @@ QROS is currently in a governance-lock state.
 
 - Constitution status: Draft for Ratification
 - Operating baseline: Stage 1 Governance Lock
-- Baselined governance packages: Stage 1, Stage 2, Stage 3
+- Baselined governance packages: Stage 1, Stage 2, Stage 3, Stage 4, Stage 5
 - Allowed work: documentation, scope definition, inputs/outputs definition, edge-confirmation rules, and governance records
 - Prohibited work: engine implementation, research code, backtests, live execution, or any claim of approval not supported by the governing documents
 
@@ -27,8 +27,24 @@ These folders may be read for context, comparison, or supervision, but future Cl
 - `docs/GOVERNANCE/STAGE_1_CHECKLIST.md`
 - `docs/GOVERNANCE/STAGE_SEQUENCE_MAP.md`
 - `docs/DECISION_LOG.md`
+- `docs/GOVERNANCE/STAGE_2_CHARTER.md`
+- `docs/GOVERNANCE/STAGE_2_CHECKLIST.md`
+- `docs/GOVERNANCE/STAGE_2_SCOPE.md`
+- `docs/GOVERNANCE/STAGE_2_CLAUDE_PROMPT.md`
+- `docs/GOVERNANCE/STAGE_3_CHARTER.md`
+- `docs/GOVERNANCE/STAGE_3_CHECKLIST.md`
+- `docs/GOVERNANCE/STAGE_3_SCOPE.md`
+- `docs/GOVERNANCE/STAGE_3_QUALITY_MAP.md`
+- `docs/GOVERNANCE/STAGE_4_CHARTER.md`
+- `docs/GOVERNANCE/STAGE_4_CHECKLIST.md`
+- `docs/GOVERNANCE/STAGE_4_SCOPE.md`
+- `docs/GOVERNANCE/STAGE_4_FEATURE_MAP.md`
+- `docs/GOVERNANCE/STAGE_5_CHARTER.md`
+- `docs/GOVERNANCE/STAGE_5_CHECKLIST.md`
+- `docs/GOVERNANCE/STAGE_5_SCOPE.md`
+- `docs/GOVERNANCE/STAGE_5_HYPOTHESIS_MAP.md`
 
 ## Supervisor rule
 
 No later stage may begin until the governance lock is satisfied and the project state has been updated with a new approved stage assignment.
-Stage 4 remains closed until the next governed package is explicitly opened by the supervisor.
+Stage 6 remains closed until the next governed package is explicitly opened by the supervisor.

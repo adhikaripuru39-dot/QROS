@@ -46,3 +46,12 @@ This log records governance decisions, amendments, and baseline clarifications f
 - Decision: Accept the Stage 9 charter, checklist, scope, and tracking map as the current operating baseline for experiment-tracking governance.
 - Rationale: These artifacts define the governed experiment record, linkage to git commits and dataset snapshots, trial counting, failed-attempt logging, artifact retention, and acceptance blockers.
 - Next action: Use the Stage 9 package as the mandatory pre-task check before any Stage 10 work is opened.
+
+## ADR-011 - Stage 10 robustness testing baseline acceptance
+
+- Date: 2026-08-12
+- Status: Accepted
+- Context: Stage 10 governance artifacts exist in `docs/GOVERNANCE/`.
+- Decision: Accept the Stage 10 charter, checklist, scope, and robustness map as the current operating baseline for robustness-testing governance.
+- Rationale: These artifacts define the governed robustness checks, parameter sensitivity rules, stress-testing expectations, regime-shift analysis, sample perturbation rules, and the blockers that prevent fragile results from moving forward.
+- Next action: Use the Stage 10 package as the mandatory pre-task check before any Stage 11 work is opened.

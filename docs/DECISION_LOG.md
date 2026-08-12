@@ -19,3 +19,12 @@ This log records governance decisions, amendments, and baseline clarifications f
 - Decision: Accept the Stage 1 charter, checklist, and stage-sequence map as the current operating baseline for future Claude Code tasks.
 - Rationale: These artifacts establish the no-implementation rule, the stage order, and the do-not-proceed gate.
 - Next action: Use the Stage 1 package as the mandatory pre-task check for any future work.
+
+## ADR-008 - Stage 7 research pipeline baseline acceptance
+
+- Date: 2026-08-12
+- Status: Accepted
+- Context: Stage 7 governance artifacts exist in `docs/GOVERNANCE/`.
+- Decision: Accept the Stage 7 charter, checklist, scope, and pipeline map as the current operating baseline for research-pipeline governance.
+- Rationale: These artifacts define the governed 15-stage research workflow, mandatory gates, rollback handling, and the boundary between approved hypothesis/feature inputs and research execution.
+- Next action: Use the Stage 7 package as the mandatory pre-task check before any Stage 8 work is opened.

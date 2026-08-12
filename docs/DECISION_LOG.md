@@ -37,3 +37,12 @@ This log records governance decisions, amendments, and baseline clarifications f
 - Decision: Accept the Stage 8 charter, checklist, scope, and statistics map as the current operating baseline for statistical-methodology governance.
 - Rationale: These artifacts define the governed statistical evidence rules, multiple-testing correction protocol, cross-validation expectations, robustness requirements, and promotion blockers for research results.
 - Next action: Use the Stage 8 package as the mandatory pre-task check before any Stage 9 work is opened.
+
+## ADR-010 - Stage 9 experiment tracking baseline acceptance
+
+- Date: 2026-08-12
+- Status: Accepted
+- Context: Stage 9 governance artifacts exist in `docs/GOVERNANCE/`.
+- Decision: Accept the Stage 9 charter, checklist, scope, and tracking map as the current operating baseline for experiment-tracking governance.
+- Rationale: These artifacts define the governed experiment record, linkage to git commits and dataset snapshots, trial counting, failed-attempt logging, artifact retention, and acceptance blockers.
+- Next action: Use the Stage 9 package as the mandatory pre-task check before any Stage 10 work is opened.

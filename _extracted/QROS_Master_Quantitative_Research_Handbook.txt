@@ -1,0 +1,48 @@
+QROS INSTITUTIONAL QUANTITATIVE RESEARCH DIVISION
+MASTER INSTITUTIONAL RESEARCH HANDBOOK &amp; OPERATING MANUALParts 1 Through 10 Unified Division Standards
+[MASTER DIVISION CONSTITUTION] This Master Operating Handbook establishes the complete institutional infrastructure for the Quantitative Research Division. It spans Data Collection, Data Quality Management, Data Engineering, Feature Engineering, Hypothesis Registration, Hypothesis Generation, Research Pipelines, Statistical Research Methodology, Experiment Tracking, and Edge Discovery.
+Master Institutional Research Framework Overview
+Part #
+Framework Domain
+Primary Operational Mandate
+Key Deliverables / Quality Gates
+Part 1
+Data Collection Framework
+Ingest 13 financial market data types across global venues with hardware PTP nanosecond accuracy.
+Multi-vendor feed connectors, L1/L2/L3 order book streams, raw PCAP cold archive.
+Part 2
+Data Quality Management
+Detect, correct, and prevent data anomalies and eliminate 8 core quantitative research biases.
+Bitemporal point-in-time database, bad tick suppression, corporate action validation.
+Part 3
+Data Engineering
+Construct hot/warm/cold storage tiering and feature store architecture for petabyte-scale data.
+KDB+/Iceberg data lake, Feast feature store, snapshot registry with Arrow metadata.
+Part 4
+Feature Engineering
+Transform raw market feeds into stationary, non-leaking predictive alpha signals.
+Fractional differentiation, rolling Z-score scaling, OBI, VPIN, GEX, ADF stationarity audit.
+Part 5
+Research Hypothesis Management
+Enforce pre-testing hypothesis registration with strict economic and behavioral rationale.
+22-field Hypothesis Document registration, SHA-256 locking, pre-testing approval.
+Part 6
+Hypothesis Generation Framework
+Systematically discover economic edge driven by market frictions, constraints, and biases.
+15 core institutional anomaly mechanics, regime break detection (HMM/MS-VAR).
+Part 7
+Research Pipeline
+Guide research through a 15-stage linear workflow governed by gatekeeper approvals.
+15-stage gatekeeper workflow, formal IC presentation, production hand-off specs.
+Part 8
+Statistical Research Methodology
+Enforce statistical rigor and prevent P-hacking and multiple testing false discoveries.
+Deflated Sharpe Ratio (DSR), FDR-BH, FWER-Holm, Combinatorial Purged CV (CPCV).
+Part 9
+Experiment Tracking System
+Log 100% of trial iterations, code git commits, and dataset snapshot hashes.
+17-field experiment record schema, MLflow W&amp;B integration, WORM artifact store.
+Part 10
+Edge Discovery Framework
+Distinguish true economic alpha from random noise, luck, and curve-fitting.
+Structural vs behavioral edge classification, 5 false edge diagnostics, capacity bounds.

@@ -1,0 +1,62 @@
+experiment_id: QROS-EXP-000007
+hypothesis_id: QROS-HYP-000004
+dataset_version: v3.0.0
+dataset_hash: SHA-256-REGISTERED
+research_period: 2009-02-27T00:00:00+00:00 to 2023-02-17T00:00:00+00:00
+training_period: 'Non-OOS Research Partitions (Tier 1: EDA & Tier 2: Train)'
+validation_period: 'Non-OOS Validation Partition (Tier 3: Val)'
+test_period: Protected Tier-4 OOS (LOCKED - UNTOUCHED)
+feature_definitions:
+  timeframe: D1
+  market_condition: Macro trend expansion regime where Daily Close exceeds the prior
+    50-day highest high
+  holding_window: 5 to 20 D1 bars (5 to 20 trading days)
+signal_definition: Daily closes exceeding the prior 50-day highest high in Gold initiate
+  multi-day upward momentum continuation with positive expected return over a 5 to
+  20 trading day holding period.
+entry_execution_rules: Daily Close > Prior 50-Day Highest High (shifted by 1 for point-in-time)
+  with 50-Day MA slope > 0.
+exit_execution_rules: Exit after 15 D1 bars (15 trading days), or trailing stop loss
+  of 2.0x ATR(20), or when daily close crosses below 20-day moving average.
+holding_period_stats:
+  mean_holding_bars: 11.692307692307692
+  total_trades: 52.0
+direct_costs_fees:
+  base_spread_points: 20.0
+  spread_multiplier: 1.5
+  point_value: 0.01
+slippage_assumptions:
+  slippage_stress_multiplier: 1.5
+  execution_latency_ms: 0.0
+position_sizing_rules: Fixed 1.0 unit position size per discrete trade event.
+evaluation_metrics:
+  gross_profit_factor: 1.6270978959306879
+  net_profit_factor: 1.5892208458688573
+  net_annualized_sharpe: 2.9965907514574357
+  net_annualized_sortino: 4.214842987760913
+  effective_sample_size_neff: 52.0
+  historical_var_99: 0.0378524139383164
+  expected_shortfall_cvar_99: 0.0378524139383164
+statistical_tests:
+  t_statistic: 1.3612216135327195
+  p_value: 0.17942797936655283
+  dsr_score: 1.0
+  benchmark_sharpe_sr_star: 1.658404191677709
+  bootstrap_ci_lower_95: -0.10972291607674522
+  bootstrap_ci_upper_95: 6.195713449674209
+  cumulative_trial_k: 60
+result_summary:
+  passed_sample_power: true
+  passed_profit_factor: true
+  passed_sharpe: true
+  passed_dsr: true
+  passed_bootstrap_ci: false
+  overall_gate_pass: false
+  failure_reasons:
+  - 'Bootstrap 95% CI lower bound is non-positive: CI_lower=-0.110 <= 0.0'
+conclusion: REJECTED
+git_commit_hash: HEAD
+random_seed: 42
+author: QROS Quantitative Research Agent
+date_executed: 2026-08-15 04:50:43 UTC
+custom_metadata: {}

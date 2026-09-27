@@ -1,0 +1,46 @@
+QROS INSTITUTIONAL QUANTITATIVE RESEARCH FRAMEWORK
+PART 3: DATA ENGINEERING HANDBOOKDatabase Architecture, Pipelines, Lineage &amp; Feature Store Standards
+[DATA ENGINEERING MANDATE] This handbook specifies the data engineering infrastructure supporting high-frequency ingestion, petabyte-scale storage, point-in-time feature stores, and absolute research reproducibility.
+Chapter 1: Storage Architecture &amp; Database Infrastructure
+1.1 Hot, Warm, Cold Storage Tiering Architecture
+Storage Tier
+Technology Stack
+Access Latency
+Retention &amp; Storage Media
+Primary Use Case
+Hot Tier
+KDB+/q, ClickHouse, In-Memory Shared Memory (Shared Memory IPC)
+Sub-millisecond (&lt; 1 ms)
+30 Days, NVMe PCIe Gen5 SSD Storage
+Real-time feature calculation, intraday order book reconstruction, live trading feed.
+Warm Tier
+Apache Iceberg / Delta Lake on MinIO / AWS S3, Parquet
+10 - 100 milliseconds
+10 Years, High-throughput Object Storage
+Quantitative research backtesting, walk-forward signal validation, feature store.
+Cold Tier
+AWS S3 Glacier Flexible Retrieval / Deep Archive
+1 to 5 hours
+Indefinite / Permanent Tape &amp; Blob
+Raw exchange PCAP/SBE payloads, disaster recovery, regulatory compliance archives.
+1.2 Folder Architecture &amp; Partitioning Conventions
+To ensure sub-second query performance across billions of rows, data lake paths follow a strict hive-style partitioning layout:
+[PARTITIONING CONVENTION] Standard Data Lake Path:s3://qros-data-lake/tier=cleansed/asset_class=us_equities/data_type=trade_ticks/year=2026/month=08/day=06/symbol=AAPL.parquetPartitioning Keys: asset_class -&gt; data_type -&gt; year -&gt; month -&gt; day.
+1.3 Naming Conventions &amp; Metadata Schema Standards
+• Variables: Lowercase snake_case (e.g., bid_price, ask_size, event_timestamp_ns).
+• Identifiers: Unique Point-in-Time Security ID (e.g., qros_sec_id_109283) mapped to dynamic ticker symbols.
+• Metadata Contract: Every parquet dataset file MUST include an embedded Apache Arrow metadata dictionary containing git commit hash, ETL pipeline version, schema version, and ingestion timestamp.
+Chapter 2: Data Lineage, Catalog &amp; Point-in-Time Feature Store
+2.1 Data Lineage &amp; OpenLineage Integration
+Data lineage tracks the end-to-end transformation DAG from raw exchange UDP packets to finalized research alpha factors. Integrated via OpenLineage / Marquez to maintain immutable dependency graphs.
+2.2 Dataset Snapshot Registry &amp; Reproducibility
+To guarantee 100% backtest reproducibility, research models NEVER query dynamic databases directly. Models execute against frozen, versioned Dataset Snapshots (e.g., snapshot_equity_l2_20260806_v1.2).
+2.3 Feature Store Architecture (Feast / Hopsworks Enterprise)
+The institutional Feature Store acts as the central registry for online (low-latency execution) and offline (batch backtesting) feature values, guaranteeing zero training-serving skew.
+Chapter 3: Pipelines, ETL/ELT &amp; Disaster Recovery
+3.1 Streaming vs. Batch Pipelines (Apache Flink / Spark)
+• Streaming: Apache Flink engines process real-time L2 order book delta messages with stateful windowing for live signal generation.
+• Batch Processing: Apache Spark / DuckDB engines compute multi-year cross-asset features and rolling statistics for backtesting.
+3.2 Compression, Backup &amp; Cloud Synchronization Standards
+• Compression Standard: Zstandard (zstd) compression level 7 for Parquet files, yielding optimal decompression speed for columnar analytical queries.
+• Backup SLA: Continuous cross-region S3 replication with immutable Object Lock (WORM - Write Once Read Many) to prevent ransomware or accidental deletion.

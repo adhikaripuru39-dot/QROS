@@ -1,0 +1,49 @@
+QROS INSTITUTIONAL QUANTITATIVE RESEARCH FRAMEWORK
+PART 4: FEATURE ENGINEERING HANDBOOKMathematical Transformations, Microstructure Features &amp; Regime Normalization
+[FEATURE ENGINEERING MANDATE] Feature engineering transforms raw market data into stationary, predictive alpha signals. Every feature must be defined mathematically, evaluated for stationarity, and audited for overfitting risks.
+Chapter 1: Mathematical Foundations &amp; Statistical Transformations
+1.1 Log Returns &amp; Stationarity (Stationarity vs memory tradeoff)
+Raw asset prices P_t are non-stationary random walks. Quantitative features require stationary return transformations:
+Log Return: r_t = ln(P_t / P_{t-1})
+Fractional Differentiation: To preserve multi-day memory while achieving stationarity, apply Marcos Lopez de Prado's fractional differentiation operator (fracdiff d in [0, 1]).
+1.2 Normalization, Standardization &amp; Rolling Window Scaling
+• Z-Score Normalization: z_t = (x_t - mu_w) / sigma_w using strictly backward-looking rolling window w.
+• Percentile Rank Standardization: Map features to uniform distribution U(0, 1) using expanding or rolling empirical CDF.
+[ZERO LOOK-AHEAD SCALING] CRITICAL RULE: Never apply global fitting (e.g., standardizing using full-sample mean/variance). All parameters MUST be computed using expanding or rolling backward-looking windows.
+Chapter 2: Comprehensive Institutional Feature Taxonomy
+Feature Category
+Mathematical Definition / Formula
+Economic &amp; Market Logic
+Overfitting &amp; Interpretability Risks
+Log Returns &amp; Volatility
+r_t = ln(P_t / P_{t-1}), Vol_w = std(r_t) * sqrt(252)
+Captures price momentum, variance risk premium, and volatility clustering.
+Low overfitting risk; highly interpretable benchmark.
+Order Book Imbalance (OBI)
+OBI_t = (V_{bid,1} - V_{ask,1}) / (V_{bid,1} + V_{ask,1})
+Measures short-term order book supply/demand asymmetry.
+High frequency decay; susceptible to spoofing quotes.
+Volume-Weighted Average Price (VWAP)
+VWAP_t = sum(P_i * V_i) / sum(V_i)
+Benchmark for institutional execution and intraday price anchors.
+Requires intraday reset; structural regime dependent.
+Garman-Klass Volatility
+sigma_GK^2 = 0.5*(ln(H/L))^2 - (2*ln(2)-1)*(ln(C/O))^2
+Efficient intraday volatility estimator using OHLC bounds.
+Underestimates jump diffusion volatility during opening gaps.
+Microstructure VPIN
+VPIN = sum(|V_B - V_S|) / (N_bars * V_bar)
+Volume-Synchronized Probability of Toxicity measuring adverse selection.
+Requires optimal volume bar size tuning; computationally intensive.
+Cross-Asset Relative Momentum
+Rel_Mom = r_{asset,w} - r_{benchmark,w}
+Captures capital rotation across sectors and risk-on/risk-off dynamics.
+Prone to regime breaks during systemic market crashes.
+Gamma Exposure (GEX)
+GEX = sum(Gamma_i * OpenInterest_i * S^2 * 0.01)
+Quantifies options dealer hedging flow (volatility suppression vs expansion).
+Requires accurate options chain data; option strike clustering noise.
+Chapter 3: Feature Validation &amp; Leakage Prevention Protocol
+[ ] Stationarity Check: Augmented Dickey-Fuller (ADF) test p-value &lt; 0.05 required for all feature series.
+[ ] Multicollinearity Filtering: Eliminate redundant features with Variance Inflation Factor (VIF) &gt; 10.0 or correlation &gt; 0.85.
+[ ] Feature Importance Stability: Verify feature SHAP values remain positive across out-of-sample walk-forward partitions.

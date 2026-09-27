@@ -1,0 +1,61 @@
+hypothesis_id: QROS-HYP-000005
+market: COMMODITIES
+asset: XAUUSD
+timeframe: D1
+research_class: CLASS-IV
+market_condition: Multi-day volatility compression regime where Daily True Range is
+  the narrowest of the last 4 days (NR4)
+observation: 'Stylized Fact QROS-OBS-020 & Pattern QROS-PAT-002: Daily NR4 compression
+  precedes a 38% increase in 3-day realized price dispersion across 14 years (N=312,
+  p < 0.001).'
+hypothesis_statement: Directional breakouts from a 4-day range compression (NR4) on
+  D1 continue in the direction of the initial daily breakout over a 3 to 8 day holding
+  window.
+plausible_rationale: Multi-day range compression reflects temporary supply-demand
+  equilibrium and volatility suppression. When directional order flow breaches the
+  compression boundary, resting stops and momentum participants accelerate expansion.
+entry_condition: Daily True Range < Min(True Range of prior 3 days) [NR4], followed
+  on day t+1 by price breaking above NR4 High (Long) or below NR4 Low (Short).
+exit_condition: Exit after 5 D1 bars (5 trading days), or upon 1.5x ATR(20) trailing
+  stop loss.
+holding_period: 3 to 8 D1 bars (3 to 8 trading days)
+expected_effect: Net annualized Sharpe >= 1.00, Profit Factor >= 1.25 under Class
+  IV macro hurdles.
+null_hypothesis: 'H_0: Mean net return of post-NR4 breakout trades is <= 0.0.'
+alternative_hypothesis: 'H_1: Mean net return of post-NR4 breakout trades is strictly
+  > 0.0 with DSR >= 0.90.'
+required_data: XAUUSD D1 historical dataset with >= 50 discrete NR4 events. Satisfied
+  by v3.0.0 D1 dataset.
+potential_confounders: Prolonged holiday liquidity droughts causing multiple sequential
+  false NR4 breakouts.
+transaction_cost_assumptions: 'Class IV Profile: 20 pts spread, 1.5x slippage multiplier,
+  0ms latency buffer.'
+research_status: REJECTED
+title: Daily NR4 Range Compression to Multi-Day Volatility Expansion
+author: QROS Quantitative Research Team
+date_created: '2026-08-15'
+validation_profile:
+  class_id: CLASS-IV
+  profile_name: MACRO-REGIME_DEFAULT
+  description: Macro & Structural Regime Validation Regime
+  primary_frequency: D1/W1
+  typical_horizon: "Weeks \u2013 Months"
+  min_trades: 40
+  min_observations: 3000
+  min_calendar_span_years: 12.0
+  min_effective_trades: 30
+  target_profit_factor: 1.5
+  target_sharpe: 1.0
+  dsr_hurdle: 0.9
+  wfe_target: 0.55
+  perturbation_grid:
+  - 0.25
+  - 0.4
+  spread_multiplier: 1.5
+  slippage_multiplier: 1.5
+  latency_delay_ms: 0.0
+  swap_financing: true
+  embargo_bars: 2
+  default_oos_partition: 0.2
+  custom_overrides: {}
+custom_metadata: {}

@@ -1,0 +1,53 @@
+hypothesis_id: QROS-HYP-000010
+title: H1 Institutional Order Block Mitigation with Higher-Timeframe Trend Confluence
+author: QROS Quantitative Research Team
+date_created: '2026-08-25'
+market: COMMODITIES
+asset: XAUUSD
+timeframe: M5
+research_class: CLASS-II
+market_condition: New York / London Overlap (12:00-18:00 UTC) with H1 EMA50 Trend
+  Alignment
+observation: High-volume institutional displacement leaves an origin consolidation
+  candle (Order Block). Retracements into this unmitigated block during liquid hours
+  trigger strong institutional defense.
+hypothesis_statement: Price pullbacks into unmitigated H1 Order Blocks aligned with
+  the H1 50-EMA trend produce directional continuation with Net Profit Factor >= 1.35
+  and Net Sharpe >= 1.40 under Class II transaction friction.
+plausible_rationale: Institutional participants accumulate inventory at the origin
+  of prior displacement shocks.
+entry_condition: On M5, price touches the H1 unmitigated Order Block zone during 12:00-18:00
+  UTC while aligned with H1 EMA50.
+exit_condition: Take profit at prior impulse high/low or 0.3x ATR stop loss beyond
+  the order block boundary.
+holding_period: 6 to 48 M5 bars (0.5 to 4.0 Hours)
+expected_effect: Net Sharpe >= 1.40, Net Profit Factor >= 1.35 under 2.5x slippage
+  stress.
+null_hypothesis: 'H_0: Mean net return of Order Block mitigation trades <= 0.0.'
+alternative_hypothesis: 'H_1: Mean net return of Order Block mitigation trades is
+  strictly > 0.0 with DSR >= 0.95 and Bootstrap 95% CI > 0.0.'
+required_data: XAUUSD M5 and H1 historical OHLCV across 2020-2026 (v4.0.0).
+potential_confounders: High impact macroeconomic releases.
+transaction_cost_assumptions: 'Class II Profile: 20 pts nominal spread, 2.5x slippage
+  stress multiplier, 200ms latency.'
+research_status: CONFIRMED EDGE
+validation_profile:
+  class_id: CLASS-II
+  profile_name: INTRADAY-MOM_DEFAULT
+  description: Intraday Session & Momentum Validation Regime
+  primary_frequency: M5/M15/H1
+  typical_horizon: 2 - 12 Hours
+  min_trades: 100
+  min_observations: 15000
+  min_calendar_span_years: 3.0
+  min_effective_trades: 100
+  target_profit_factor: 1.35
+  target_sharpe: 1.4
+  dsr_hurdle: 0.95
+  wfe_target: 0.65
+  spread_multiplier: 2.0
+  slippage_multiplier: 2.5
+  latency_delay_ms: 200.0
+  swap_financing: false
+  embargo_bars: 20
+  default_oos_partition: 0.2

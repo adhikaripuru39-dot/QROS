@@ -1,0 +1,61 @@
+hypothesis_id: QROS-HYP-000004
+market: COMMODITIES
+asset: XAUUSD
+timeframe: D1
+research_class: CLASS-IV
+market_condition: Macro trend expansion regime where Daily Close exceeds the prior
+  50-day highest high
+observation: 'Stylized Fact QROS-OBS-019 & Pattern QROS-PAT-001: Gold 5-day forward
+  log return averages +0.72% following a 50-day high breakout across 14 years of macro
+  data (N=186, p < 0.001).'
+hypothesis_statement: Daily closes exceeding the prior 50-day highest high in Gold
+  initiate multi-day upward momentum continuation with positive expected return over
+  a 5 to 20 trading day holding period.
+plausible_rationale: Gold is a non-yielding monetary reserve asset. Long-term technical
+  breakouts attract institutional asset allocation, central bank accumulation, and
+  CTA momentum chasing that persist over multi-week horizons.
+entry_condition: Daily Close > Prior 50-Day Highest High (shifted by 1 for point-in-time)
+  with 50-Day MA slope > 0.
+exit_condition: Exit after 15 D1 bars (15 trading days), or trailing stop loss of
+  2.0x ATR(20), or when daily close crosses below 20-day moving average.
+holding_period: 5 to 20 D1 bars (5 to 20 trading days)
+expected_effect: Net annualized Sharpe >= 1.00, Profit Factor >= 1.30 under Class
+  IV macro hurdles.
+null_hypothesis: 'H_0: Mean forward return of 50-day high breakout trades is <= 0.0.'
+alternative_hypothesis: 'H_1: Mean forward return of 50-day high breakout trades is
+  strictly > 0.0 with DSR >= 0.90 under multiple testing accounting.'
+required_data: XAUUSD D1 historical dataset (N >= 40 events over multiple macro cycles).
+  Satisfied by 14-year v3.0.0 D1 dataset.
+potential_confounders: Central bank surprise interest rate hikes or abrupt dollar
+  liquidity squeezes triggering false breakouts.
+transaction_cost_assumptions: 'Class IV Profile: 20 pts spread, 1.5x slippage multiplier,
+  0ms latency buffer.'
+research_status: REJECTED
+title: Daily Macro 50-Day High Breakout Momentum Continuation
+author: QROS Quantitative Research Team
+date_created: '2026-08-15'
+validation_profile:
+  class_id: CLASS-IV
+  profile_name: MACRO-REGIME_DEFAULT
+  description: Macro & Structural Regime Validation Regime
+  primary_frequency: D1/W1
+  typical_horizon: "Weeks \u2013 Months"
+  min_trades: 40
+  min_observations: 3000
+  min_calendar_span_years: 12.0
+  min_effective_trades: 30
+  target_profit_factor: 1.5
+  target_sharpe: 1.0
+  dsr_hurdle: 0.9
+  wfe_target: 0.55
+  perturbation_grid:
+  - 0.25
+  - 0.4
+  spread_multiplier: 1.5
+  slippage_multiplier: 1.5
+  latency_delay_ms: 0.0
+  swap_financing: true
+  embargo_bars: 2
+  default_oos_partition: 0.2
+  custom_overrides: {}
+custom_metadata: {}

@@ -1,0 +1,50 @@
+experiment_id: QROS-EXP-000010
+hypothesis_id: QROS-HYP-000007
+dataset_version: v4.0.0
+dataset_hash: 2020-2026_v4_non_oos_hash
+research_period: 2020-07-01 to 2026-04-16
+training_period: Tier 2 (40%)
+validation_period: Tier 3 (20%)
+test_period: Tier 4 Protected OOS (Locked)
+feature_definitions:
+  h1_fvg: 3-bar displacement with 1.2x ATR range
+  session_filter: 12:00 to 16:00 UTC
+  retest_detection: M5 price touch inside H1 gap zone
+signal_definition: Directional limit absorption at unmitigated FVG boundary
+entry_execution_rules: Market enter at close of M5 retest bar during 12:00-16:00 UTC
+exit_execution_rules: Target high/low re-test or 0.5x ATR stop loss
+holding_period_stats:
+  mean_hours: 2.4
+  max_hours: 4.0
+direct_costs_fees:
+  nominal_spread_pts: 20.0
+  commission_per_lot: 0.0
+slippage_assumptions:
+  slippage_multiplier: 2.5
+  latency_ms: 200.0
+position_sizing_rules: Fixed fractional 1.0 unit per signal
+evaluation_metrics:
+  sample_size_n: 469
+  effective_sample_size_neff: 469.0
+  gross_profit_factor: 1.8297
+  net_profit_factor: 1.6022
+  gross_annualized_sharpe: 3.5657
+  net_annualized_sharpe: 2.7712
+  t_statistic: 3.7805
+  p_value: 0.000177
+statistical_tests:
+  bootstrap_95_ci:
+  - 1.4433
+  - 4.0906
+  bootstrap_strictly_positive: true
+  deflated_sharpe_ratio: 1.0
+  dsr_significant: true
+  cumulative_trials_k: 120
+result_summary:
+  gate_sample_power: true
+  gate_profit_factor: true
+  gate_sharpe: true
+  gate_dsr: true
+  gate_bootstrap_ci: true
+  overall_status: PASS
+conclusion: CANDIDATE_PROMOTED

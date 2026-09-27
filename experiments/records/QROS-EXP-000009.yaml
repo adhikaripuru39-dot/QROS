@@ -1,0 +1,67 @@
+experiment_id: QROS-EXP-000009
+hypothesis_id: QROS-HYP-000006
+dataset_version: v3.0.0
+dataset_hash: SHA-256-REGISTERED
+research_period: 2024-11-27T12:00:00+00:00 to 2026-04-09T19:00:00+00:00
+training_period: 'Non-OOS Research Partitions (Tier 1: EDA & Tier 2: Train)'
+validation_period: 'Non-OOS Validation Partition (Tier 3: Val)'
+test_period: Protected Tier-4 OOS (LOCKED - UNTOUCHED)
+feature_definitions:
+  timeframe: H1
+  market_condition: Hourly breakout aligned with Daily 50-day Macro Moving Average
+    trend direction
+  holding_window: 8 to 24 H1 bars (8 to 24 hours)
+signal_definition: H1 24-bar high/low breakouts that strictly align with the higher-timeframe
+  Daily macro trend (D1 Close > MA50) exhibit positive directional drift over an 8
+  to 24 hour holding window.
+entry_execution_rules: H1 Close > 24-bar High AND D1 Close > 50-Day MA (Long); H1
+  Close < 24-bar Low AND D1 Close < 50-Day MA (Short).
+exit_execution_rules: Exit after 16 H1 bars (16 hours), or trailing stop at 2.0x ATR(24).
+holding_period_stats:
+  mean_holding_bars: 0.0
+  total_trades: 0.0
+direct_costs_fees:
+  base_spread_points: 20.0
+  spread_multiplier: 1.5
+  point_value: 0.01
+slippage_assumptions:
+  slippage_stress_multiplier: 2.0
+  execution_latency_ms: 0.0
+position_sizing_rules: Fixed 1.0 unit position size per discrete trade event.
+evaluation_metrics:
+  gross_profit_factor: 1.0
+  net_profit_factor: 1.0
+  net_annualized_sharpe: 0.0
+  net_annualized_sortino: 0.0
+  effective_sample_size_neff: 1.0
+  historical_var_99: 0.0
+  expected_shortfall_cvar_99: 0.0
+statistical_tests:
+  t_statistic: 0.0
+  p_value: 1.0
+  dsr_score: 0.0
+  benchmark_sharpe_sr_star: 1.6754103434194922
+  bootstrap_ci_lower_95: 0.0
+  bootstrap_ci_upper_95: 0.0
+  cumulative_trial_k: 64
+result_summary:
+  passed_sample_power: false
+  passed_profit_factor: false
+  passed_sharpe: false
+  passed_dsr: false
+  passed_bootstrap_ci: false
+  overall_gate_pass: false
+  failure_reasons:
+  - 'Insufficient discrete trades: N=1 < 150'
+  - 'Insufficient effective trades: N_eff=1.0 < 80'
+  - 'Insufficient calendar span: Span=1.4y < 5.0y'
+  - 'Net Profit Factor failed: PF=1.00 < 1.30'
+  - 'Net Sharpe failed: SR=0.00 < 1.20'
+  - 'DSR score failed: DSR=0.000 < 0.950 (K=64)'
+  - 'Bootstrap 95% CI lower bound is non-positive: CI_lower=0.000 <= 0.0'
+conclusion: DATA INSUFFICIENT
+git_commit_hash: HEAD
+random_seed: 42
+author: QROS Quantitative Research Agent
+date_executed: 2026-08-15 04:50:47 UTC
+custom_metadata: {}

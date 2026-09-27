@@ -1,0 +1,62 @@
+QROS INSTITUTIONAL QUANTITATIVE RESEARCH FRAMEWORK
+PART 9: EXPERIMENT TRACKING SYSTEMMLflow Enterprise Integration, Reproducibility Schemas &amp; Peer Review Audit
+[EXPERIMENT LOGGING MANDATE] Every quantitative experiment run across the research division must be logged to the Experiment Tracking System (MLflow / Weights &amp; Biases Enterprise) with complete code git commit, dataset snapshot hash, environment configuration, and parameter logs.
+Chapter 1: 17-Field Institutional Experiment Record Schema
+To eliminate unrecorded trial iterations and prevent data mining bias, every experiment record automatically captures 17 standardized metadata fields.
+Field #
+Field Identifier
+Institutional Description &amp; Data Format
+EXP-01
+Experiment ID
+Globally unique hash (e.g., EXP-20260806-991A04).
+EXP-02
+Date &amp; Timestamp
+ISO 8601 UTC execution timestamp.
+EXP-03
+Researcher Name
+Quant Researcher ID and division email tag.
+EXP-04
+Dataset Version Hash
+SHA-256 hash of exact dataset snapshot used.
+EXP-05
+Code Version / Git Commit
+Full 40-character Git commit hash of code repository.
+EXP-06
+Feature Version
+Feature Store version string (e.g., feat_v2.4.1).
+EXP-07
+Hypothesis ID
+Foreign key linking to registered HYP document.
+EXP-08
+Objective
+Primary optimization/validation target (e.g., Maximizing DSR).
+EXP-09
+Hyperparameter Map
+Complete JSON dictionary of all hyperparameters.
+EXP-10
+Statistical Test Output
+Recorded t-stat, p-value, DSR score, and Sharpe Ratio.
+EXP-11
+Key Metrics
+In-Sample &amp; Out-of-Sample Sharpe, Max DD, Turnover %.
+EXP-12
+Conclusions
+Structured text summary of empirical findings.
+EXP-13
+Limitations
+Identified edge constraints (e.g., high execution sensitivity).
+EXP-14
+Next Actions
+Action items (e.g., promote to Walk-Forward CV or Reject).
+EXP-15
+Approval Status
+Workflow state (PENDING_REVIEW, APPROVED, REJECTED).
+EXP-16
+Peer Review Notes
+Audit comments from Lead Statistician / Peer QR.
+EXP-17
+Replication Status
+Verification indicator from independent replication run.
+Chapter 2: Peer Review &amp; Governance Integration
+• Trial Count Tracking: The Experiment Tracker automatically records total failed trial runs N per hypothesis, passing N directly to the Deflated Sharpe Ratio calculation.
+• Immutable Artifact Store: Model binaries, feature importance plots, and residual time series stored in WORM object storage.

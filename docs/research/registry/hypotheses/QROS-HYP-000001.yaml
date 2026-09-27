@@ -1,0 +1,62 @@
+hypothesis_id: QROS-HYP-000001
+market: COMMODITIES
+asset: XAUUSD
+timeframe: M5
+research_class: CLASS-II
+market_condition: London Open Session (07:00-11:00 UTC) with Asian Range Compression
+observation: 'Stylized Fact QROS-OBS-009 & QROS-OBS-010: Gold trading volume surges
+  by 2.4x at London open (07:00 UTC), and the first 60-minute Initial Balance range
+  is extended in 74% of sessions.'
+hypothesis_statement: Breakouts beyond the Asian session range (00:00-06:59 UTC high/low)
+  occurring during the London opening window (07:00-09:00 UTC) with above-average
+  volume exhibit positive directional momentum over a 60-180 minute holding horizon.
+plausible_rationale: Physical bullion fixing and European institutional order flow
+  concentration trigger multi-hour directional liquidity drives, creating intraday
+  momentum that persists until early New York overlap.
+entry_condition: Close of M5 bar crosses above Asian Session High (or below Asian
+  Session Low) between 07:00 and 09:00 UTC, accompanied by M5 tick_volume > 1.5x 20-period
+  moving average.
+exit_condition: Fixed time exit at 11:00 UTC (pre-NY), or trailing volatility stop
+  at 1.5x ATR(14), or opposite session boundary touch.
+holding_period: 12 to 36 M5 bars (1.0 to 3.0 hours)
+expected_effect: Net annualized Sharpe >= 1.40, Profit Factor >= 1.40 under Class
+  II 2.5x slippage stress and 200ms latency.
+null_hypothesis: 'H_0: Mean net return of London open breakout trades is <= 0.0 (or
+  annualized Sharpe <= 0.0).'
+alternative_hypothesis: 'H_1: Mean net return of London open breakout trades is strictly
+  > 0.0 with DSR score >= 0.95 at alpha = 0.05.'
+required_data: XAUUSD M5 historical OHLCV with UTC timestamps and tick volume (minimum
+  400 trade events).
+potential_confounders: High-impact UK/European macroeconomic news releases (e.g. BOE
+  rate decisions) causing transient spread spikes and false breakouts.
+transaction_cost_assumptions: 'Class II Profile: 25 pts nominal spread, 2.5x slippage
+  multiplier, 200ms execution latency buffer.'
+research_status: DATA INSUFFICIENT
+title: London Open Initial Balance Expansion and Intraday Momentum
+author: QROS Quantitative Research Team
+date_created: '2026-08-15'
+validation_profile:
+  class_id: CLASS-II
+  profile_name: INTRADAY-MOM_DEFAULT
+  description: Intraday Session & Momentum Validation Regime
+  primary_frequency: M5/M15/H1
+  typical_horizon: "2 \u2013 12 Hours"
+  min_trades: 400
+  min_observations: 15000
+  min_calendar_span_years: 3.0
+  min_effective_trades: 200
+  target_profit_factor: 1.35
+  target_sharpe: 1.4
+  dsr_hurdle: 0.95
+  wfe_target: 0.65
+  perturbation_grid:
+  - 0.15
+  - 0.25
+  spread_multiplier: 2.0
+  slippage_multiplier: 2.5
+  latency_delay_ms: 200.0
+  swap_financing: false
+  embargo_bars: 20
+  default_oos_partition: 0.2
+  custom_overrides: {}
+custom_metadata: {}

@@ -1,0 +1,254 @@
+QROS: Institutional Algorithmic Trading Platform
+Research, Engineering, and Operations Handbook
+Volume I — Foundations of Quantitative Intelligence
+Part VII — Time Series Analysis
+Chapter 14 Time Series Analysis
+Understanding Markets Through Time
+Estimated Length: 250–300 Pages
+Chapter Objective
+By the end of this chapter, the reader should understand:
+What a time series is.
+Why financial time series differ from ordinary datasets.
+The major properties of financial data.
+Stationarity and non-stationarity.
+Trends and seasonality.
+Cycles.
+Autocorrelation.
+Lag structures.
+Rolling windows.
+Time-series decomposition.
+Foundations for forecasting.
+Opening Thought
+Imagine you receive two datasets.
+Dataset A:
+Height
+Weight
+170
+70
+175
+73
+168
+65
+Dataset B:
+Time
+Gold Price
+09:00
+3350
+09:01
+3352
+09:02
+3349
+At first glance both appear to be tables of numbers.
+They are fundamentally different.
+The first dataset consists of independent observations.
+The second consists of dependent observations.
+Each price depends on everything that happened before it.
+That dependency is what makes financial markets difficult—and fascinating—to model.
+14.1 What Is a Time Series?
+A time series is an ordered sequence of observations indexed by time.
+Unlike ordinary datasets, the order of observations is meaningful.
+Changing the order changes the information.
+Examples:
+Daily gold prices.
+Hourly volatility.
+Tick-by-tick quotes.
+Interest rates over time.
+Inflation history.
+Portfolio value.
+Time is an integral part of the data.
+14.2 Why Financial Time Series Are Unique
+Financial markets possess characteristics rarely found in traditional datasets.
+They are:
+Dynamic.
+Noisy.
+Non-linear.
+Influenced by external events.
+Subject to regime changes.
+Often non-stationary.
+Continuously evolving.
+Therefore, techniques that work well for conventional business datasets may perform poorly when applied to market data.
+14.3 Components of a Time Series
+Every financial series can be viewed as containing several components.
+Observed Price
+│
+├──────── Trend
+│
+├──────── Seasonal Effects
+│
+├──────── Cyclical Behaviour
+│
+└──────── Random Noise
+The objective of quantitative research is often to separate meaningful structure from randomness.
+14.4 Trend
+A trend represents persistent directional movement.
+Examples:
+Bull market.
+Bear market.
+Long-term appreciation.
+Long-term decline.
+Trends may exist on different time horizons simultaneously.
+Example:
+Daily chart → Uptrend
+5-minute chart → Downtrend
+Trend depends upon observational scale.
+14.5 Seasonality
+Seasonality refers to recurring patterns associated with regular intervals.
+Examples:
+Day-of-week effects.
+Month-end behavior.
+Quarter-end portfolio adjustments.
+Trading session patterns.
+Examples for Gold:
+London Open
+New York Open
+Asian Session
+Economic announcements
+Institutional flows often generate recurring behavioral patterns.
+14.6 Cycles
+Cycles differ from seasonality.
+Seasonality repeats regularly.
+Cycles do not have fixed lengths.
+Examples:
+Commodity supercycles.
+Economic expansions.
+Monetary tightening cycles.
+Liquidity cycles.
+Cycle identification is considerably more challenging than detecting seasonal effects.
+14.7 Random Noise
+Not every movement contains information.
+Markets include:
+Random trades.
+Unexpected news.
+Execution effects.
+Temporary imbalances.
+Speculative activity.
+Separating noise from signal is one of the central challenges of quantitative finance.
+14.8 Stationarity
+Stationarity is perhaps the single most important concept in time series analysis.
+A stationary series has statistical properties that remain approximately stable over time.
+These properties include:
+Mean.
+Variance.
+Covariance.
+Many statistical techniques assume stationarity.
+Unfortunately,
+Financial prices themselves are usually not stationary.
+Returns often approximate stationarity more closely than prices.
+This distinction explains why quantitative researchers frequently model returns instead of raw prices.
+14.9 Why Stationarity Matters
+Imagine predicting tomorrow's weather using temperature records from two vastly different climates without accounting for the shift.
+The model would confuse climate differences with daily variation.
+Similarly, applying statistical methods to non-stationary price series can produce misleading relationships.
+QROS therefore requires researchers to assess stationarity before selecting forecasting or modeling techniques.
+14.10 Differencing
+One common method for reducing non-stationarity is differencing.
+Instead of modeling prices directly:
+Price Today
+-
+Price Yesterday
+=
+Daily Change
+This transformation often stabilizes the series by focusing on changes rather than absolute levels.
+14.11 Returns
+Financial research typically analyzes returns rather than prices.
+Simple Return:
+(Current Price − Previous Price) / Previous Price
+Log Return:
+ln(Current Price / Previous Price)
+Log returns possess mathematical properties that simplify many forms of analysis, particularly when aggregating returns over time.
+14.12 Autocorrelation
+Autocorrelation measures how strongly a series relates to its own past values.
+Questions include:
+Does today's return resemble yesterday's?
+Does volatility cluster over time?
+Are large price movements followed by additional large movements?
+Financial time series often exhibit weak autocorrelation in returns but stronger autocorrelation in volatility.
+14.13 Lag Variables
+A lag variable represents a previous observation.
+Examples:
+Price(t−1)
+Price(t−2)
+ATR(t−5)
+Lagged variables enable models to incorporate historical context without using future information.
+14.14 Rolling Windows
+Markets evolve continuously.
+Instead of calculating statistics over the entire history, researchers often use rolling windows.
+Example:
+30-day rolling volatility.
+50-period moving average.
+90-day rolling Sharpe ratio.
+Rolling windows allow models to adapt gradually to changing market conditions.
+14.15 Time-Series Decomposition
+Complex series may be decomposed into components.
+Observed Series
+│
+├── Trend
+├── Seasonal
+├── Cyclical
+└── Residual
+Analyzing components separately can improve understanding and support more targeted modeling.
+14.16 Common Pitfalls
+Researchers should be aware of common mistakes.
+These include:
+Ignoring non-stationarity.
+Mixing time frequencies without adjustment.
+Using future observations inadvertently.
+Misinterpreting autocorrelation.
+Overlooking structural breaks.
+Treating noise as signal.
+Awareness of these pitfalls is essential for reliable quantitative research.
+14.17 Structural Breaks
+Financial markets do not remain constant indefinitely.
+Major events such as:
+Financial crises.
+Pandemics.
+Monetary policy shifts.
+Geopolitical conflicts.
+may fundamentally alter market behavior.
+These changes are known as structural breaks.
+Models developed before a structural break may require reassessment afterward.
+14.18 Time Horizons
+The statistical properties of a market often depend on the observation interval.
+Examples:
+Tick Data
+1-Minute
+5-Minute
+Hourly
+Daily
+Weekly
+Monthly
+Patterns observed at one frequency may not exist at another.
+Researchers should align the time horizon with the research objective.
+QROS Engineering Specification
+Time Series Acceptance Standard (TSA-1)
+Before a time series is used in model development, researchers should document:
+Sampling frequency.
+Time zone.
+Missing observations.
+Structural break assessment.
+Stationarity assessment.
+Transformation methods.
+Rolling window definitions.
+Known limitations.
+Only well-characterized time series should enter the modeling pipeline.
+Case Study
+A researcher identifies a strong relationship between gold prices and a moving average using ten years of raw price data.
+Before concluding that the relationship is meaningful, the researcher:
+Tests whether the price series is stationary.
+Compares results using returns instead of prices.
+Examines autocorrelation.
+Checks for structural breaks around major economic events.
+Evaluates whether the relationship remains consistent across different market regimes.
+This process reduces the likelihood of drawing conclusions from statistical artifacts rather than genuine market behavior.
+Chapter Summary
+Time series analysis provides the mathematical framework for understanding how financial markets evolve over time. By studying trends, seasonality, cycles, stationarity, autocorrelation, lag structures, and structural breaks, researchers gain the tools needed to distinguish persistent patterns from temporary fluctuations.
+These concepts underpin nearly every advanced technique used in quantitative finance, including forecasting, machine learning, feature engineering, and risk modeling.
+Practical Exercise
+Using historical XAUUSD data:
+Plot the price series.
+Calculate daily returns.
+Compare the statistical properties of prices and returns.
+Compute rolling 30-day volatility.
+Identify periods that may represent structural breaks.
+Investigate whether volatility appears to cluster over time.
+Document your observations and discuss how they might influence model design.

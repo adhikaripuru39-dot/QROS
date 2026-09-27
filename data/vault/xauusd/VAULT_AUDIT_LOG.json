@@ -1,0 +1,506 @@
+[
+  {
+    "timestamp_utc": "2026-08-15T02:07:09.932226+00:00",
+    "action": "VAULT_STORAGE",
+    "dataset_id": "QROS-DATA-XAUUSD-M5-v1.0.0",
+    "authorization_token": "SYSTEM_INIT",
+    "is_granted": true,
+    "details": "Stored 1000 bars in C:\\Users\\adhik\\OneDrive\\Desktop\\QROS\\data\\vault\\xauusd\\qros-data-xauusd-m5-v1.0.0_tier4_oos.parquet. Hash=802e6a36f78c7ec16cc5a5cd0eb55f780b8251e31eb64be60b61611c4097ad8a"
+  },
+  {
+    "timestamp_utc": "2026-08-15T02:07:10.219478+00:00",
+    "action": "VAULT_STORAGE",
+    "dataset_id": "QROS-DATA-XAUUSD-H1-v1.0.0",
+    "authorization_token": "SYSTEM_INIT",
+    "is_granted": true,
+    "details": "Stored 1000 bars in C:\\Users\\adhik\\OneDrive\\Desktop\\QROS\\data\\vault\\xauusd\\qros-data-xauusd-h1-v1.0.0_tier4_oos.parquet. Hash=6123fa524941d754643195291957fa22bed540f14d794f8a402bf62978efdc92"
+  },
+  {
+    "timestamp_utc": "2026-08-15T02:07:10.606633+00:00",
+    "action": "VAULT_STORAGE",
+    "dataset_id": "QROS-DATA-XAUUSD-D1-v1.0.0",
+    "authorization_token": "SYSTEM_INIT",
+    "is_granted": true,
+    "details": "Stored 400 bars in C:\\Users\\adhik\\OneDrive\\Desktop\\QROS\\data\\vault\\xauusd\\qros-data-xauusd-d1-v1.0.0_tier4_oos.parquet. Hash=dd8e5d1615682ab9fec177fce9550febbb63f844a1b6f83afa2f4d6bab368664"
+  },
+  {
+    "timestamp_utc": "2026-08-15T02:24:11.545453+00:00",
+    "action": "VAULT_STORAGE",
+    "dataset_id": "QROS-DATA-XAUUSD-M1-v2.0.0",
+    "authorization_token": "SYSTEM_INIT",
+    "is_granted": true,
+    "details": "Stored 2002 bars in C:\\Users\\adhik\\OneDrive\\Desktop\\QROS\\data\\vault\\xauusd\\qros-data-xauusd-m1-v2.0.0_tier4_oos.parquet. Hash=5b9f46db5f0e0b23cb989ad831cf5e35aa15c74dd18b157a12dc39ffd854994e"
+  },
+  {
+    "timestamp_utc": "2026-08-15T02:24:16.921483+00:00",
+    "action": "VAULT_STORAGE",
+    "dataset_id": "QROS-DATA-XAUUSD-M5-v2.0.0",
+    "authorization_token": "SYSTEM_INIT",
+    "is_granted": true,
+    "details": "Stored 2002 bars in C:\\Users\\adhik\\OneDrive\\Desktop\\QROS\\data\\vault\\xauusd\\qros-data-xauusd-m5-v2.0.0_tier4_oos.parquet. Hash=4a05eec9b023b751703b23b64e0facc4dac79ec27042a8ac3dc33dcc566d292a"
+  },
+  {
+    "timestamp_utc": "2026-08-15T02:24:17.350164+00:00",
+    "action": "VAULT_STORAGE",
+    "dataset_id": "QROS-DATA-XAUUSD-H1-v2.0.0",
+    "authorization_token": "SYSTEM_INIT",
+    "is_granted": true,
+    "details": "Stored 2002 bars in C:\\Users\\adhik\\OneDrive\\Desktop\\QROS\\data\\vault\\xauusd\\qros-data-xauusd-h1-v2.0.0_tier4_oos.parquet. Hash=2468b083658b5796671f6eeb5cc6bab4aade9adf4b944118ecf9a1be1a77e1ad"
+  },
+  {
+    "timestamp_utc": "2026-08-15T02:24:17.968625+00:00",
+    "action": "VAULT_STORAGE",
+    "dataset_id": "QROS-DATA-XAUUSD-D1-v2.0.0",
+    "authorization_token": "SYSTEM_INIT",
+    "is_granted": true,
+    "details": "Stored 400 bars in C:\\Users\\adhik\\OneDrive\\Desktop\\QROS\\data\\vault\\xauusd\\qros-data-xauusd-d1-v2.0.0_tier4_oos.parquet. Hash=dd8e5d1615682ab9fec177fce9550febbb63f844a1b6f83afa2f4d6bab368664"
+  },
+  {
+    "timestamp_utc": "2026-08-15T02:25:15.075163+00:00",
+    "action": "UNAUTHORIZED_READ_ATTEMPT",
+    "dataset_id": "QROS-DATA-XAUUSD-M1-v2.0.0",
+    "authorization_token": "",
+    "is_granted": false,
+    "details": "Rejected blank or whitespace authorization token."
+  },
+  {
+    "timestamp_utc": "2026-08-15T02:25:15.076821+00:00",
+    "action": "UNAUTHORIZED_READ_ATTEMPT",
+    "dataset_id": "QROS-DATA-XAUUSD-H1-v2.0.0",
+    "authorization_token": "   ",
+    "is_granted": false,
+    "details": "Rejected blank or whitespace authorization token."
+  },
+  {
+    "timestamp_utc": "2026-08-15T02:30:15.671335+00:00",
+    "action": "UNAUTHORIZED_READ_ATTEMPT",
+    "dataset_id": "QROS-DATA-XAUUSD-M1-v2.0.0",
+    "authorization_token": "",
+    "is_granted": false,
+    "details": "Rejected blank or whitespace authorization token."
+  },
+  {
+    "timestamp_utc": "2026-08-15T02:30:15.673190+00:00",
+    "action": "UNAUTHORIZED_READ_ATTEMPT",
+    "dataset_id": "QROS-DATA-XAUUSD-H1-v2.0.0",
+    "authorization_token": "   ",
+    "is_granted": false,
+    "details": "Rejected blank or whitespace authorization token."
+  },
+  {
+    "timestamp_utc": "2026-08-15T02:31:02.134888+00:00",
+    "action": "UNAUTHORIZED_READ_ATTEMPT",
+    "dataset_id": "QROS-DATA-XAUUSD-M1-v2.0.0",
+    "authorization_token": "",
+    "is_granted": false,
+    "details": "Rejected blank or whitespace authorization token."
+  },
+  {
+    "timestamp_utc": "2026-08-15T02:31:02.136197+00:00",
+    "action": "UNAUTHORIZED_READ_ATTEMPT",
+    "dataset_id": "QROS-DATA-XAUUSD-H1-v2.0.0",
+    "authorization_token": "   ",
+    "is_granted": false,
+    "details": "Rejected blank or whitespace authorization token."
+  },
+  {
+    "timestamp_utc": "2026-08-15T02:47:54.008525+00:00",
+    "action": "UNAUTHORIZED_READ_ATTEMPT",
+    "dataset_id": "QROS-DATA-XAUUSD-M1-v2.0.0",
+    "authorization_token": "",
+    "is_granted": false,
+    "details": "Rejected blank or whitespace authorization token."
+  },
+  {
+    "timestamp_utc": "2026-08-15T02:47:54.008525+00:00",
+    "action": "UNAUTHORIZED_READ_ATTEMPT",
+    "dataset_id": "QROS-DATA-XAUUSD-H1-v2.0.0",
+    "authorization_token": "   ",
+    "is_granted": false,
+    "details": "Rejected blank or whitespace authorization token."
+  },
+  {
+    "timestamp_utc": "2026-08-15T02:57:58.181697+00:00",
+    "action": "VAULT_STORAGE",
+    "dataset_id": "QROS-DATA-XAUUSD-M1-v3.0.0",
+    "authorization_token": "SYSTEM_INIT",
+    "is_granted": true,
+    "details": "Stored 2000 bars in C:\\Users\\adhik\\OneDrive\\Desktop\\QROS\\data\\vault\\xauusd\\qros-data-xauusd-m1-v3.0.0_tier4_oos.parquet. Hash=150b85755fcc9b1dee7e972b9073e415515314db6ec1aad423a967818965eafd"
+  },
+  {
+    "timestamp_utc": "2026-08-15T02:57:58.597235+00:00",
+    "action": "VAULT_STORAGE",
+    "dataset_id": "QROS-DATA-XAUUSD-M5-v3.0.0",
+    "authorization_token": "SYSTEM_INIT",
+    "is_granted": true,
+    "details": "Stored 2000 bars in C:\\Users\\adhik\\OneDrive\\Desktop\\QROS\\data\\vault\\xauusd\\qros-data-xauusd-m5-v3.0.0_tier4_oos.parquet. Hash=2fb5e64efa20af338c4e255cb950a712840d809c0c5332e575f87ebb2878ff5b"
+  },
+  {
+    "timestamp_utc": "2026-08-15T02:57:59.257617+00:00",
+    "action": "VAULT_STORAGE",
+    "dataset_id": "QROS-DATA-XAUUSD-H1-v3.0.0",
+    "authorization_token": "SYSTEM_INIT",
+    "is_granted": true,
+    "details": "Stored 2000 bars in C:\\Users\\adhik\\OneDrive\\Desktop\\QROS\\data\\vault\\xauusd\\qros-data-xauusd-h1-v3.0.0_tier4_oos.parquet. Hash=66f4706c82723d4f8831d23dda18fd7a3b63ce06a1043cb584bc6c231fe18160"
+  },
+  {
+    "timestamp_utc": "2026-08-15T02:58:04.682256+00:00",
+    "action": "VAULT_STORAGE",
+    "dataset_id": "QROS-DATA-XAUUSD-D1-v3.0.0",
+    "authorization_token": "SYSTEM_INIT",
+    "is_granted": true,
+    "details": "Stored 900 bars in C:\\Users\\adhik\\OneDrive\\Desktop\\QROS\\data\\vault\\xauusd\\qros-data-xauusd-d1-v3.0.0_tier4_oos.parquet. Hash=5f18935753671efb8f2984be8c659d67d98c848b545dbbe8a8ed070cc3d87ba4"
+  },
+  {
+    "timestamp_utc": "2026-08-15T02:59:28.860435+00:00",
+    "action": "UNAUTHORIZED_READ_ATTEMPT",
+    "dataset_id": "QROS-DATA-XAUUSD-M1-v2.0.0",
+    "authorization_token": "",
+    "is_granted": false,
+    "details": "Rejected blank or whitespace authorization token."
+  },
+  {
+    "timestamp_utc": "2026-08-15T02:59:28.861983+00:00",
+    "action": "UNAUTHORIZED_READ_ATTEMPT",
+    "dataset_id": "QROS-DATA-XAUUSD-H1-v2.0.0",
+    "authorization_token": "   ",
+    "is_granted": false,
+    "details": "Rejected blank or whitespace authorization token."
+  },
+  {
+    "timestamp_utc": "2026-08-15T04:34:58.930669+00:00",
+    "action": "UNAUTHORIZED_READ_ATTEMPT",
+    "dataset_id": "QROS-DATA-XAUUSD-M1-v2.0.0",
+    "authorization_token": "",
+    "is_granted": false,
+    "details": "Rejected blank or whitespace authorization token."
+  },
+  {
+    "timestamp_utc": "2026-08-15T04:34:58.930669+00:00",
+    "action": "UNAUTHORIZED_READ_ATTEMPT",
+    "dataset_id": "QROS-DATA-XAUUSD-H1-v2.0.0",
+    "authorization_token": "   ",
+    "is_granted": false,
+    "details": "Rejected blank or whitespace authorization token."
+  },
+  {
+    "timestamp_utc": "2026-08-15T04:42:38.017215+00:00",
+    "action": "UNAUTHORIZED_READ_ATTEMPT",
+    "dataset_id": "QROS-DATA-XAUUSD-M1-v2.0.0",
+    "authorization_token": "",
+    "is_granted": false,
+    "details": "Rejected blank or whitespace authorization token."
+  },
+  {
+    "timestamp_utc": "2026-08-15T04:42:38.019468+00:00",
+    "action": "UNAUTHORIZED_READ_ATTEMPT",
+    "dataset_id": "QROS-DATA-XAUUSD-H1-v2.0.0",
+    "authorization_token": "   ",
+    "is_granted": false,
+    "details": "Rejected blank or whitespace authorization token."
+  },
+  {
+    "timestamp_utc": "2026-08-15T04:51:58.085704+00:00",
+    "action": "UNAUTHORIZED_READ_ATTEMPT",
+    "dataset_id": "QROS-DATA-XAUUSD-M1-v2.0.0",
+    "authorization_token": "",
+    "is_granted": false,
+    "details": "Rejected blank or whitespace authorization token."
+  },
+  {
+    "timestamp_utc": "2026-08-15T04:51:58.087878+00:00",
+    "action": "UNAUTHORIZED_READ_ATTEMPT",
+    "dataset_id": "QROS-DATA-XAUUSD-H1-v2.0.0",
+    "authorization_token": "   ",
+    "is_granted": false,
+    "details": "Rejected blank or whitespace authorization token."
+  },
+  {
+    "timestamp_utc": "2026-08-15T05:26:18.232855+00:00",
+    "action": "UNAUTHORIZED_READ_ATTEMPT",
+    "dataset_id": "QROS-DATA-XAUUSD-M1-v2.0.0",
+    "authorization_token": "",
+    "is_granted": false,
+    "details": "Rejected blank or whitespace authorization token."
+  },
+  {
+    "timestamp_utc": "2026-08-15T05:26:18.232855+00:00",
+    "action": "UNAUTHORIZED_READ_ATTEMPT",
+    "dataset_id": "QROS-DATA-XAUUSD-H1-v2.0.0",
+    "authorization_token": "   ",
+    "is_granted": false,
+    "details": "Rejected blank or whitespace authorization token."
+  },
+  {
+    "timestamp_utc": "2026-08-15T05:44:17.502060+00:00",
+    "action": "UNAUTHORIZED_READ_ATTEMPT",
+    "dataset_id": "QROS-DATA-XAUUSD-M1-v2.0.0",
+    "authorization_token": "",
+    "is_granted": false,
+    "details": "Rejected blank or whitespace authorization token."
+  },
+  {
+    "timestamp_utc": "2026-08-15T05:44:17.504905+00:00",
+    "action": "UNAUTHORIZED_READ_ATTEMPT",
+    "dataset_id": "QROS-DATA-XAUUSD-H1-v2.0.0",
+    "authorization_token": "   ",
+    "is_granted": false,
+    "details": "Rejected blank or whitespace authorization token."
+  },
+  {
+    "timestamp_utc": "2026-08-25T06:49:22.115061+00:00",
+    "action": "UNAUTHORIZED_READ_ATTEMPT",
+    "dataset_id": "QROS-DATA-XAUUSD-M1-v2.0.0",
+    "authorization_token": "",
+    "is_granted": false,
+    "details": "Rejected blank or whitespace authorization token."
+  },
+  {
+    "timestamp_utc": "2026-08-25T06:49:22.117065+00:00",
+    "action": "UNAUTHORIZED_READ_ATTEMPT",
+    "dataset_id": "QROS-DATA-XAUUSD-H1-v2.0.0",
+    "authorization_token": "   ",
+    "is_granted": false,
+    "details": "Rejected blank or whitespace authorization token."
+  },
+  {
+    "timestamp_utc": "2026-08-25T12:19:19.304592+00:00",
+    "action": "AUTHORIZED_OOS_UNLOCK",
+    "dataset_id": "qros-data-xauusd-m5-v4.0.0",
+    "authorization_token": "QROS-AUTH-OOS-STAGE12-REPLICATION-20260825",
+    "is_granted": true,
+    "details": "Successfully unlocked 24480 bars for Gate 11 evaluation."
+  },
+  {
+    "timestamp_utc": "2026-08-25T12:19:19.320616+00:00",
+    "action": "AUTHORIZED_OOS_UNLOCK",
+    "dataset_id": "qros-data-xauusd-h1-v4.0.0",
+    "authorization_token": "QROS-AUTH-OOS-STAGE12-REPLICATION-20260825",
+    "is_granted": true,
+    "details": "Successfully unlocked 2051 bars for Gate 11 evaluation."
+  },
+  {
+    "timestamp_utc": "2026-08-25T12:19:39.474154+00:00",
+    "action": "AUTHORIZED_OOS_UNLOCK",
+    "dataset_id": "qros-data-xauusd-m5-v4.0.0",
+    "authorization_token": "QROS-AUTH-OOS-STAGE12-REPLICATION-20260825",
+    "is_granted": true,
+    "details": "Successfully unlocked 24480 bars for Gate 11 evaluation."
+  },
+  {
+    "timestamp_utc": "2026-08-25T12:19:39.480160+00:00",
+    "action": "AUTHORIZED_OOS_UNLOCK",
+    "dataset_id": "qros-data-xauusd-h1-v4.0.0",
+    "authorization_token": "QROS-AUTH-OOS-STAGE12-REPLICATION-20260825",
+    "is_granted": true,
+    "details": "Successfully unlocked 2051 bars for Gate 11 evaluation."
+  },
+  {
+    "timestamp_utc": "2026-08-25T12:21:50.363004+00:00",
+    "action": "AUTHORIZED_OOS_UNLOCK",
+    "dataset_id": "qros-data-xauusd-m5-v4.0.0",
+    "authorization_token": "QROS-AUTH-OOS-STAGE12-REPLICATION-20260825",
+    "is_granted": true,
+    "details": "Successfully unlocked 24480 bars for Gate 11 evaluation."
+  },
+  {
+    "timestamp_utc": "2026-08-25T12:21:50.370010+00:00",
+    "action": "AUTHORIZED_OOS_UNLOCK",
+    "dataset_id": "qros-data-xauusd-h1-v4.0.0",
+    "authorization_token": "QROS-AUTH-OOS-STAGE12-REPLICATION-20260825",
+    "is_granted": true,
+    "details": "Successfully unlocked 2051 bars for Gate 11 evaluation."
+  },
+  {
+    "timestamp_utc": "2026-08-25T14:50:01.110627+00:00",
+    "action": "UNAUTHORIZED_READ_ATTEMPT",
+    "dataset_id": "QROS-DATA-XAUUSD-M1-v2.0.0",
+    "authorization_token": "",
+    "is_granted": false,
+    "details": "Rejected blank or whitespace authorization token."
+  },
+  {
+    "timestamp_utc": "2026-08-25T14:50:01.113588+00:00",
+    "action": "UNAUTHORIZED_READ_ATTEMPT",
+    "dataset_id": "QROS-DATA-XAUUSD-H1-v2.0.0",
+    "authorization_token": "   ",
+    "is_granted": false,
+    "details": "Rejected blank or whitespace authorization token."
+  },
+  {
+    "timestamp_utc": "2026-08-25T14:51:05.289772+00:00",
+    "action": "UNAUTHORIZED_READ_ATTEMPT",
+    "dataset_id": "QROS-DATA-XAUUSD-M1-v2.0.0",
+    "authorization_token": "",
+    "is_granted": false,
+    "details": "Rejected blank or whitespace authorization token."
+  },
+  {
+    "timestamp_utc": "2026-08-25T14:51:05.291775+00:00",
+    "action": "UNAUTHORIZED_READ_ATTEMPT",
+    "dataset_id": "QROS-DATA-XAUUSD-H1-v2.0.0",
+    "authorization_token": "   ",
+    "is_granted": false,
+    "details": "Rejected blank or whitespace authorization token."
+  },
+  {
+    "timestamp_utc": "2026-08-25T14:51:25.010337+00:00",
+    "action": "UNAUTHORIZED_READ_ATTEMPT",
+    "dataset_id": "QROS-DATA-XAUUSD-M1-v2.0.0",
+    "authorization_token": "",
+    "is_granted": false,
+    "details": "Rejected blank or whitespace authorization token."
+  },
+  {
+    "timestamp_utc": "2026-08-25T14:51:25.012087+00:00",
+    "action": "UNAUTHORIZED_READ_ATTEMPT",
+    "dataset_id": "QROS-DATA-XAUUSD-H1-v2.0.0",
+    "authorization_token": "   ",
+    "is_granted": false,
+    "details": "Rejected blank or whitespace authorization token."
+  },
+  {
+    "timestamp_utc": "2026-08-25T14:51:47.990842+00:00",
+    "action": "UNAUTHORIZED_READ_ATTEMPT",
+    "dataset_id": "QROS-DATA-XAUUSD-M1-v2.0.0",
+    "authorization_token": "",
+    "is_granted": false,
+    "details": "Rejected blank or whitespace authorization token."
+  },
+  {
+    "timestamp_utc": "2026-08-25T14:51:47.991843+00:00",
+    "action": "UNAUTHORIZED_READ_ATTEMPT",
+    "dataset_id": "QROS-DATA-XAUUSD-H1-v2.0.0",
+    "authorization_token": "   ",
+    "is_granted": false,
+    "details": "Rejected blank or whitespace authorization token."
+  },
+  {
+    "timestamp_utc": "2026-08-25T14:56:39.948211+00:00",
+    "action": "UNAUTHORIZED_READ_ATTEMPT",
+    "dataset_id": "QROS-DATA-XAUUSD-M1-v2.0.0",
+    "authorization_token": "",
+    "is_granted": false,
+    "details": "Rejected blank or whitespace authorization token."
+  },
+  {
+    "timestamp_utc": "2026-08-25T14:56:39.951429+00:00",
+    "action": "UNAUTHORIZED_READ_ATTEMPT",
+    "dataset_id": "QROS-DATA-XAUUSD-H1-v2.0.0",
+    "authorization_token": "   ",
+    "is_granted": false,
+    "details": "Rejected blank or whitespace authorization token."
+  },
+  {
+    "timestamp_utc": "2026-08-25T15:43:58.934951+00:00",
+    "action": "UNAUTHORIZED_READ_ATTEMPT",
+    "dataset_id": "QROS-DATA-XAUUSD-M1-v2.0.0",
+    "authorization_token": "",
+    "is_granted": false,
+    "details": "Rejected blank or whitespace authorization token."
+  },
+  {
+    "timestamp_utc": "2026-08-25T15:43:58.936511+00:00",
+    "action": "UNAUTHORIZED_READ_ATTEMPT",
+    "dataset_id": "QROS-DATA-XAUUSD-H1-v2.0.0",
+    "authorization_token": "   ",
+    "is_granted": false,
+    "details": "Rejected blank or whitespace authorization token."
+  },
+  {
+    "timestamp_utc": "2026-08-25T15:44:18.920452+00:00",
+    "action": "UNAUTHORIZED_READ_ATTEMPT",
+    "dataset_id": "QROS-DATA-XAUUSD-M1-v2.0.0",
+    "authorization_token": "",
+    "is_granted": false,
+    "details": "Rejected blank or whitespace authorization token."
+  },
+  {
+    "timestamp_utc": "2026-08-25T15:44:18.922455+00:00",
+    "action": "UNAUTHORIZED_READ_ATTEMPT",
+    "dataset_id": "QROS-DATA-XAUUSD-H1-v2.0.0",
+    "authorization_token": "   ",
+    "is_granted": false,
+    "details": "Rejected blank or whitespace authorization token."
+  },
+  {
+    "timestamp_utc": "2026-08-26T12:02:48.534749+00:00",
+    "action": "UNAUTHORIZED_READ_ATTEMPT",
+    "dataset_id": "QROS-DATA-XAUUSD-M1-v2.0.0",
+    "authorization_token": "",
+    "is_granted": false,
+    "details": "Rejected blank or whitespace authorization token."
+  },
+  {
+    "timestamp_utc": "2026-08-26T12:02:48.535750+00:00",
+    "action": "UNAUTHORIZED_READ_ATTEMPT",
+    "dataset_id": "QROS-DATA-XAUUSD-H1-v2.0.0",
+    "authorization_token": "   ",
+    "is_granted": false,
+    "details": "Rejected blank or whitespace authorization token."
+  },
+  {
+    "timestamp_utc": "2026-08-26T12:35:33.373822+00:00",
+    "action": "UNAUTHORIZED_READ_ATTEMPT",
+    "dataset_id": "QROS-DATA-XAUUSD-M1-v2.0.0",
+    "authorization_token": "",
+    "is_granted": false,
+    "details": "Rejected blank or whitespace authorization token."
+  },
+  {
+    "timestamp_utc": "2026-08-26T12:35:33.373822+00:00",
+    "action": "UNAUTHORIZED_READ_ATTEMPT",
+    "dataset_id": "QROS-DATA-XAUUSD-H1-v2.0.0",
+    "authorization_token": "   ",
+    "is_granted": false,
+    "details": "Rejected blank or whitespace authorization token."
+  },
+  {
+    "timestamp_utc": "2026-09-01T05:45:01.600472+00:00",
+    "action": "UNAUTHORIZED_READ_ATTEMPT",
+    "dataset_id": "QROS-DATA-XAUUSD-M1-v2.0.0",
+    "authorization_token": "",
+    "is_granted": false,
+    "details": "Rejected blank or whitespace authorization token."
+  },
+  {
+    "timestamp_utc": "2026-09-01T05:45:01.600472+00:00",
+    "action": "UNAUTHORIZED_READ_ATTEMPT",
+    "dataset_id": "QROS-DATA-XAUUSD-H1-v2.0.0",
+    "authorization_token": "   ",
+    "is_granted": false,
+    "details": "Rejected blank or whitespace authorization token."
+  },
+  {
+    "timestamp_utc": "2026-09-01T05:45:01.637643+00:00",
+    "action": "UNAUTHORIZED_READ_ATTEMPT",
+    "dataset_id": "QROS-DATA-XAUUSD-M1-v2.0.0",
+    "authorization_token": "",
+    "is_granted": false,
+    "details": "Rejected blank or whitespace authorization token."
+  },
+  {
+    "timestamp_utc": "2026-09-01T05:45:01.639645+00:00",
+    "action": "UNAUTHORIZED_READ_ATTEMPT",
+    "dataset_id": "QROS-DATA-XAUUSD-H1-v2.0.0",
+    "authorization_token": "   ",
+    "is_granted": false,
+    "details": "Rejected blank or whitespace authorization token."
+  },
+  {
+    "timestamp_utc": "2026-09-01T06:05:50.822281+00:00",
+    "action": "UNAUTHORIZED_READ_ATTEMPT",
+    "dataset_id": "QROS-DATA-XAUUSD-M1-v2.0.0",
+    "authorization_token": "",
+    "is_granted": false,
+    "details": "Rejected missing, unconfigured, or invalid authorization token."
+  },
+  {
+    "timestamp_utc": "2026-09-01T06:05:50.822281+00:00",
+    "action": "UNAUTHORIZED_READ_ATTEMPT",
+    "dataset_id": "QROS-DATA-XAUUSD-H1-v2.0.0",
+    "authorization_token": "sha256:0aad7da77d2ed59c396c99a74e49f3a4524dcdbcb5163251b1433d640247aeb4",
+    "is_granted": false,
+    "details": "Rejected missing, unconfigured, or invalid authorization token."
+  }
+]

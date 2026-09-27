@@ -1,0 +1,283 @@
+QROS: Institutional Algorithmic Trading Platform
+Research, Engineering, and Operations Handbook
+Volume I — Foundations of Quantitative Intelligence
+Part VI — Feature Engineering
+Chapter 13 Feature Engineering Fundamentals
+Transforming Market Data into Quantitative Intelligence
+Estimated Length: 220–260 Pages
+Chapter Objective
+Upon completing this chapter, the reader will understand:
+What a feature is.
+Why feature engineering is the heart of quantitative research.
+How raw market data becomes predictive information.
+Different categories of features.
+Feature quality assessment.
+Feature documentation.
+Feature lifecycle management.
+Institutional approaches to feature development.
+Opening Thought
+Suppose I give two researchers exactly the same historical data.
+The first researcher sees:
+Open
+High
+Low
+Close
+Volume
+The second researcher sees:
+Momentum
+Volatility
+Liquidity
+Trend Strength
+Session Behavior
+Market Regime
+Economic Context
+Relative Position
+Order Flow
+Cross-Asset Relationships
+Who has more information?
+Both.
+The second researcher simply extracted more knowledge from the same data.
+That extraction process is called
+Feature Engineering.
+13.1 What Is a Feature?
+A feature is a measurable variable used to describe some aspect of the market.
+Examples include:
+Closing price
+Daily return
+ATR
+RSI
+VWAP
+Spread
+Bid-ask imbalance
+Rolling volatility
+Distance from moving average
+Time until a major economic event
+Features are the language through which quantitative models understand markets.
+13.2 Why Features Matter
+Machine learning models, statistical models, and rule-based systems do not interpret markets directly.
+They interpret features.
+Poor features produce poor decisions, regardless of how sophisticated the model may be.
+This leads to one of the central principles of QROS:
+A simple model with high-quality features often outperforms a complex model built on poor features.
+13.3 The Information Pyramid
+Feature engineering transforms raw observations into usable knowledge.
+Raw Market Data
+│
+▼
+Cleaned Data
+│
+▼
+Calculated Features
+│
+▼
+Predictive Signals
+│
+▼
+Trading Decisions
+Every stage increases the informational value of the data.
+13.4 Characteristics of High-Quality Features
+A feature should possess several desirable characteristics.
+Relevance
+The feature should relate to the research objective.
+Stability
+The feature should behave consistently across different market conditions.
+Interpretability
+Researchers should understand what the feature measures.
+Robustness
+Minor changes in the data should not cause extreme changes in the feature.
+Timeliness
+The feature must be available before the trading decision is made.
+Reproducibility
+Different researchers should calculate the same feature using the same inputs and methodology.
+13.5 Categories of Features
+QROS classifies features into several families.
+Price Features
+Derived directly from price.
+Examples:
+Returns
+High-low range
+Candle body size
+Gap size
+Moving averages
+Volatility Features
+Describe market variability.
+Examples:
+ATR
+Historical volatility
+Realized volatility
+Parkinson volatility
+Garman-Klass estimator
+Trend Features
+Describe directional behavior.
+Examples:
+Trend slope
+ADX
+Linear regression angle
+Moving average separation
+Momentum
+Volume Features
+Measure trading activity.
+Examples:
+Tick volume
+Relative volume
+Volume change
+Volume moving average
+Time Features
+Represent temporal characteristics.
+Examples:
+Hour of day
+Day of week
+Month
+Quarter
+Trading session
+Minutes before market close
+Time often contains useful behavioral information.
+Event Features
+Represent external events.
+Examples:
+CPI release today?
+Minutes until FOMC
+Central bank meeting week
+NFP day
+Markets frequently respond differently during scheduled events.
+Cross-Asset Features
+Derived from relationships with other markets.
+Examples:
+Dollar Index trend
+Treasury yield changes
+Oil prices
+Equity index returns
+Silver-to-gold ratio
+Markets rarely move in complete isolation.
+Risk Features
+Describe current market risk.
+Examples:
+Drawdown
+Rolling Value at Risk
+Maximum adverse excursion
+Position exposure
+13.6 Derived Features
+Many powerful features are combinations of simpler variables.
+Example:
+Instead of:
+ATR
+Use:
+ATR ÷ Closing Price
+This produces normalized volatility, making comparisons across different price levels more meaningful.
+Feature engineering often involves transforming raw values into more informative representations.
+13.7 Feature Scaling
+Different features may have vastly different numerical ranges.
+For example:
+Price = 3,450
+RSI = 58
+ATR = 21
+Spread = 0.40
+Some algorithms perform better when features are scaled to comparable ranges.
+Common approaches include:
+Standardization (Z-score)
+Min-Max scaling
+Robust scaling
+Log transformations
+The choice of scaling method depends on the characteristics of the data and the requirements of the downstream model.
+13.8 Feature Selection
+More features do not necessarily produce better models.
+Adding irrelevant or redundant features may increase complexity and reduce generalization.
+Common selection approaches include:
+Correlation analysis
+Statistical significance testing
+Recursive feature elimination
+Tree-based importance measures
+Domain expertise
+Feature selection should balance predictive performance with interpretability.
+13.9 Feature Leakage
+One of the most dangerous mistakes in quantitative research is feature leakage.
+Feature leakage occurs when a feature contains information that would not have been available at the time of prediction.
+Example:
+Using the day's closing price to generate a signal at the market open.
+Such models often produce unrealistically strong backtest results but fail in live trading.
+Preventing leakage is a mandatory requirement within QROS.
+13.10 Feature Documentation
+Every feature should include a formal specification.
+Minimum documentation:
+Feature ID.
+Name.
+Description.
+Formula.
+Required inputs.
+Output units.
+Update frequency.
+Version.
+Owner.
+Validation status.
+Known limitations.
+This documentation enables reuse and reduces ambiguity.
+13.11 Feature Lifecycle
+Features evolve over time.
+Idea
+│
+Research
+│
+Validation
+│
+Approval
+│
+Feature Store
+│
+Production
+│
+Monitoring
+│
+Revision or Retirement
+Only validated features should be promoted into the official Feature Store.
+13.12 Measuring Feature Quality
+Before a feature is adopted, QROS evaluates:
+Predictive contribution.
+Stability across market regimes.
+Sensitivity to noisy data.
+Computational cost.
+Interpretability.
+Ease of maintenance.
+Dependency complexity.
+A feature should provide meaningful value relative to the effort required to maintain it.
+QROS Engineering Specification
+Feature Acceptance Standard (FAS-1)
+A feature may enter the official QROS Feature Store only if it:
+Has a documented purpose.
+Is reproducible.
+Does not introduce look-ahead bias.
+Includes complete metadata.
+Has passed validation tests.
+Demonstrates value across multiple market conditions.
+Receives approval through the research governance process.
+Experimental features remain isolated from production until these criteria are met.
+Case Study
+A researcher proposes using a "Gold Breakout Strength Index."
+Rather than adding it immediately, the feature follows the QROS lifecycle:
+The calculation is formally defined.
+Required inputs are documented.
+Historical behavior is analyzed across multiple years.
+Sensitivity to parameter changes is evaluated.
+Potential feature leakage is investigated.
+Performance is tested across different market regimes.
+Documentation is completed.
+The feature is reviewed and approved before entering the Feature Store.
+This process ensures that every production feature has a clear rationale and a documented history.
+Chapter Summary
+Feature engineering bridges the gap between raw market observations and quantitative decision-making. By transforming data into informative, validated, and well-documented variables, QROS creates the foundation upon which statistical models, machine learning systems, and trading strategies are built.
+High-quality features are not accidental. They result from disciplined research, careful validation, and continuous governance.
+Practical Exercise
+Design an initial feature library for XAUUSD.
+Include at least:
+10 price features.
+10 volatility features.
+10 trend features.
+5 time-based features.
+5 macroeconomic event features.
+5 cross-asset features.
+For each feature, document:
+Purpose.
+Formula.
+Inputs.
+Update frequency.
+Expected use cases.
+Potential limitations.

@@ -1,0 +1,144 @@
+QROS INSTITUTIONAL QUANTITATIVE RESEARCH FRAMEWORK
+PART 1: DATA COLLECTION FRAMEWORKComprehensive Operating Manual &amp; Financial Data Architecture
+[DIVISION MANDATE] This institutional manual establishes the immutable data collection standards for the Quantitative Research Division. Data is the ultimate ground truth of all statistical edge discovery. Strict compliance with these specifications is required across all Quant Researchers, Data Engineers, and Risk Scientists.
+Chapter 1: Executive Overview &amp; Governance Rules
+1.1 Purpose
+The sole objective of the Data Collection Division is to engineer, operate, and govern a fault-tolerant, high-throughput, multi-asset data collection architecture. In institutional quantitative research (Citadel, Renaissance Technologies, Two Sigma, DE Shaw level), data quality dictates strategy longevity and return on capital. Data corruptions, dropped packets, incorrect timestamps, unadjusted split factors, or look-ahead leakage in economic releases render downstream alpha models useless and expose the firm to catastrophic drawdown risks.
+1.2 Division Objectives
+• Zero Loss Ingestion: Capture raw exchange multicast feeds with 99.9999% packet delivery assurance and hardware nanosecond PTP timestamping.
+• Absolute Auditability &amp; Data Lineage: Store raw, immutable message payloads alongside transformation graphs and derived dataset snapshots.
+• Multi-Asset Coverage: Ingest, structure, and harmonize 13 core financial market data types across global venues.
+• Point-in-Time Integrity: Guarantee dual-timestamping (Event Time vs. Knowledge/Release Time) across all datasets to eliminate look-ahead bias.
+1.3 Institutional Roles &amp; Responsibilities Matrix
+Role
+Primary Responsibilities
+Sign-Off Authority
+Key Deliverables
+Data Engineer (DE)
+Feed handlers, hardware PTP capture, exchange binary protocol decoding (SBE, ITCH, FIX), data lake storage.
+Raw &amp; Cleansed Schemas
+Low-latency ingestion daemons, Parquet/KDB+ data streams
+Quant Researcher (QR)
+Validation specifications, microstructural feature requirements, domain cleaning rules, bias audit specs.
+Dataset Acceptance &amp; Feature Spec
+Data Quality Requirements, Alpha Feature Specs
+Statistical Researcher (SR)
+Statistical anomaly detection algorithms, stationarity verification, noise and outlier modeling.
+Statistical Hygiene Approval
+Outlier Filters, Robustness Metrics
+Data Governance Officer (DGO)
+Vendor SLA compliance, data licensing audit, point-in-time metadata validation, regulatory compliance.
+Production Release Approval
+Data Catalog Sign-Off, Compliance Audits
+Chapter 2: Comprehensive Financial Market Data Taxonomy
+The research division ingests, cleanses, and standardizes 13 distinct categories of market data. Below is the deep-dive specification for each data type.
+2.1 OHLC Bar Data (Time, Volume, Tick &amp; Dollar Bars)
+OHLC bar data aggregates raw trade ticks into discrete intervals. Institutional research uses both temporal and non-temporal bar aggregation methods.
+• Time Bars: Fixed interval sampling (1s, 1m, 1h, 1d). Simple but suffers from non-stationarity, heteroskedasticity, and volume-sampling mismatch.
+• Volume Bars: Sampled whenever a cumulative volume threshold V_bar is executed. Normalizes data sampling relative to volume velocity.
+• Tick Bars: Sampled every N_ticks transaction events. Ensures equal statistical sampling density per trade event.
+• Dollar / Value Bars: Sampled when cumulative turnover (Price x Size) exceeds $V_bar. Essential for adjusting bar frequency over long-term price inflation.
+Taxonomy breakdown for OHLC:
+• Why It Matters: Provides computationally light, structured price action representation for macro, trend, and statistical arbitrage models.• Where It Comes From: Aggregated from raw exchange trade tape or vendor consolidated streams.• Advantages: Low storage footprint, standard baseline for classical time series indicators.• Disadvantages: High temporal loss of microstructure signals (intra-bar price paths, order flow sequence).• Biases: Session close misalignment, bar construction timing bugs (matching exchange vs server clock).• Cleaning Requirements: Enforce High &gt;= max(O,C) and Low &lt;= min(O,C). Reject zero-volume bars unless explicitly flagged as static quote fills.• Storage Requirements: Parquet format partitioned by Asset_Class/Symbol/Year/Month.• Research Usefulness: Core input for volatility estimators (Garman-Klass, Yang-Zhang), momentum features, and multi-day trend hypotheses.
+2.2 Tick Data &amp; Market Microstructure (Trade Tape, Time &amp; Sales)
+Tick data consists of every individual execution event on the exchange trade tape.
+• Why It Matters: Contains granular trade aggressor flow, trade size distributions, and microsecond price discovery details.• Where It Comes From: Direct exchange market data feeds (e.g., Nasdaq ITCH, CME MDP 3.0 SBE).• Advantages: Zero information loss regarding executed transaction history.• Disadvantages: Massive volume (terabytes/day per asset class); requires specialized columnar databases (KDB+/q, ClickHouse, DuckDB).• Biases: Out-of-order packet arrival, exchange re-transmissions, non-firm trade reports.• Cleaning Requirements: Filter out condition codes like Form-T, late prints, derivative hedges, and odd-lot non-consolidated flags.• Storage Requirements: High-compression columnar storage (ZSTD level 7 Parquet or KDB+ splay databases).• Research Usefulness: Trade aggressor classification (Lee-Ready, Bulk Volume Classification), market impact modeling, flow toxicity (VPIN).
+2.3 Depth of Market &amp; Order Book Data (Level I, Level II, Level III)
+Limit Order Book (LOB) data captures supply and demand across price levels.
+Depth Level
+Description
+Data Fields Captured
+Primary Research Application
+Level I
+Top of Book (NBBO)
+Best Bid Price/Size, Best Ask Price/Size, Timestamp
+Spread analysis, quote mid-price returns, execution cost benchmarking.
+Level II
+Aggregated Depth (N-Levels)
+Top 10-50 price levels with aggregate volume and order count
+Order book imbalance (OBI), market depth liquidity, queue positioning.
+Level III
+Order-by-Order (MBO)
+Individual order IDs, Add, Cancel, Modify, Execute events
+Queue priority tracking, institutional order detection, latency arbitrage.
+• Why It Matters: LOB dynamics reveal impending supply/demand imbalances prior to trade executions.• Where It Comes From: Multicast binary exchange order feeds.• Advantages: Real-time window into market participant intentions and liquidity density.• Disadvantages: Extremely high storage bandwidth; vulnerable to spoofing and phantom liquidity.• Biases: Message cancellation latency masking true available liquidity.• Cleaning Requirements: Deduplicate sequence numbers; validate price level sorting (Bids strictly descending, Asks strictly ascending).• Storage Requirements: Raw pcap format for cold storage; compressed LOB snapshot state tables for hot storage.• Research Usefulness: Microstructure alpha features, order flow imbalance, market maker inventory modeling.
+2.4 Economic Calendar, Central Bank Events &amp; Macro Data
+Captures scheduled macro announcements, interest rate decisions, central bank balance sheet updates, and yield curve shifts.
+• Why It Matters: Macro announcements generate structural volatility regime transitions and jump diffusion events.• Where It Comes From: National statistical agencies (BLS, BEA), Central Banks (Fed, ECB, BOJ), FRED API, Bloomberg Event Calendars.• Advantages: High macro explanatory power for cross-asset risk premiums.• Disadvantages: Irregular release schedules, heavy revision cycles.• Biases: Revision bias and look-ahead bias if revised macro series are used without point-in-time tracking.• Cleaning Requirements: Dual-timestamping (Observation Period, Initial Release Time, Revision Release Time, Revised Value).• Storage Requirements: Relational point-in-time SQL database with strict bitemporal indexing.• Research Usefulness: Event-driven volatility modeling, macroeconomic regime classification, yield curve positioning.
+2.5 Options Data (Implied Volatility, Open Interest, Greeks)
+Options chains reflect market probability distributions of future asset prices.
+• Why It Matters: Extracts market-implied risk neutral density, tail risk expectations, and dealer positioning (GEX).• Where It Comes From: OPRA feed, Cboe DataShop, OptionMetrics.• Advantages: Forward-looking expectations rather than backward-looking historical volatility.• Disadvantages: Sparse grids across strike/expiration; illiquid out-of-the-money quotes.• Biases: Stale settlement prices on illiquid contracts.• Cleaning Requirements: Filter out zero-bid options, non-tradable wide-spread contracts, and arbitrage-violating option prices.• Storage Requirements: Multi-dimensional arrays / Parquet tables keyed by Underlying/Expiry/Strike/OptionType.• Research Usefulness: Implied volatility skew/smile features, Gamma Exposure (GEX) market pinning models, Vanna/Charm flows.
+2.6 Sentiment &amp; News Data
+Quantitative NLP feeds parsing news wire stories, social streams, and corporate filings.
+• Why It Matters: Information propagation speeds vary across market participants, creating alpha opportunities during news shocks.• Where It Comes From: RavenPack, Thomson Reuters News Analytics (TRNA), SEC EDGAR filings.• Advantages: Uncorrelated with technical price/volume features.• Disadvantages: High noise, shifting vocabulary, vendor model black-box scores.• Biases: Vendor reprocessing bias (retroactively changing historical sentiment scores with newer NLP models).• Cleaning Requirements: Store raw textual payload alongside score versioning; strictly enforce timestamp of headline publication.• Storage Requirements: Document store (Elasticsearch / MongoDB) and Parquet tables for numerical sentiment scores.• Research Usefulness: Post-earnings announcement drift (PEAD), crisis shock response, topic modeling features.
+2.7 Alternative Data (Satellite, Web Traffic, Supply Chain)
+Non-traditional data assets evaluating physical and digital economic activity.
+• Why It Matters: Offers proprietary ground-truth insight prior to public financial releases.• Where It Comes From: Vendor data brokers, web scraping pipelines, credit card panel data, satellite imagery providers.• Advantages: Potential for high-capacity, orthogonal alpha.• Disadvantages: Short decay half-life, high acquisition costs, legal/regulatory compliance risks (MNPI).• Biases: Panel restructuring bias, survivor bias in mapped entity universes.• Cleaning Requirements: Normalize panels for panel turnover; map entity tickers to point-in-time PERMNO/FIGI IDs.• Storage Requirements: Cloud data lake with S3/GCS parquet files.• Research Usefulness: Fundamental revenue forecasting, foot-traffic sentiment, supply chain bottleneck detection.
+2.8 Cross-Asset &amp; Intermarket Data (Commodities, FX, Rates, ETFs)
+Interconnected global asset series capturing macro liquidity and global risk appetite.
+• Why It Matters: Asset classes do not trade in isolation; FX and rate movements lead equity and commodity trends.• Where It Comes From: Global exchanges (CME, ICE, Eurex, LME), OTC inter-dealer brokers.• Advantages: Rich cross-sectional correlation and lead-lag relationships.• Disadvantages: Non-synchronous trading hours across international time zones.• Biases: Improper timezone conversion masking true market order flow lead times.• Cleaning Requirements: Align timestamps to UTC nanoseconds; apply forward-fill rules for non-overlapping exchange sessions.• Storage Requirements: Multi-asset standardized Parquet tables.• Research Usefulness: Intermarket momentum, cross-asset spillover models, flight-to-quality indicators.
+2.9 Liquidity &amp; Funding Data (Funding Rates, Repo, Dark Pool Flows)
+Measures the cost and availability of leverage across centralized and decentralized markets.
+• Why It Matters: Liquidity squeezes drive forced deleveraging and structural trend reversals.• Where It Comes From: Treasury repo rates, SOFR, Crypto perpetual funding rates, FINRA dark pool volume reports.• Advantages: Directly tracks institutional leverage positioning and system stress.• Disadvantages: Opaque OTC reporting delays.• Biases: Delayed dark pool reporting (ATS regulatory lag).• Cleaning Requirements: Validate rate quotes against central bank corridor bounds.• Storage Requirements: Time series database tables.• Research Usefulness: Liquidity crisis forecasting, funding arbitrage, perpetual swap premium models.
+2.10 Volatility Indexes (VIX, MOVE, VVIX, SKEW)
+Implied volatility metrics across asset classes.
+• Why It Matters: Volatility regimes dictate asset correlation structures and optimal position sizing.• Where It Comes From: CBOE, ICE, proprietary options calculation engines.• Advantages: Standardized benchmark for market fear and variance risk premium.• Disadvantages: Mean-reverting structure can cause false trend signals if misapplied.• Biases: Intraday calculation spikes due to illiquid OTM option quotes.• Cleaning Requirements: Filter out index calculation glitches during market open auction turbulence.• Storage Requirements: Standardized daily and intraday time series tables.• Research Usefulness: Volatility regime switching models, variance risk premium harvest strategies.
+2.11 Correlation Assets &amp; Dynamic Covariance Matrices
+High-dimensional rolling covariance and correlation matrices across asset universes.
+• Why It Matters: Portfolio optimization and risk budgeting require real-time tracking of asset co-movements.• Where It Comes From: Derived from cleansed high-frequency or daily return streams.• Advantages: Essential for risk decomposition and statistical arbitrage pair generation.• Disadvantages: High dimensionality leads to empirical covariance matrix instability and noise.• Biases: Epps effect (correlation breakdown at ultra-high frequencies due to asynchronous sampling).• Cleaning Requirements: Apply Random Matrix Theory (RMT) denoising and shrinkage estimators (Ledoit-Wolf).• Storage Requirements: Binary matrix storage (HDF5 / Zarr arrays).• Research Usefulness: Pair trading, eigen-portfolio decomposition, risk-parity allocation.
+2.12 Macro Indicators &amp; Global Yield Curves
+Full yield curve structures (1M to 30Y) and inflation expectations (Breakeven rates).
+• Why It Matters: Yield curve slope (2Y-10Y) and curvature drive global discount rates and asset pricing models.• Where It Comes From: Government bond trading desks, Treasury APIs, ICAP/Tradeweb.• Advantages: Fundamental anchor for long-horizon valuations.• Disadvantages: Low sampling frequency compared to tick data.• Biases: Interpolation model bias (Nelson-Siegel vs. Cubic Spline curve fitting differences).• Cleaning Requirements: Store raw benchmark yields alongside spline parameterizations.• Storage Requirements: Relational time series tables.• Research Usefulness: Duration risk modeling, macro factor risk attribution.
+2.13 Commitment of Traders (COT) &amp; Exchange Positioning Reports
+Weekly breakdown of open interest held by Commercial Hedgers, Large Speculators, and Small Retail Traders.
+• Why It Matters: Identifies extreme institutional positioning and potential crowded trade unwinds.• Where It Comes From: CFTC weekly releases.• Advantages: Clear view of commercial vs. speculative smart money positioning.• Disadvantages: Low weekly frequency, 3-day reporting lag (data collected Tuesday, released Friday).• Biases: Publication lag bias if Friday release date is assigned back to Tuesday observation date.• Cleaning Requirements: Set Available_Timestamp strictly to Friday 15:30 EST post-release.• Storage Requirements: Relational tables.• Research Usefulness: Long-term trend reversal models, institutional extreme sentiment indicators.
+Chapter 3: Institutional Data Vendor Selection &amp; Architecture
+To eliminate single points of failure, the quantitative research division operates a redundant multi-vendor ingestion system.
+Vendor Class
+Primary Providers
+Ingestion Protocols
+SLA &amp; Latency Specs
+Research Destination
+Direct Exchange Multicast
+CME Group, Nasdaq, NYSE, Eurex
+UDP Multicast, SBE, ITCH, FAST
+Sub-microsecond (&lt; 1 µs), 99.999% uptime
+Ultra-Low Latency Feature Store, L3 Book Reconstructor
+Consolidated Feed Vendors
+Bloomberg B-PIPE, Refinitiv Elektron
+Enterprise TCP/IP APIs, WebSockets
+1-10 ms latency, 99.99% uptime
+Global Cross-Asset Normalized Stream, Backtesting Engine
+Options / Surface Vendors
+OptionMetrics, Cboe Hanweck
+S3 Parquet Batches, Zstandard Streams
+End-of-day + 15-min delayed
+Implied Volatility Surface Database, Greeks Repository
+Fundamental &amp; Reference
+FactSet, S&amp;P Compustat, SEC EDGAR
+SQL REST Bulk, Snowflake Shares
+Daily Point-in-Time snapshots
+Point-in-Time Corporate Action &amp; Financials Database
+Macro &amp; Event Providers
+FRED, Kensho, RavenPack NLP
+HTTPS REST, Kafka JSON Streams
+Sub-second event trigger
+Event-Driven Research Pipeline, Macro Regime Store
+Chapter 4: Quality Control &amp; Validation Standard Operating Procedures
+Quality assurance protocols are strictly automated. Datasets must pass all validation checks prior to promotion from staging to production.
+4.1 Ingestion Gateways &amp; Pre-Ingestion Checklist
+[ ] PTP Nanosecond Clock Synchronization: Verify PTP grandmaster clock lock on ingestion NICs.
+[ ] Binary Schema Validation: Confirm incoming message header magic bytes and protocol version tags.
+[ ] Sequence Number Continuity: Detect lost packets; trigger hardware UDP gap-fill or TCP replay daemons.
+[ ] Hardware Buffer Monitor: Ensure zero ring buffer overflows on capture sockets.
+4.2 Post-Cleaning &amp; Normalization Checklist
+[ ] Bar Bounds Invariant: High &gt;= max(Open, Close) and Low &lt;= min(Open, Close).
+[ ] Quote Sanity: Best Ask &gt; Best Bid; Bid-Ask Spread &lt;= 500 basis points of Mid-price.
+[ ] Point-in-Time Audit: Ensure Knowledge_Timestamp &gt;= Event_Timestamp for all records.
+[ ] Split &amp; Dividend Verification: Cross-validate corporate action adjustment factors against two independent vendors.
+[ ] Non-Firm Filter: Strip out non-consolidated, form-T, and derivative hedge trade tick condition codes.
+Chapter 5: Failure Cases, Decision Trees &amp; Governance Rules
+5.1 Decision Tree: Data Anomaly Response Workflow
+WHEN Market Data Anomaly Detected:  ├── CASE 1: Sequence Gap in UDP Multicast Feed  │     ├── 1. Switch ingestion thread to Secondary Feed B seamlessly.  │     ├── 2. Issue gap-fill request to Exchange Replay Server via TCP.  │     └── 3. Flag impacted timestamp window as 'GAPPED_RECOVERY_PENDING'.  ├── CASE 2: Price Spike Anomaly (|P_t - P_{t-1}| &gt; 10 * Sigma)  │     ├── 1. Fetch concurrent quote/trade tick from secondary independent vendor.  │     ├── 2. IF verified by secondary vendor -&gt; Classify as valid Market Crash/Flash Spike.  │     └── 3. IF rejected by secondary vendor -&gt; Quarantine tick as BAD_TICK, alert DE on-call.  └── CASE 3: Unannounced Split / Corporate Action Discrepancy        ├── 1. Freeze symbol automated trading and backtest data generation.        ├── 2. Trigger automated comparison with exchange primary regulatory filings.        └── 3. Update Corporate Action Metadata Store upon DGO sign-off.
+5.2 Immutable Data Governance Rules
+[IMMUTABLE GOVERNANCE RULES] Rule 1: RAW DATA IS SACROSANCT. Raw exchange payloads (PCAP, SBE binary, FIX logs) must be archived in cold storage in their original unmodified state indefinitely.Rule 2: DERIVED DATA IMMUTABILITY. Cleansed and standardized datasets must be version-controlled using deterministic cryptographic SHA-256 content hashes. Overwriting historical rows is strictly illegal.Rule 3: BITEMPORAL ACCESS ONLY. All point-in-time datasets must be queried using bitemporal syntax (as_of_event_time, as_of_knowledge_time) to eliminate look-ahead leakage.

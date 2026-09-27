@@ -1,0 +1,148 @@
+Founding Governance Documents
+The governing framework of QROS consists of four documents.
+QROS GOVERNING CHARTER
+│
+┌────────────────┼────────────────┐
+│                │                │
+Constitution     Bill of Rights   Bill of Responsibilities
+│
+│
+Code of Scientific Conduct
+These documents define what QROS stands for, what every component is entitled to, what every contributor is expected to do, and how research is conducted.
+THE QROS BILL OF RIGHTS
+Preamble
+Every research project, dataset, algorithm, software component, and contributor within QROS deserves an environment that promotes fairness, transparency, scientific integrity, and engineering excellence.
+The following rights are guaranteed by the platform and shall not be violated without documented justification.
+Article 1
+Right to Reproducibility
+Every experiment has the right to be reproduced.
+This means every experiment must include:
+Complete dataset references
+Software version
+Configuration
+Parameters
+Random seeds (when applicable)
+Execution environment
+Date and time
+Author
+Version identifier
+If another researcher cannot reproduce an experiment, the experiment is considered incomplete until the discrepancy is understood.
+Article 2
+Right to Traceability
+Every important decision shall be traceable.
+Questions such as:
+Why was this strategy approved?
+Why was this parameter changed?
+Why was this model rejected?
+should always have documented answers.
+Institutional knowledge must never depend solely on memory.
+Article 3
+Right to Honest Evaluation
+No strategy shall receive special treatment.
+All strategies shall be evaluated using the same standards.
+Evaluation criteria shall be documented before testing begins.
+This helps reduce unconscious bias and ensures fair comparison.
+Article 4
+Right to Failure
+Failure is recognized as a valuable research outcome.
+Failed experiments shall be documented rather than hidden.
+A failed hypothesis that improves understanding is considered productive research.
+Article 5
+Right to Documentation
+Every major component has the right to complete documentation.
+This includes:
+Purpose
+Assumptions
+Inputs
+Outputs
+Limitations
+Dependencies
+Validation results
+Documentation is treated as part of the deliverable, not optional work.
+Article 6
+Right to Explainability
+Every production decision should be explainable.
+While complex models may not be fully interpretable, their behavior, assumptions, and limitations must be documented as clearly as possible.
+Article 7
+Right to Risk Protection
+No strategy has the authority to override established risk controls.
+Risk management policies apply consistently across the platform.
+Article 8
+Right to Continuous Improvement
+Every approved strategy remains open to review and improvement.
+Approval is not permanent. Continued performance and evidence determine whether a strategy remains in production.
+THE QROS BILL OF RESPONSIBILITIES
+Rights create trust. Responsibilities create accountability.
+Every participant and every subsystem shares responsibility for maintaining the quality of QROS.
+Responsibility 1
+Research honestly.
+Do not manipulate data to support preferred conclusions.
+Responsibility 2
+Document every important decision.
+Future contributors should understand not only what changed but also why.
+Responsibility 3
+Protect trading capital.
+Capital preservation takes precedence over maximizing returns.
+Responsibility 4
+Question assumptions.
+Every assumption should be open to challenge when supported by evidence.
+Responsibility 5
+Maintain code quality.
+Code should be readable, testable, and maintainable.
+Responsibility 6
+Respect statistical evidence.
+Do not accept conclusions based solely on intuition, isolated examples, or cherry-picked results.
+Responsibility 7
+Preserve institutional knowledge.
+Research findings, failures, and lessons learned should be recorded to strengthen the platform over time.
+Responsibility 8
+Support continuous learning.
+Every completed project should contribute knowledge back into QROS.
+THE QROS CODE OF SCIENTIFIC CONDUCT
+This code governs how research is performed.
+Principle 1
+Every claim requires evidence.
+Principle 2
+Every hypothesis must be falsifiable.
+If it cannot be tested in a way that could prove it wrong, it is not suitable for scientific investigation.
+Principle 3
+Every dataset must be validated.
+Before analysis:
+Check completeness
+Handle missing values
+Verify timestamps
+Detect duplicates
+Assess quality
+Record data provenance
+Principle 4
+Every experiment must be documented.
+A minimum experiment record includes:
+Objective
+Hypothesis
+Data source
+Methodology
+Parameters
+Results
+Interpretation
+Limitations
+Next actions
+Principle 5
+Negative results are valuable.
+Recording unsuccessful experiments prevents repeated mistakes and expands institutional knowledge.
+Principle 6
+Avoid confirmation bias.
+Researchers should actively seek evidence that challenges their own hypotheses.
+Principle 7
+Separate research from opinion.
+Personal conviction does not replace statistical evidence.
+Principle 8
+Production requires independent validation.
+No strategy should move into production without completing the documented review and validation process.
+THE FOUNDING OATH OF QROS
+Every project benefit from a clear statement of intent. The following oath is symbolic, but it captures the mindset we want QROS to embody.
+As a builder of QROS, I commit to seeking evidence before conclusions, protecting capital before pursuing profit, documenting decisions before forgetting them, and improving the platform before defending my own ideas. I accept that markets evolve, that every model has limitations, and that intellectual honesty is more valuable than temporary success. My responsibility is not merely to create profitable algorithms, but to build a resilient, transparent, and continuously improving research ecosystem that can endure changing markets and serve future contributors with integrity.
+The Fifth Founding Document
+To elevate QROS from a software project to a true engineering organization, I recommend adding one final governing document:
+The QROS Engineering Manifesto
+While the Constitution defines why QROS exists, the Bill of Rights and Responsibilities define what is protected and expected, and the Code of Scientific Conduct defines how research is performed, the Engineering Manifesto would define how software is designed and built. It would establish enduring principles such as modularity over monoliths, reliability over speed, observability by default, automation with safeguards, and maintainability as a core engineering objective.
+Together, these five documents would become the permanent constitutional foundation of the QROS platform, guiding every architectural decision, research effort, and line of code that follows.

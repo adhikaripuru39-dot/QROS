@@ -1,0 +1,55 @@
+hypothesis_id: QROS-HYP-000007
+title: London/NY Overlap H1 Liquidity Imbalance (FVG) Mitigation Rejection
+author: QROS Quantitative Research Team
+date_created: '2026-08-25'
+market: COMMODITIES
+asset: XAUUSD
+timeframe: M5
+research_class: CLASS-II
+market_condition: London / New York Session Overlap (12:00-16:00 UTC) with Prior H1
+  Displacement
+observation: High-volume institutional displacement leaves unfilled liquidity voids
+  on H1. During the peak liquidity London/NY overlap, retracements into these voids
+  trigger strong order absorption.
+hypothesis_statement: Price pullbacks into unmitigated H1 Fair Value Gaps occurring
+  between 12:00 and 16:00 UTC produce directional continuations with Net Profit Factor
+  >= 1.35 and Net Sharpe >= 1.40 under Class II transaction friction.
+plausible_rationale: Institutional liquidity providers defend prior displacement origin
+  zones when overlapping New York order flow enters the bullion market.
+entry_condition: On M5, price touches the H1 unmitigated gap zone [High[t-2], Low[t]]
+  (for Bullish) or [Low[t-2], High[t]] (for Bearish) between 12:00 and 16:00 UTC.
+exit_condition: Take profit at prior H1 displacement extreme, stop loss at 0.5x ATR
+  beyond gap boundary, or 4-hour max holding time.
+holding_period: 6 to 48 M5 bars (0.5 to 4.0 Hours)
+expected_effect: Net Sharpe >= 1.40, Net Profit Factor >= 1.35 under 2.5x slippage
+  stress.
+null_hypothesis: 'H_0: Mean net return of gap mitigation trades <= 0.0 (or Net Sharpe
+  <= 0.0).'
+alternative_hypothesis: 'H_1: Mean net return of gap mitigation trades is strictly
+  > 0.0 with DSR >= 0.95 and Bootstrap 95% CI lower bound > 0.0.'
+required_data: XAUUSD M5 and H1 historical OHLCV across 2020-2026 (v4.0.0).
+potential_confounders: FOMC / US CPI rate releases during 12:30-14:00 UTC causing
+  temporary spread spikes.
+transaction_cost_assumptions: 'Class II Profile: 20 pts nominal spread, 2.5x slippage
+  stress multiplier, 200ms latency.'
+research_status: CANDIDATE PROMOTED
+validation_profile:
+  class_id: CLASS-II
+  profile_name: INTRADAY-MOM_DEFAULT
+  description: Intraday Session & Momentum Validation Regime
+  primary_frequency: M5/M15/H1
+  typical_horizon: 2 - 12 Hours
+  min_trades: 400
+  min_observations: 15000
+  min_calendar_span_years: 3.0
+  min_effective_trades: 200
+  target_profit_factor: 1.35
+  target_sharpe: 1.4
+  dsr_hurdle: 0.95
+  wfe_target: 0.65
+  spread_multiplier: 2.0
+  slippage_multiplier: 2.5
+  latency_delay_ms: 200.0
+  swap_financing: false
+  embargo_bars: 20
+  default_oos_partition: 0.2

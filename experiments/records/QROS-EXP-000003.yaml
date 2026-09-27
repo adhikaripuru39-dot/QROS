@@ -1,0 +1,68 @@
+experiment_id: QROS-EXP-000003
+hypothesis_id: QROS-HYP-000003
+dataset_version: v2.0.0
+dataset_hash: 285540e3132dec5d60a248bf720eb6e5ca543856b09481b5610563ddc963740c
+research_period: 2018-11-14T00:00:00+00:00 to 2023-07-10T00:00:00+00:00
+training_period: 'Non-OOS Research Partitions (Tier 1: EDA & Tier 2: Train)'
+validation_period: 'Non-OOS Validation Partition (Tier 3: Val)'
+test_period: Protected Tier-4 OOS (LOCKED - UNTOUCHED)
+feature_definitions:
+  timeframe: D1
+  market_condition: Macro trend extension where Daily Close deviates > 3.0 standard
+    deviations from 50-day moving average
+  holding_window: 3 to 10 D1 bars (3 to 10 trading days)
+signal_definition: Daily closes exceeding 3.0 rolling standard deviations from the
+  50-day moving average exhibit statistical mean-reversion drift back toward the 20-day
+  mean over a 3 to 10 day horizon.
+entry_execution_rules: Daily close > MA(50) + 3.0 * Std(50) for short mean-reversion,
+  or Daily close < MA(50) - 3.0 * Std(50) for long mean-reversion.
+exit_execution_rules: Daily close crosses back across the 20-day moving average, or
+  time stop at 10 trading days, or stop loss at 1.5x entry ATR.
+holding_period_stats:
+  mean_holding_bars: 7.363636363636363
+  total_trades: 22.0
+direct_costs_fees:
+  base_spread_points: 20.0
+  spread_multiplier: 1.5
+  point_value: 0.01
+slippage_assumptions:
+  slippage_stress_multiplier: 1.5
+  execution_latency_ms: 0.0
+position_sizing_rules: Fixed 1.0 unit position size per discrete trade event.
+evaluation_metrics:
+  gross_profit_factor: 1.2325950799985643
+  net_profit_factor: 1.2084287873872126
+  net_annualized_sharpe: 1.0712306295141008
+  net_annualized_sortino: 1.381541814246134
+  effective_sample_size_neff: 14.28400692693168
+  historical_var_99: 0.0727458348719508
+  expected_shortfall_cvar_99: 0.0727458348719508
+statistical_tests:
+  t_statistic: 0.3165148217109365
+  p_value: 0.7547365662424571
+  dsr_score: 3.6041575158825243e-29
+  benchmark_sharpe_sr_star: 1.4458903407166466
+  bootstrap_ci_lower_95: -7.123934241281811
+  bootstrap_ci_upper_95: 7.282935417921882
+  cumulative_trial_k: 28
+result_summary:
+  passed_sample_power: false
+  passed_profit_factor: false
+  passed_sharpe: true
+  passed_dsr: false
+  passed_bootstrap_ci: false
+  overall_gate_pass: false
+  failure_reasons:
+  - 'Insufficient discrete trades: N=22 < 40'
+  - 'Insufficient effective trades: N_eff=14.3 < 30'
+  - 'Insufficient observations: T=1200 < 3000'
+  - 'Insufficient calendar span: Span=4.7y < 12.0y'
+  - 'Net Profit Factor failed: PF=1.21 < 1.50'
+  - 'DSR score failed: DSR=0.000 < 0.900 (K=28)'
+  - 'Bootstrap 95% CI lower bound is non-positive: CI_lower=-7.124 <= 0.0'
+conclusion: INCONCLUSIVE
+git_commit_hash: HEAD
+random_seed: 42
+author: QROS Quantitative Research Agent
+date_executed: 2026-08-15 02:47:28 UTC
+custom_metadata: {}

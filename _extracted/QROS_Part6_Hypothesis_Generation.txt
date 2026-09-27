@@ -1,0 +1,43 @@
+QROS INSTITUTIONAL QUANTITATIVE RESEARCH FRAMEWORK
+PART 6: HYPOTHESIS GENERATION FRAMEWORKInstitutional Anomaly Discovery, Microstructure Drivers &amp; Market Inefficiencies
+[HYPOTHESIS GENERATION MANDATE] Institutional alpha discovery relies on structural market friction, institutional constraints, and behavioral biases. This chapter teaches researchers how top quantitative hedge funds systematically discover economic edge.
+Chapter 1: The 15 Core Institutional Anomaly Mechanics
+To discover persistent market edge, researchers must ground hypotheses in structural mechanics rather than pattern matching.
+Anomaly Mechanism
+Why It Exists (Root Cause)
+When It Disappears / Decays
+How to Measure It
+Falsification Test
+Microstructure Liquidity Imbalance
+Market makers adjust quotes based on inventory imbalance and toxic order flow.
+When market maker competition increases or spread tightens to minimum tick.
+Order Flow Imbalance (OFI), L2 Quote Size Ratio.
+t-test on 1-sec mid-price return following extreme OFI.
+Dealer Gamma Pinning (GEX)
+Options market makers delta-hedge long/short gamma positions near large open interest strikes.
+At option expiration or when spot price breaks far outside gamma cluster bounds.
+Aggregated Net GEX by strike dollar value.
+Variance ratio test of spot returns near zero-gamma vs high-gamma strikes.
+ETF Creation/Redemption Flow
+Authorized Participants (APs) perform arbitrage between ETF market price and underlying basket NAV.
+When AP arbitrage latency drops or creation/redemption fees decrease.
+ETF NAV Premium/Discount spread and daily basket creation volume.
+Regression of 30-min basket return on AP flow trigger.
+End-of-Month Index Rebalancing
+Institutional passive funds forced to trade at market close to match benchmark weight shifts.
+When hedge funds front-run rebalance announcements fully.
+Projected rebalance dollar flow derived from constituent weight changes.
+Cross-sectional return anomaly on rebalance date close.
+Volatility Risk Premium (VRP)
+Investors pay a premium for index put options as tail risk insurance.
+During sustained low-volatility regimes or sudden volatility explosions.
+Difference between IV (VIX) and Realized Volatility (Garman-Klass).
+Long variance swap / delta-hedged short straddle return t-stat.
+Cross-Asset Interest Rate Spillover
+Global FX and equity flows react to sovereign yield curve shifts with time delay.
+When high-frequency algos co-locate cross-venue execution.
+Yield spread change (10Y US - 10Y Bund) vs FX spot return lead-lag.
+Granger Causality test of rate changes on FX return.
+Chapter 2: Structural Breaks, Black Swans &amp; Regime Shifts
+• Regime Discovery: Employ Hidden Markov Models (HMM) and Markov-Switching Vector Autoregressions (MS-VAR) to detect volatility and correlation regime switches.
+• Edge Falsification: If an edge vanishes under high-volatility regimes or elevated funding rates, it is an implicit short-volatility exposure, not true alpha.

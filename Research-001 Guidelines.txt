@@ -1,0 +1,613 @@
+QROS — PROJECT MANAGEMENT DIRECTIVE
+Mission ID: QROS-RESEARCH-001
+Mission Name
+Edge Discovery & Validation Standard
+Mission Owner
+QROS Project Owner
+Project Manager / Architecture Authority
+ChatGPT
+Execution Agent
+Antigravity
+Current Project State
+Research has not yet produced a confirmed market edge.
+Current Gate
+Pre-Edge / Research Development
+Mission Objective
+Establish a rigorous, reproducible, auditable Edge Discovery and Edge Validation framework for QROS.
+The purpose of this mission is NOT to discover a profitable strategy immediately.
+The purpose is to build the scientific and engineering infrastructure through which QROS can:
+observe market behavior,
+formulate hypotheses,
+test hypotheses,
+reject false hypotheses,
+identify promising effects,
+validate edge candidates,
+test robustness,
+promote only sufficiently validated candidates to confirmed edges.
+1. NON-NEGOTIABLE PRINCIPLE
+QROS must never manufacture an edge.
+The system must be capable of concluding:
+NO EDGE FOUND
+
+when the evidence does not support an edge.
+Do not relax standards because a research search produces poor results.
+Do not modify acceptance thresholds simply to produce a positive result.
+Do not optimize until a result becomes profitable merely for the purpose of obtaining an edge.
+Do not label a profitable backtest as a confirmed edge without passing the complete validation process.
+2. FIRST INSTRUCTION — INSPECT BEFORE MODIFYING
+Before creating or modifying anything:
+Inspect the entire existing QROS project.
+Determine:
+current directory structure
+existing documentation
+existing constitution
+existing stage documents
+research architecture
+existing engines
+existing modules
+existing data infrastructure
+existing datasets
+existing scripts
+existing notebooks
+existing configuration
+existing tests
+existing agent instructions
+existing research outputs
+existing edge-related work
+current implementation status
+Do not immediately begin coding.
+First produce an architectural assessment.
+3. CREATE A BASELINE REPORT
+Create:
+QROS-RESEARCH-001/
+    00_BASELINE_ASSESSMENT.md
+The report must answer:
+A. What already exists?
+B. What is incomplete?
+C. What is duplicated?
+D. What conflicts with the existing QROS architecture?
+E. What can be reused?
+F. What must be redesigned?
+G. What infrastructure is missing for serious edge research?
+H. What should NOT be built yet?
+4. DO NOT DESTROY EXISTING WORK
+Existing QROS work must be treated as potentially valuable unless demonstrated otherwise.
+Do not:
+delete existing modules,
+rewrite large portions of the system,
+rename structures unnecessarily,
+remove documentation,
+replace architecture merely because another implementation appears cleaner.
+If something is defective, document:
+CURRENT
+↓
+PROBLEM
+↓
+IMPACT
+↓
+PROPOSED CHANGE
+↓
+REASON
+Then make the smallest appropriate change.
+5. DEFINE "MARKET EDGE"
+Create:
+01_EDGE_DEFINITION.md
+QROS should define an edge as a repeatable conditional statistical/economic advantage that survives appropriate validation and realistic trading costs.
+The definition must distinguish:
+Observation
+Something appears to happen.
+Pattern
+A recurring descriptive relationship.
+Hypothesis
+A formally testable proposition.
+Effect
+A measurable statistical relationship.
+Edge Candidate
+An effect showing sufficient initial evidence to justify deeper validation.
+Confirmed Edge
+An effect satisfying all QROS validation requirements.
+Strategy
+A complete trading methodology constructed around one or more validated edges.
+These terms must never be used interchangeably.
+6. EDGE IS NOT EQUAL TO PROFIT
+Explicitly document that:
+Profitable backtest
+        ≠
+Market edge
+Also:
+High win rate
+        ≠
+Market edge
+High Sharpe
+        ≠
+Confirmed edge
+Pattern
+        ≠
+Edge
+Correlation
+        ≠
+Causation
+Statistical significance
+        ≠
+Economic significance
+7. CREATE THE HYPOTHESIS FRAMEWORK
+Create:
+02_HYPOTHESIS_FRAMEWORK.md
+Every research hypothesis must have a unique ID.
+Example:
+QROS-HYP-000001
+QROS-HYP-000002
+QROS-HYP-000003
+Each hypothesis must contain at minimum:
+Hypothesis ID
+Market
+Asset
+Timeframe
+Market condition
+Observation
+Hypothesis statement
+Expected mechanism
+Entry condition
+Exit condition
+Holding period
+Expected effect
+Null hypothesis
+Alternative hypothesis
+Required data
+Potential confounders
+Transaction-cost assumptions
+Research status
+8. HYPOTHESIS QUALITY STANDARD
+A hypothesis must be:
+Specific
+Not:
+"Gold tends to reverse."
+
+Instead:
+A precisely defined condition produces a measurable directional distribution under specified market conditions.
+
+Falsifiable
+There must be a result that can prove it wrong.
+Mechanically testable
+Another researcher should be able to reproduce the test.
+Time-bounded
+Define when the behavior is expected to occur.
+Condition-bounded
+Define the market conditions.
+Quantifiable
+The expected effect must be measurable.
+9. BUILD THE RESEARCH SEARCH SPACE
+Create:
+03_RESEARCH_SEARCH_SPACE.md
+The research universe should be structured around dimensions such as:
+Market
+XAUUSD
+major FX
+indices
+other approved instruments
+Time
+session
+session transition
+day of week
+month
+market open/close
+Price Structure
+highs/lows
+ranges
+breakouts
+displacement
+gaps
+compression
+expansion
+swing structure
+Volatility
+ATR
+realized volatility
+volatility regimes
+volatility expansion
+volatility contraction
+Momentum
+directional persistence
+acceleration
+exhaustion
+momentum reversal
+Mean Reversion
+deviations
+extreme movements
+range boundaries
+statistical distance
+Regime
+trending
+ranging
+high volatility
+low volatility
+transition
+Liquidity Proxies
+spread
+volume where available
+session liquidity
+range expansion
+price reaction around structural levels
+Event Context
+Where reliable event data is available and legally/technically usable.
+10. DO NOT BECOME INDICATOR-DRIVEN
+This is a critical requirement.
+QROS research must not simply generate:
+EMA combinations
+RSI combinations
+MACD combinations
+Bollinger combinations
+and call the best-performing combination an edge.
+Indicators may be used as features, but the research question must concern a market behavior or conditional distribution.
+11. RESEARCH EXPERIMENT STANDARD
+Create:
+04_EXPERIMENT_PROTOCOL.md
+Every experiment must define:
+Experiment ID
+Hypothesis ID
+Dataset version
+Research period
+Training period
+Validation period
+Test period
+Feature definitions
+Signal definition
+Entry
+Exit
+Holding period
+Costs
+Slippage assumptions
+Position assumptions
+Evaluation metrics
+Statistical tests
+Result
+Conclusion
+No undocumented experiment should be considered valid QROS research.
+12. DATA LEAKAGE PREVENTION
+Create a dedicated section for leakage prevention.
+The system must detect/prevent:
+future information entering features,
+future bars influencing signals,
+look-ahead bias,
+improperly aligned timestamps,
+survivorship bias,
+selection bias,
+training/test contamination,
+normalization using future information,
+parameter selection using the final test set.
+If there is uncertainty, the conservative interpretation must be used.
+13. DATA SPLITTING
+QROS research should distinguish:
+Research / Discovery
+        ↓
+Development
+        ↓
+Validation
+        ↓
+Final Out-of-Sample Test
+The final test set must remain protected from iterative optimization.
+The system must record when data has been used for hypothesis development.
+14. TRANSACTION COSTS
+Every trading hypothesis must eventually be tested under realistic assumptions.
+At minimum consider:
+spread
+commission
+slippage
+execution delay
+entry price assumptions
+exit price assumptions
+Do not permit:
+gross backtest profitability
+
+to be interpreted as:
+tradable profitability.
+
+15. STATISTICAL VALIDATION
+Create:
+05_STATISTICAL_VALIDATION_STANDARD.md
+The framework should consider:
+sample size
+effect size
+variance
+confidence intervals
+statistical significance
+bootstrap/resampling where appropriate
+distributional analysis
+multiple testing
+false discovery risk
+dependence/autocorrelation where relevant
+Do not rely exclusively on p-values.
+A statistically significant but economically trivial effect is not automatically an edge.
+16. MULTIPLE TESTING
+This is mandatory.
+The system must track:
+Total hypotheses generated
+Total hypotheses tested
+Total feature combinations
+Total parameter combinations
+Total rejected hypotheses
+Total promising hypotheses
+Total candidates
+Total confirmed edges
+Research results must retain enough metadata to identify the degree of experimentation that produced them.
+QROS must not hide unsuccessful experiments.
+17. EDGE CANDIDATE STANDARD
+Create:
+06_EDGE_CANDIDATE_STANDARD.md
+A candidate should only be promoted when it demonstrates sufficient initial evidence.
+The candidate must have:
+clearly defined conditions,
+reproducible methodology,
+sufficient observations,
+positive effect after costs where applicable,
+plausible economic mechanism,
+acceptable statistical evidence,
+no known leakage,
+documented research history.
+Candidate ≠ confirmed edge.
+18. ROBUSTNESS VALIDATION
+Create:
+07_ROBUSTNESS_STANDARD.md
+A candidate must eventually be tested against reasonable variations.
+Examples:
+Time variation
+Does the effect exist across different periods?
+Regime variation
+Does it survive different volatility/trend environments?
+Parameter variation
+Does a tiny parameter change destroy the effect?
+Cost variation
+Does increased slippage eliminate the result?
+Market variation
+Where theoretically appropriate, does related-market behavior support the mechanism?
+Walk-forward
+Does the relationship persist when tested sequentially through time?
+Monte Carlo / resampling
+Where appropriate, determine whether observed performance could plausibly arise from randomness.
+19. EDGE STATUS MACHINE
+Create:
+08_EDGE_STATUS_MACHINE.md
+Use:
+OBSERVATION
+     ↓
+HYPOTHESIS
+     ↓
+TESTED
+     ↓
+REJECTED
+
+or
+
+PROMISING
+     ↓
+EDGE CANDIDATE
+     ↓
+ROBUSTNESS PENDING
+     ↓
+CONFIRMED EDGE
+     ↓
+ACTIVE / MONITORED
+     ↓
+INVALIDATED
+No stage may be skipped without explicit documented justification.
+20. EDGE REGISTRY
+Create the conceptual and technical specification for:
+EDGE_REGISTRY
+Every edge candidate must have a permanent ID.
+Example:
+QROS-EDGE-000001
+The registry should record:
+Edge ID
+Hypothesis ID
+Market
+Timeframe
+Definition
+Mechanism
+Dataset
+Research history
+Sample size
+Gross result
+Net result
+Costs
+Statistical results
+OOS results
+Robustness results
+Regime results
+Status
+Version
+Creation date
+Last validation
+Invalidation criteria
+21. EDGE INVALIDATION
+This is essential.
+Every confirmed edge must have conditions under which it becomes invalid.
+Examples:
+Expected effect disappears
+Expected value falls below threshold
+Market regime changes
+Transaction costs become prohibitive
+OOS degradation exceeds tolerance
+Structural mechanism is invalidated
+A confirmed edge is therefore not immortal.
+22. EDGE → MODULE RULE
+Document this explicitly.
+Confirmed Edge
+      ↓
+Edge Specification
+      ↓
+Edge Module
+But:
+One edge does not automatically equal one complete trading strategy.
+
+A strategy may combine multiple validated edges.
+Similarly:
+One engine may contain multiple modules.
+
+Maintain separation between:
+Edge
+Economic/statistical advantage.
+Module
+Software implementation.
+Strategy
+Trading decision architecture.
+Engine
+Functional software subsystem.
+Portfolio
+Combination and allocation of strategies.
+23. WHAT ANTIGRAVITY MUST NOT BUILD DURING THIS MISSION
+Unless existing infrastructure requires it, do NOT build:
+live trading engine
+broker execution system
+portfolio optimizer
+production risk engine
+autonomous money-management system
+prop-firm deployment system
+production HFT engine
+automated strategy deployment
+"profitable strategy generator"
+The purpose of this mission is research infrastructure and standards.
+24. RESEARCH FAILURE PROTOCOL
+Create:
+09_RESEARCH_FAILURE_PROTOCOL.md
+If no edge is found:
+NO EDGE
+   ↓
+Check data quality
+   ↓
+Check research universe
+   ↓
+Check hypothesis quality
+   ↓
+Check feature construction
+   ↓
+Check statistical power
+   ↓
+Check costs
+   ↓
+Check regime coverage
+   ↓
+Determine next research direction
+Never:
+No edge
+ ↓
+Lower standards
+ ↓
+Overfit
+ ↓
+Declare edge
+25. REQUIRED DOCUMENTATION
+At the end of this mission, QROS should have a coherent documentation set approximately like:
+QROS/
+│
+├── governance/
+│
+├── research/
+│   │
+│   ├── edge/
+│   │   ├── 01_EDGE_DEFINITION.md
+│   │   ├── 02_HYPOTHESIS_FRAMEWORK.md
+│   │   ├── 03_RESEARCH_SEARCH_SPACE.md
+│   │   ├── 04_EXPERIMENT_PROTOCOL.md
+│   │   ├── 05_STATISTICAL_VALIDATION_STANDARD.md
+│   │   ├── 06_EDGE_CANDIDATE_STANDARD.md
+│   │   ├── 07_ROBUSTNESS_STANDARD.md
+│   │   ├── 08_EDGE_STATUS_MACHINE.md
+│   │   └── 09_RESEARCH_FAILURE_PROTOCOL.md
+│   │
+│   ├── registry/
+│   │   └── EDGE_REGISTRY
+│   │
+│   └── experiments/
+│
+└── ...
+Do not blindly create this exact directory structure if the existing QROS architecture already has an appropriate structure.
+Integrate intelligently.
+26. ACCEPTANCE CRITERIA
+Mission QROS-RESEARCH-001 passes only when:
+AC-01
+Existing QROS architecture has been inspected.
+AC-02
+Baseline assessment is documented.
+AC-03
+QROS has an explicit definition of edge.
+AC-04
+Observation, hypothesis, effect, candidate, confirmed edge and strategy are clearly distinguished.
+AC-05
+Hypothesis generation is formally defined.
+AC-06
+Research search space is formally defined.
+AC-07
+Experiments are reproducible.
+AC-08
+Data leakage controls are documented.
+AC-09
+Multiple testing is addressed.
+AC-10
+Transaction costs are incorporated.
+AC-11
+Out-of-sample validation is defined.
+AC-12
+Robustness testing is defined.
+AC-13
+Edge promotion criteria are defined.
+AC-14
+Edge invalidation criteria are defined.
+AC-15
+Edge Registry specification exists.
+AC-16
+Research failures are retained and documented.
+AC-17
+No production trading engine is unnecessarily built as part of this mission.
+AC-18
+All work is reproducible and documented.
+27. FINAL REPORT TO QROS PROJECT MANAGER
+When finished, Antigravity must not simply say "completed."
+It must produce:
+QROS-RESEARCH-001-FINAL-REPORT.md
+with:
+1. Executive Summary
+2. Existing Architecture Assessment
+3. Work Completed
+4. Files Created
+5. Files Modified
+6. Files Removed
+If any — with justification.
+7. Research Architecture
+8. Edge Definition
+9. Validation Framework
+10. Testing Performed
+11. Problems Encountered
+12. Unresolved Issues
+13. Technical Debt
+14. Recommendations
+15. Acceptance Criteria Checklist
+Use:
+[PASS]
+[FAIL]
+[PARTIAL]
+[NOT APPLICABLE]
+for every acceptance criterion.
+16. Proposed Next Mission
+Do not independently authorize the next mission.
+Only recommend it.
+28. MOST IMPORTANT AGENT RULE
+Antigravity must distinguish between:
+Implementation decision
+
+and
+Architecture decision
+
+It may make implementation decisions within the approved architecture.
+It must flag major architectural changes rather than silently making them.
+29. FINAL COMMAND TO ANTIGRAVITY
+Execute this mission as a research-engineering project, not as a conventional coding task.
+Prioritize:
+correctness > reproducibility > scientific validity > architectural integrity > maintainability > speed.
+Do not optimize for the appearance of progress.
+Do not manufacture positive results.
+Do not hide negative results.
+Do not call a pattern an edge without evidence.
+Do not call a candidate confirmed without passing the defined validation gates.
+Do not build production trading infrastructure before QROS has a validated reason to use it.
+When uncertain about an architectural decision, document the uncertainty rather than silently guessing.
+Inspect first. Design second. Implement third. Test fourth. Report fifth.

@@ -1,0 +1,31 @@
+QROS INSTITUTIONAL QUANTITATIVE RESEARCH FRAMEWORK
+PART 10: EDGE DISCOVERY FRAMEWORKDistinguishing Genuine Alpha from Curve-Fitting, Random Noise &amp; Luck
+[EDGE DISCOVERY MANDATE] A market edge is a statistically persistent, economically justified positive expected return after all transaction costs, market impact, and funding fees. Distinguishing real edge from random luck is the ultimate goal of the research division.
+Chapter 1: Edge Classification Taxonomy
+Edge Category
+Structural Driver
+Decay Half-Life
+Institutional Verification Metric
+Structural Edge
+Regulatory mandates, exchange rule mechanics, ETF basket creation/redemption bounds.
+Multi-year / Long-term persistence
+Cointegration test (Engle-Granger) with p-value &lt; 0.001.
+Behavioral Edge
+Persistent human cognitive biases (loss aversion, overreaction, disposition effect).
+Months to years (decays slowly as algorithmic share grows)
+Cross-sectional momentum t-stat &gt; 3.5 across 20-year sample.
+Execution / Microstructure Edge
+Co-location speed, queue priority positioning, low-latency market maker inventory management.
+Sub-second to milliseconds (decays as market hardware improves)
+Execution fill rate advantage over public NBBO.
+Statistical Arbitrage Edge
+Mean-reversion of cointegrated asset pairs or cross-sectional factor spreads.
+Weeks to months
+Half-life of mean reversion (Ornstein-Uhlenbeck tau &lt; 5 days).
+Chapter 2: Real Edge vs. False Edge Audit Framework
+To prevent approving curve-fitted strategies, every candidate signal is evaluated against 5 False Edge diagnostics:
+• 1. Curve-Fitting / Overfitting: Detected when performance drops drastically under slight parameter perturbations (+/- 10%).
+• 2. Data Mining / Snooping: Detected when DSR (Deflated Sharpe Ratio) fails after adjusting for total tested trial count.
+• 3. Coincidence / Luck: Detected when Signal-to-Noise Ratio (SNR) is statistically indistinguishable from zero under Permutation Testing.
+• 4. Execution Mirage: Edge disappears once Level 2 order book spread costs and square-root market impact are subtracted.
+• 5. Capacity Bottleneck: Edge exists only for trivial trade sizes (&lt; $10,000) and cannot scale to institutional capital ($50M+).

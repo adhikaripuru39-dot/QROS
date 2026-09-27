@@ -1,0 +1,28 @@
+QROS INSTITUTIONAL QUANTITATIVE RESEARCH FRAMEWORK
+PART 8: STATISTICAL RESEARCH METHODOLOGY HANDBOOKFrequentist/Bayesian Inference, Multiple Testing Corrections &amp; P-Hacking Mitigations
+[STATISTICAL METHODOLOGY MANDATE] Statistical rigor is the foundation of institutional edge validation. Every empirical finding must be subjected to rigorous multiple testing adjustments, non-parametric bootstrapping, and P-hacking tests.
+Chapter 1: Statistical Inference &amp; Multiple Testing Corrections
+When testing hundreds of alpha signals across thousands of parameters, standard p-value thresholds (p &lt; 0.05) yield hundreds of false discoveries. The research division enforces strict multiple testing corrections.
+Methodology
+Mathematical Formulation
+Institutional Standard &amp; Threshold
+Application Domain
+Deflated Sharpe Ratio (DSR)
+DSR = P(SR &gt; SR0 | N_trials, skew, kurt)
+DSR p-value &lt; 0.01 required for backtest acceptance.
+Evaluating backtest Sharpe ratio subject to trial count N.
+False Discovery Rate (FDR - BH)
+P_{(i)} &lt;= (i / N) * q*
+Target FDR q* &lt;= 0.05 across feature candidate pool.
+Screening cross-sectional factor universes.
+Family-Wise Error Rate (FWER - Holm)
+p_{(i)} &lt;= alpha / (N - i + 1)
+Strict control against any false positive (alpha = 0.01).
+Confirmatory hypothesis testing for capital allocation.
+Combinatorial Purged CV (CPCV)
+Purging gap = max_holding; Embargo = 1% total sample
+Number of paths N_paths &gt;= 16; Probability of Backtest Overfitting (PBO) &lt; 0.10.
+Cross-validation scheme for non-IID financial time series.
+Chapter 2: Resampling &amp; Non-Parametric Robustness Testing
+• Stationary Bootstrap (Politis &amp; Romano): Resample return blocks with random block lengths following a geometric distribution to preserve autocorrelation structure.
+• Permutation Tests: Randomly shuffle feature series 10,000 times while keeping return targets fixed to construct empirical null distributions.

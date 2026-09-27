@@ -1,0 +1,295 @@
+QROS: Institutional Algorithmic Trading Platform
+Research, Engineering, and Operations Handbook
+Volume I – Foundations of Quantitative Intelligence
+Part V – Data Engineering Foundations
+Chapter 9 Data Engineering
+Building the Foundation of Quantitative Intelligence
+Estimated Length: 150–200 pages
+Chapter Objective
+By the end of this chapter, the reader should understand:
+Why data is the most valuable asset in quantitative finance.
+The different categories of financial market data.
+How institutional firms build data pipelines.
+How QROS acquires, validates, stores, versions, and serves data.
+Why data governance is as important as strategy development.
+The architecture of the QROS Data Platform.
+Opening Thought
+Many retail traders believe their greatest asset is a profitable strategy.
+Institutional quantitative firms know better.
+Their greatest asset is their data.
+Strategies come and go.
+Models become obsolete.
+Researchers leave.
+Markets evolve.
+But a well-managed historical dataset, properly documented and continuously maintained, becomes more valuable every year because it enables new research, better validation, and reproducible results.
+QROS therefore treats data not as a by-product of trading, but as a strategic asset that underpins every decision.
+9.1 The Role of Data in QROS
+Every component of QROS depends on data.
+External Sources
+│
+▼
+Data Acquisition Layer
+│
+▼
+Data Validation Layer
+│
+▼
+Data Storage Layer
+│
+▼
+Feature Engineering Layer
+│
+▼
+Research &amp; AI Engines
+│
+▼
+Strategy Development Layer
+│
+▼
+Backtesting &amp; Risk Assessment
+│
+▼
+Live Trading &amp; Monitoring
+A failure in the data layer propagates through every other component.
+Incorrect data leads to incorrect features.
+Incorrect features lead to incorrect models.
+Incorrect models lead to poor trading decisions.
+This is the classic Garbage In, Garbage Out (GIGO) problem.
+9.2 What Is Data Engineering?
+Data engineering is the discipline of designing systems that reliably collect, process, validate, store, and deliver data for analytical use.
+Within QROS, the Data Engineering Layer is responsible for ensuring that researchers never need to wonder:
+Is this dataset complete?
+Is it accurate?
+Has it been modified?
+Which version am I using?
+Can another researcher reproduce my results?
+If those questions cannot be answered confidently, the research itself cannot be trusted.
+9.3 Principles of the QROS Data Platform
+Every data-related decision should follow these principles:
+1. Accuracy
+Data must reflect the market as faithfully as possible.
+2. Reproducibility
+The same analysis should produce the same result when repeated on the same dataset.
+3. Traceability
+Every dataset must record:
+Source
+Download time
+Version
+Time zone
+Processing history
+4. Automation
+Manual processing should be minimized.
+5. Scalability
+The system should support:
+Millions of rows today.
+Billions of rows tomorrow.
+6. Security
+Raw data should remain protected against accidental modification.
+7. Auditability
+Every transformation should leave a documented audit trail.
+These principles form the constitution of the QROS Data Platform.
+9.4 Types of Financial Data
+Financial markets generate many forms of information.
+QROS classifies them into the following categories.
+Market Data
+Examples:
+Tick data
+OHLCV candles
+Bid prices
+Ask prices
+Spreads
+Purpose:
+Forms the foundation of price-based research.
+Economic Data
+Examples:
+CPI
+PPI
+GDP
+Employment reports
+Interest rates
+Central bank decisions
+Purpose:
+Supports macroeconomic and event-driven strategies.
+Alternative Data
+Examples:
+News sentiment
+Social media trends
+Satellite imagery
+Shipping activity
+Commodity inventories
+Purpose:
+Provides additional information beyond price alone.
+Execution Data
+Examples:
+Fill price
+Slippage
+Latency
+Partial fills
+Rejections
+Purpose:
+Evaluates execution quality.
+Strategy Data
+Examples:
+Signals
+Entry decisions
+Exit decisions
+Position size
+Trade duration
+Purpose:
+Documents strategy behavior.
+Risk Data
+Examples:
+Drawdown
+Exposure
+Margin usage
+Value at Risk
+Daily loss
+Purpose:
+Supports risk monitoring and governance.
+9.5 The Data Lifecycle
+Data does not simply appear in a database.
+It progresses through a structured lifecycle.
+Source
+↓
+Collection
+↓
+Validation
+↓
+Cleaning
+↓
+Transformation
+↓
+Storage
+↓
+Versioning
+↓
+Research
+↓
+Archival
+Every stage must be documented.
+9.6 Data Sources for QROS
+The first production version of QROS should prioritize trusted and well-documented sources.
+Market Data
+MetaTrader 5 (historical and live)
+Broker feeds
+Exchange APIs (where applicable)
+Economic Data
+Official government statistical agencies
+Central bank publications
+Reliable economic calendar providers
+Market Structure Data
+Trading sessions
+Holiday calendars
+Instrument specifications
+Later versions may integrate additional sources, but each new source should undergo a quality assessment before being used in research.
+9.7 Data Quality Framework
+Every incoming dataset should pass automated validation checks.
+Minimum checks include:
+Completeness
+Are expected records present?
+Consistency
+Do timestamps follow the expected interval?
+Validity
+Are values within plausible ranges?
+Uniqueness
+Are duplicate records present?
+Integrity
+Do relationships between fields remain valid?
+Timeliness
+Was the dataset updated on schedule?
+If any critical validation fails, the data should be quarantined until reviewed.
+9.8 Data Storage Philosophy
+QROS separates data according to its purpose.
+Raw Data
+│
+├── Never modified
+│
+Processed Data
+│
+├── Cleaned
+│
+Feature Store
+│
+├── Engineered variables
+│
+Research Datasets
+│
+├── Version-specific snapshots
+│
+Production Data
+This separation ensures that original observations are always preserved.
+9.9 Metadata
+Metadata is often described as "data about data."
+For every dataset, QROS should record:
+Dataset name
+Source
+Instrument
+Timeframe
+Time zone
+Download timestamp
+Version
+Validation status
+Processing history
+Responsible researcher
+Without metadata, datasets quickly become difficult to interpret or reproduce.
+9.10 Data Versioning
+Suppose you download historical gold data today and again six months later.
+The files may differ because:
+Missing records were corrected.
+Broker history changed.
+Time zone settings were updated.
+QROS therefore versions datasets.
+Instead of replacing old data, new versions are stored alongside previous ones with clear identifiers and change logs.
+This enables reproducibility and comparison across research projects.
+9.11 Data Governance
+Data governance defines who may:
+Access data.
+Modify data.
+Approve new datasets.
+Archive obsolete datasets.
+Validate quality issues.
+As QROS grows, governance becomes essential for maintaining trust in the research process.
+9.12 Common Data Engineering Mistakes
+Many research failures originate long before model development.
+Examples include:
+Mixing time zones without documentation.
+Ignoring daylight saving time changes.
+Using adjusted and unadjusted prices interchangeably.
+Deleting missing values without investigation.
+Overwriting raw data.
+Building features using future information.
+Failing to document data transformations.
+Avoiding these mistakes is often more valuable than developing increasingly complex models.
+Chapter Summary
+Data is the foundation upon which every component of QROS depends. Reliable research requires reliable data, and reliable data requires disciplined engineering practices.
+By treating datasets as managed assets—complete with validation, metadata, versioning, governance, and audit trails—QROS creates an environment where research can be trusted, reproduced, and extended over time.
+QROS Engineering Specification
+Data Quality Gate (DQG-1)
+A dataset may enter the research environment only if it satisfies the following requirements:
+Source documented.
+Time zone documented.
+Validation completed.
+Missing data assessed.
+Duplicate records removed or justified.
+Metadata generated.
+Version assigned.
+Audit record created.
+Datasets that fail any mandatory requirement are rejected until corrected.
+Practical Exercise
+Create a Data Inventory Register for XAUUSD.
+Include:
+Market price data.
+Tick data.
+Economic calendar data.
+Trading session calendar.
+Instrument specifications.
+Spread history.
+Execution logs.
+For each dataset, record:
+Source.
+Update frequency.
+Storage location.
+Validation status.
+Responsible owner.
+Version number.
+This register will become the first operational artifact of the QROS Data Platform.

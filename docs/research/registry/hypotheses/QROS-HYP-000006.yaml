@@ -1,0 +1,59 @@
+hypothesis_id: QROS-HYP-000006
+market: COMMODITIES
+asset: XAUUSD
+timeframe: H1
+research_class: CLASS-III
+market_condition: Hourly breakout aligned with Daily 50-day Macro Moving Average trend
+  direction
+observation: 'Stylized Fact QROS-OBS-022 & Pattern QROS-PAT-006: H1 24-period breakouts
+  aligned with D1 50-day trend direction produce positive 8-hour forward drift across
+  non-OOS data (N=84, p = 0.012).'
+hypothesis_statement: H1 24-bar high/low breakouts that strictly align with the higher-timeframe
+  Daily macro trend (D1 Close > MA50) exhibit positive directional drift over an 8
+  to 24 hour holding window.
+plausible_rationale: Higher-timeframe macro trend alignment filters out false consolidation
+  whipsaws by ensuring lower-timeframe breakout momentum flows in the direction of
+  institutional macro positioning.
+entry_condition: H1 Close > 24-bar High AND D1 Close > 50-Day MA (Long); H1 Close
+  < 24-bar Low AND D1 Close < 50-Day MA (Short).
+exit_condition: Exit after 16 H1 bars (16 hours), or trailing stop at 2.0x ATR(24).
+holding_period: 8 to 24 H1 bars (8 to 24 hours)
+expected_effect: Net annualized Sharpe >= 1.20, Profit Factor >= 1.30 under Class
+  III swing hurdles.
+null_hypothesis: 'H_0: Mean net return of trend-aligned H1 breakouts is <= 0.0.'
+alternative_hypothesis: 'H_1: Mean net return of trend-aligned H1 breakouts is strictly
+  > 0.0 with DSR >= 0.95.'
+required_data: XAUUSD H1 and D1 aligned datasets covering continuous non-OOS history.
+potential_confounders: Abrupt macro reversal days where D1 trend breaks simultaneously
+  with H1 breakout.
+transaction_cost_assumptions: 'Class III Profile: 20 pts spread, 2.0x slippage multiplier,
+  0ms latency buffer.'
+research_status: DATA INSUFFICIENT
+title: Cross-Timeframe Macro Trend Filtered Intraday Momentum
+author: QROS Quantitative Research Team
+date_created: '2026-08-15'
+validation_profile:
+  class_id: CLASS-III
+  profile_name: SWING-STATARB_DEFAULT
+  description: Swing & Multi-Day Statistical Arbitrage Validation Regime
+  primary_frequency: H1/H4/D1
+  typical_horizon: "1 \u2013 5 Days"
+  min_trades: 150
+  min_observations: 5000
+  min_calendar_span_years: 5.0
+  min_effective_trades: 80
+  target_profit_factor: 1.3
+  target_sharpe: 1.2
+  dsr_hurdle: 0.95
+  wfe_target: 0.6
+  perturbation_grid:
+  - 0.2
+  - 0.3
+  spread_multiplier: 1.5
+  slippage_multiplier: 2.0
+  latency_delay_ms: 0.0
+  swap_financing: true
+  embargo_bars: 10
+  default_oos_partition: 0.2
+  custom_overrides: {}
+custom_metadata: {}

@@ -1,0 +1,61 @@
+hypothesis_id: QROS-HYP-000003
+market: COMMODITIES
+asset: XAUUSD
+timeframe: D1
+research_class: CLASS-IV
+market_condition: Macro trend extension where Daily Close deviates > 3.0 standard
+  deviations from 50-day moving average
+observation: 'Stylized Fact QROS-OBS-001, QROS-OBS-006, & QROS-OBS-014: Gold return
+  distributions exhibit severe kurtosis (8.91) and Ornstein-Uhlenbeck mean-reversion
+  forces when price stretches to extreme standard deviations.'
+hypothesis_statement: Daily closes exceeding 3.0 rolling standard deviations from
+  the 50-day moving average exhibit statistical mean-reversion drift back toward the
+  20-day mean over a 3 to 10 day horizon.
+plausible_rationale: Overextended price moves exhaust aggressive speculative buying/selling
+  power, prompting institutional profit-taking and inventory rebalancing by bullion
+  market makers.
+entry_condition: Daily close > MA(50) + 3.0 * Std(50) for short mean-reversion, or
+  Daily close < MA(50) - 3.0 * Std(50) for long mean-reversion.
+exit_condition: Daily close crosses back across the 20-day moving average, or time
+  stop at 10 trading days, or stop loss at 1.5x entry ATR.
+holding_period: 3 to 10 D1 bars (3 to 10 trading days)
+expected_effect: Net annualized Sharpe >= 1.00, Profit Factor >= 1.25 under Class
+  IV macro hurdles.
+null_hypothesis: 'H_0: Mean return of extreme deviation trades is <= 0.0.'
+alternative_hypothesis: 'H_1: Mean return of extreme deviation trades is strictly
+  > 0.0 with DSR >= 0.95.'
+required_data: 'XAUUSD D1 historical dataset (N >= 40 events over multiple macro cycles).
+  Note: Available D1 history is currently exploratory.'
+potential_confounders: Structural regime breaks, sudden geopolitical war escalations,
+  or sovereign debt crises triggering runaway multi-week parabolic trends.
+transaction_cost_assumptions: 'Class IV Profile: 20 pts spread, 1.5x slippage multiplier,
+  0ms latency buffer.'
+research_status: REJECTED
+title: Macro Mean Reversion Following 3-Sigma Daily Return Extensions
+author: QROS Quantitative Research Team
+date_created: '2026-08-15'
+validation_profile:
+  class_id: CLASS-IV
+  profile_name: MACRO-REGIME_DEFAULT
+  description: Macro & Structural Regime Validation Regime
+  primary_frequency: D1/W1
+  typical_horizon: "Weeks \u2013 Months"
+  min_trades: 40
+  min_observations: 3000
+  min_calendar_span_years: 12.0
+  min_effective_trades: 30
+  target_profit_factor: 1.5
+  target_sharpe: 1.0
+  dsr_hurdle: 0.9
+  wfe_target: 0.55
+  perturbation_grid:
+  - 0.25
+  - 0.4
+  spread_multiplier: 1.5
+  slippage_multiplier: 1.5
+  latency_delay_ms: 0.0
+  swap_financing: true
+  embargo_bars: 2
+  default_oos_partition: 0.2
+  custom_overrides: {}
+custom_metadata: {}

@@ -1,0 +1,699 @@
+{
+  "QROS-DATA-XAUUSD-M5-v1.0.0": {
+    "dataset_id": "QROS-DATA-XAUUSD-M5-v1.0.0",
+    "asset": "XAUUSD",
+    "timeframe": "M5",
+    "dataset_version": "v1.0.0",
+    "total_bars": 5000,
+    "calendar_span_years": 0.06805650619818998,
+    "full_dataset_sha256": "6535a29b89932e2869cfe3af70dfe344c372333f37a870b7ad347bbbea3da269",
+    "partitions": {
+      "tier_1_eda": {
+        "tier_name": "Tier 1: Discovery / EDA",
+        "bar_count": 1000,
+        "percentage": 0.2,
+        "start_time_utc": "2026-07-21T02:20:00+00:00",
+        "end_time_utc": "2026-07-24T19:35:00+00:00",
+        "partition_sha256": "7f1d08ca8f77362f9683ede8e82cf7f9595fabe7dc28648645334d0a241c8528",
+        "is_vaulted_oos": false
+      },
+      "tier_2_train": {
+        "tier_name": "Tier 2: In-Sample Training",
+        "bar_count": 2000,
+        "percentage": 0.4,
+        "start_time_utc": "2026-07-24T19:40:00+00:00",
+        "end_time_utc": "2026-08-05T10:15:00+00:00",
+        "partition_sha256": "36d0b165d0165dae6e6c7e72345ec176f64bcdf3ed5cd732527219c4039548de",
+        "is_vaulted_oos": false
+      },
+      "tier_3_val": {
+        "tier_name": "Tier 3: Validation / Tuning",
+        "bar_count": 1000,
+        "percentage": 0.2,
+        "start_time_utc": "2026-08-05T10:20:00+00:00",
+        "end_time_utc": "2026-08-11T05:35:00+00:00",
+        "partition_sha256": "aba9302ab18cb2c9b0ebaa36ec0cbcc8e5a1739ba54ef6a8babeb51953fc557a",
+        "is_vaulted_oos": false
+      },
+      "tier_4_oos": {
+        "tier_name": "Tier 4: Protected Out-of-Sample",
+        "bar_count": 1000,
+        "percentage": 0.2,
+        "start_time_utc": "2026-08-11T05:40:00+00:00",
+        "end_time_utc": "2026-08-14T22:55:00+00:00",
+        "partition_sha256": "802e6a36f78c7ec16cc5a5cd0eb55f780b8251e31eb64be60b61611c4097ad8a",
+        "is_vaulted_oos": true
+      }
+    },
+    "source_metadata": {
+      "source": "MetaTrader5",
+      "symbol": "XAUUSD",
+      "timeframe": "M5",
+      "broker": "MetaQuotes Ltd.",
+      "terminal_build": 6104,
+      "digits": 2,
+      "point_size": 0.01,
+      "total_bars_fetched": 5000,
+      "acquisition_time_utc": "2026-08-15T02:07:08.534025+00:00"
+    },
+    "quality_approval_status": "APPROVED",
+    "git_commit_hash": "ea306eee425d9ace2743225319bc91fe800c4d2b",
+    "date_registered_utc": "2026-08-15T02:07:09.994732+00:00"
+  },
+  "QROS-DATA-XAUUSD-H1-v1.0.0": {
+    "dataset_id": "QROS-DATA-XAUUSD-H1-v1.0.0",
+    "asset": "XAUUSD",
+    "timeframe": "H1",
+    "dataset_version": "v1.0.0",
+    "total_bars": 5000,
+    "calendar_span_years": 0.8636778462240474,
+    "full_dataset_sha256": "1b57584875e23a43dcf4595265442f819230d68808cba2373e94077e27e352c6",
+    "partitions": {
+      "tier_1_eda": {
+        "tier_name": "Tier 1: Discovery / EDA",
+        "bar_count": 1000,
+        "percentage": 0.2,
+        "start_time_utc": "2025-10-03T11:00:00+00:00",
+        "end_time_utc": "2025-12-04T01:00:00+00:00",
+        "partition_sha256": "4a6c30addbe6b2eb7874aa8723b99b9bec0cc459c2287488d97cca165950c4b9",
+        "is_vaulted_oos": false
+      },
+      "tier_2_train": {
+        "tier_name": "Tier 2: In-Sample Training",
+        "bar_count": 2000,
+        "percentage": 0.4,
+        "start_time_utc": "2025-12-04T02:00:00+00:00",
+        "end_time_utc": "2026-04-09T19:00:00+00:00",
+        "partition_sha256": "b1bbb699ee09c684ab645740396f11494eea6f474341548acf7214c4e0651bf1",
+        "is_vaulted_oos": false
+      },
+      "tier_3_val": {
+        "tier_name": "Tier 3: Validation / Tuning",
+        "bar_count": 1000,
+        "percentage": 0.2,
+        "start_time_utc": "2026-04-09T20:00:00+00:00",
+        "end_time_utc": "2026-06-12T08:00:00+00:00",
+        "partition_sha256": "8b92ec4482950c8d291a0c52a51dd42efaf38c5e28d5e6b372ade0fd0214ba2f",
+        "is_vaulted_oos": false
+      },
+      "tier_4_oos": {
+        "tier_name": "Tier 4: Protected Out-of-Sample",
+        "bar_count": 1000,
+        "percentage": 0.2,
+        "start_time_utc": "2026-06-12T09:00:00+00:00",
+        "end_time_utc": "2026-08-14T22:00:00+00:00",
+        "partition_sha256": "6123fa524941d754643195291957fa22bed540f14d794f8a402bf62978efdc92",
+        "is_vaulted_oos": true
+      }
+    },
+    "source_metadata": {
+      "source": "MetaTrader5",
+      "symbol": "XAUUSD",
+      "timeframe": "H1",
+      "broker": "MetaQuotes Ltd.",
+      "terminal_build": 6104,
+      "digits": 2,
+      "point_size": 0.01,
+      "total_bars_fetched": 5000,
+      "acquisition_time_utc": "2026-08-15T02:07:10.121701+00:00"
+    },
+    "quality_approval_status": "APPROVED",
+    "git_commit_hash": "ea306eee425d9ace2743225319bc91fe800c4d2b",
+    "date_registered_utc": "2026-08-15T02:07:10.262771+00:00"
+  },
+  "QROS-DATA-XAUUSD-D1-v1.0.0": {
+    "dataset_id": "QROS-DATA-XAUUSD-D1-v1.0.0",
+    "asset": "XAUUSD",
+    "timeframe": "D1",
+    "dataset_version": "v1.0.0",
+    "total_bars": 2000,
+    "calendar_span_years": 7.748117727583847,
+    "full_dataset_sha256": "285540e3132dec5d60a248bf720eb6e5ca543856b09481b5610563ddc963740c",
+    "partitions": {
+      "tier_1_eda": {
+        "tier_name": "Tier 1: Discovery / EDA",
+        "bar_count": 400,
+        "percentage": 0.2,
+        "start_time_utc": "2018-11-14T00:00:00+00:00",
+        "end_time_utc": "2020-06-03T00:00:00+00:00",
+        "partition_sha256": "417f6cb16a45283fbdc790fc5a03a3aed36f1fba7ab23b7f45b8b8686a678de7",
+        "is_vaulted_oos": false
+      },
+      "tier_2_train": {
+        "tier_name": "Tier 2: In-Sample Training",
+        "bar_count": 800,
+        "percentage": 0.4,
+        "start_time_utc": "2020-06-04T00:00:00+00:00",
+        "end_time_utc": "2023-07-10T00:00:00+00:00",
+        "partition_sha256": "5d159a29fb9025fa85c0ab9d9eb1656736cc8d9384d7c5b90549f38653fe6950",
+        "is_vaulted_oos": false
+      },
+      "tier_3_val": {
+        "tier_name": "Tier 3: Validation / Tuning",
+        "bar_count": 400,
+        "percentage": 0.2,
+        "start_time_utc": "2023-07-11T00:00:00+00:00",
+        "end_time_utc": "2025-01-27T00:00:00+00:00",
+        "partition_sha256": "99466be5faf2585053b864a764681423466634f1eb977ce0fbb38bf8931bf7b8",
+        "is_vaulted_oos": false
+      },
+      "tier_4_oos": {
+        "tier_name": "Tier 4: Protected Out-of-Sample",
+        "bar_count": 400,
+        "percentage": 0.2,
+        "start_time_utc": "2025-01-28T00:00:00+00:00",
+        "end_time_utc": "2026-08-14T00:00:00+00:00",
+        "partition_sha256": "dd8e5d1615682ab9fec177fce9550febbb63f844a1b6f83afa2f4d6bab368664",
+        "is_vaulted_oos": true
+      }
+    },
+    "source_metadata": {
+      "source": "MetaTrader5",
+      "symbol": "XAUUSD",
+      "timeframe": "D1",
+      "broker": "MetaQuotes Ltd.",
+      "terminal_build": 6104,
+      "digits": 2,
+      "point_size": 0.01,
+      "total_bars_fetched": 2000,
+      "acquisition_time_utc": "2026-08-15T02:07:10.569005+00:00"
+    },
+    "quality_approval_status": "APPROVED",
+    "git_commit_hash": "ea306eee425d9ace2743225319bc91fe800c4d2b",
+    "date_registered_utc": "2026-08-15T02:07:10.657081+00:00"
+  },
+  "QROS-DATA-XAUUSD-M1-v2.0.0": {
+    "dataset_id": "QROS-DATA-XAUUSD-M1-v2.0.0",
+    "asset": "XAUUSD",
+    "timeframe": "M1",
+    "dataset_version": "v2.0.0",
+    "total_bars": 9999,
+    "calendar_span_years": 0.026081831317970948,
+    "full_dataset_sha256": "4fece29e88c89bd74f41a90935d1f829468cea6a000b5a7c0f52a078d622f275",
+    "partitions": {
+      "tier_1_eda": {
+        "tier_name": "Tier 1: Discovery / EDA",
+        "bar_count": 1999,
+        "percentage": 0.2,
+        "start_time_utc": "2026-08-05T10:21:00+00:00",
+        "end_time_utc": "2026-08-06T21:39:00+00:00",
+        "partition_sha256": "1bbfe03735952e5217e9ca9738dda0570fcb23dcf0080eade30d2e71147ccc49",
+        "is_vaulted_oos": false
+      },
+      "tier_2_train": {
+        "tier_name": "Tier 2: In-Sample Training",
+        "bar_count": 3999,
+        "percentage": 0.4,
+        "start_time_utc": "2026-08-06T21:40:00+00:00",
+        "end_time_utc": "2026-08-11T22:18:00+00:00",
+        "partition_sha256": "4c9eeedbe4ae03836f48e1d6c00de84660ccf152ad90731b255102b57ea38f32",
+        "is_vaulted_oos": false
+      },
+      "tier_3_val": {
+        "tier_name": "Tier 3: Validation / Tuning",
+        "bar_count": 1999,
+        "percentage": 0.2,
+        "start_time_utc": "2026-08-11T22:19:00+00:00",
+        "end_time_utc": "2026-08-13T11:37:00+00:00",
+        "partition_sha256": "1a5f92be1ff3b18481f41d4700fc58208fe6e828a75edc9d13bc6ee3d00814e8",
+        "is_vaulted_oos": false
+      },
+      "tier_4_oos": {
+        "tier_name": "Tier 4: Protected Out-of-Sample",
+        "bar_count": 2002,
+        "percentage": 0.2,
+        "start_time_utc": "2026-08-13T11:38:00+00:00",
+        "end_time_utc": "2026-08-14T22:59:00+00:00",
+        "partition_sha256": "5b9f46db5f0e0b23cb989ad831cf5e35aa15c74dd18b157a12dc39ffd854994e",
+        "is_vaulted_oos": true
+      }
+    },
+    "source_metadata": {
+      "source": "MetaTrader5",
+      "symbol": "XAUUSD",
+      "timeframe": "M1",
+      "broker": "MetaQuotes Ltd.",
+      "terminal_build": 6104,
+      "digits": 2,
+      "point_size": 0.01,
+      "total_bars_fetched": 9999,
+      "acquisition_time_utc": "2026-08-15T02:24:09.625790+00:00"
+    },
+    "quality_approval_status": "APPROVED",
+    "git_commit_hash": "ea306eee425d9ace2743225319bc91fe800c4d2b",
+    "date_registered_utc": "2026-08-15T02:24:11.639254+00:00"
+  },
+  "QROS-DATA-XAUUSD-M5-v2.0.0": {
+    "dataset_id": "QROS-DATA-XAUUSD-M5-v2.0.0",
+    "asset": "XAUUSD",
+    "timeframe": "M5",
+    "dataset_version": "v2.0.0",
+    "total_bars": 9999,
+    "calendar_span_years": 0.14237774735721348,
+    "full_dataset_sha256": "3fa02a7df991ffc28c2a2b8b18cfb34db6de11b66d53197b727feeb7768369b8",
+    "partitions": {
+      "tier_1_eda": {
+        "tier_name": "Tier 1: Discovery / EDA",
+        "bar_count": 1999,
+        "percentage": 0.2,
+        "start_time_utc": "2026-06-23T22:50:00+00:00",
+        "end_time_utc": "2026-07-03T13:20:00+00:00",
+        "partition_sha256": "a9f6e88eba2611264ad02d9a179a6a305e2b8731560756458ef2fa3109cff1be",
+        "is_vaulted_oos": false
+      },
+      "tier_2_train": {
+        "tier_name": "Tier 2: In-Sample Training",
+        "bar_count": 3999,
+        "percentage": 0.4,
+        "start_time_utc": "2026-07-03T13:25:00+00:00",
+        "end_time_utc": "2026-07-24T19:30:00+00:00",
+        "partition_sha256": "1423ae24a665e7f9eb3fea60f2e1f642169f36b53e258a3b508f511deaf87493",
+        "is_vaulted_oos": false
+      },
+      "tier_3_val": {
+        "tier_name": "Tier 3: Validation / Tuning",
+        "bar_count": 1999,
+        "percentage": 0.2,
+        "start_time_utc": "2026-07-24T19:35:00+00:00",
+        "end_time_utc": "2026-08-05T10:05:00+00:00",
+        "partition_sha256": "0253d52bbacc38b8682392339e16b98f8096ee7ff2bb259711b382eaf76c9ab7",
+        "is_vaulted_oos": false
+      },
+      "tier_4_oos": {
+        "tier_name": "Tier 4: Protected Out-of-Sample",
+        "bar_count": 2002,
+        "percentage": 0.2,
+        "start_time_utc": "2026-08-05T10:10:00+00:00",
+        "end_time_utc": "2026-08-14T22:55:00+00:00",
+        "partition_sha256": "4a05eec9b023b751703b23b64e0facc4dac79ec27042a8ac3dc33dcc566d292a",
+        "is_vaulted_oos": true
+      }
+    },
+    "source_metadata": {
+      "source": "MetaTrader5",
+      "symbol": "XAUUSD",
+      "timeframe": "M5",
+      "broker": "MetaQuotes Ltd.",
+      "terminal_build": 6104,
+      "digits": 2,
+      "point_size": 0.01,
+      "total_bars_fetched": 9999,
+      "acquisition_time_utc": "2026-08-15T02:24:16.769190+00:00"
+    },
+    "quality_approval_status": "APPROVED",
+    "git_commit_hash": "ea306eee425d9ace2743225319bc91fe800c4d2b",
+    "date_registered_utc": "2026-08-15T02:24:17.014128+00:00"
+  },
+  "QROS-DATA-XAUUSD-H1-v2.0.0": {
+    "dataset_id": "QROS-DATA-XAUUSD-H1-v2.0.0",
+    "asset": "XAUUSD",
+    "timeframe": "H1",
+    "dataset_version": "v2.0.0",
+    "total_bars": 9999,
+    "calendar_span_years": 1.712183436002738,
+    "full_dataset_sha256": "58d9dfb1359635387ba69901122ce58e3b8955464423cdb83238777bca257ad2",
+    "partitions": {
+      "tier_1_eda": {
+        "tier_name": "Tier 1: Discovery / EDA",
+        "bar_count": 1999,
+        "percentage": 0.2,
+        "start_time_utc": "2024-11-27T13:00:00+00:00",
+        "end_time_utc": "2025-04-01T23:00:00+00:00",
+        "partition_sha256": "dcd78655763d16fc229a7cd260b92cf9c0d0dcd0f6f4e49c64adb24992a9b9f4",
+        "is_vaulted_oos": false
+      },
+      "tier_2_train": {
+        "tier_name": "Tier 2: In-Sample Training",
+        "bar_count": 3999,
+        "percentage": 0.4,
+        "start_time_utc": "2025-04-02T01:00:00+00:00",
+        "end_time_utc": "2025-12-03T23:00:00+00:00",
+        "partition_sha256": "d9df271e26e8094313c0d5befadb9dae1e41e5ff4342a9f82cb4d3ab6e74b2c3",
+        "is_vaulted_oos": false
+      },
+      "tier_3_val": {
+        "tier_name": "Tier 3: Validation / Tuning",
+        "bar_count": 1999,
+        "percentage": 0.2,
+        "start_time_utc": "2025-12-04T01:00:00+00:00",
+        "end_time_utc": "2026-04-09T17:00:00+00:00",
+        "partition_sha256": "9264fed85d791b7c17cd1f26456892d7246cefbffe708ec3da41606dfd72ae9b",
+        "is_vaulted_oos": false
+      },
+      "tier_4_oos": {
+        "tier_name": "Tier 4: Protected Out-of-Sample",
+        "bar_count": 2002,
+        "percentage": 0.2,
+        "start_time_utc": "2026-04-09T18:00:00+00:00",
+        "end_time_utc": "2026-08-14T22:00:00+00:00",
+        "partition_sha256": "2468b083658b5796671f6eeb5cc6bab4aade9adf4b944118ecf9a1be1a77e1ad",
+        "is_vaulted_oos": true
+      }
+    },
+    "source_metadata": {
+      "source": "MetaTrader5",
+      "symbol": "XAUUSD",
+      "timeframe": "H1",
+      "broker": "MetaQuotes Ltd.",
+      "terminal_build": 6104,
+      "digits": 2,
+      "point_size": 0.01,
+      "total_bars_fetched": 9999,
+      "acquisition_time_utc": "2026-08-15T02:24:17.199237+00:00"
+    },
+    "quality_approval_status": "APPROVED",
+    "git_commit_hash": "ea306eee425d9ace2743225319bc91fe800c4d2b",
+    "date_registered_utc": "2026-08-15T02:24:17.406599+00:00"
+  },
+  "QROS-DATA-XAUUSD-D1-v2.0.0": {
+    "dataset_id": "QROS-DATA-XAUUSD-D1-v2.0.0",
+    "asset": "XAUUSD",
+    "timeframe": "D1",
+    "dataset_version": "v2.0.0",
+    "total_bars": 2000,
+    "calendar_span_years": 7.748117727583847,
+    "full_dataset_sha256": "285540e3132dec5d60a248bf720eb6e5ca543856b09481b5610563ddc963740c",
+    "partitions": {
+      "tier_1_eda": {
+        "tier_name": "Tier 1: Discovery / EDA",
+        "bar_count": 400,
+        "percentage": 0.2,
+        "start_time_utc": "2018-11-14T00:00:00+00:00",
+        "end_time_utc": "2020-06-03T00:00:00+00:00",
+        "partition_sha256": "417f6cb16a45283fbdc790fc5a03a3aed36f1fba7ab23b7f45b8b8686a678de7",
+        "is_vaulted_oos": false
+      },
+      "tier_2_train": {
+        "tier_name": "Tier 2: In-Sample Training",
+        "bar_count": 800,
+        "percentage": 0.4,
+        "start_time_utc": "2020-06-04T00:00:00+00:00",
+        "end_time_utc": "2023-07-10T00:00:00+00:00",
+        "partition_sha256": "5d159a29fb9025fa85c0ab9d9eb1656736cc8d9384d7c5b90549f38653fe6950",
+        "is_vaulted_oos": false
+      },
+      "tier_3_val": {
+        "tier_name": "Tier 3: Validation / Tuning",
+        "bar_count": 400,
+        "percentage": 0.2,
+        "start_time_utc": "2023-07-11T00:00:00+00:00",
+        "end_time_utc": "2025-01-27T00:00:00+00:00",
+        "partition_sha256": "99466be5faf2585053b864a764681423466634f1eb977ce0fbb38bf8931bf7b8",
+        "is_vaulted_oos": false
+      },
+      "tier_4_oos": {
+        "tier_name": "Tier 4: Protected Out-of-Sample",
+        "bar_count": 400,
+        "percentage": 0.2,
+        "start_time_utc": "2025-01-28T00:00:00+00:00",
+        "end_time_utc": "2026-08-14T00:00:00+00:00",
+        "partition_sha256": "dd8e5d1615682ab9fec177fce9550febbb63f844a1b6f83afa2f4d6bab368664",
+        "is_vaulted_oos": true
+      }
+    },
+    "source_metadata": {
+      "source": "MetaTrader5",
+      "symbol": "XAUUSD",
+      "timeframe": "D1",
+      "broker": "MetaQuotes Ltd.",
+      "terminal_build": 6104,
+      "digits": 2,
+      "point_size": 0.01,
+      "total_bars_fetched": 2000,
+      "acquisition_time_utc": "2026-08-15T02:24:17.912511+00:00"
+    },
+    "quality_approval_status": "APPROVED",
+    "git_commit_hash": "ea306eee425d9ace2743225319bc91fe800c4d2b",
+    "date_registered_utc": "2026-08-15T02:24:18.012660+00:00"
+  },
+  "QROS-DATA-XAUUSD-M1-v3.0.0": {
+    "dataset_id": "QROS-DATA-XAUUSD-M1-v3.0.0",
+    "asset": "XAUUSD",
+    "timeframe": "M1",
+    "dataset_version": "v3.0.0",
+    "total_bars": 10000,
+    "calendar_span_years": 0.02608373260323979,
+    "full_dataset_sha256": "37f7662fb9ad6bcc7e559dc7bec419046cecc91e593bf030eba2fa9618fec8d2",
+    "partitions": {
+      "tier_1_eda": {
+        "tier_name": "Tier 1: Discovery / EDA",
+        "bar_count": 2000,
+        "percentage": 0.2,
+        "start_time_utc": "2026-08-05T10:20:00+00:00",
+        "end_time_utc": "2026-08-06T21:39:00+00:00",
+        "partition_sha256": "5077f8117277dd6b2077cb150281c6ad51c30f004f5b3bb21c64b6a8c35158a9",
+        "is_vaulted_oos": false
+      },
+      "tier_2_train": {
+        "tier_name": "Tier 2: In-Sample Training",
+        "bar_count": 4000,
+        "percentage": 0.4,
+        "start_time_utc": "2026-08-06T21:40:00+00:00",
+        "end_time_utc": "2026-08-11T22:19:00+00:00",
+        "partition_sha256": "24ced202fccecfcb48d1bae5d9c1b1764d177d3a0ab1afdee9d9c2e68c03043e",
+        "is_vaulted_oos": false
+      },
+      "tier_3_val": {
+        "tier_name": "Tier 3: Validation / Tuning",
+        "bar_count": 2000,
+        "percentage": 0.2,
+        "start_time_utc": "2026-08-11T22:20:00+00:00",
+        "end_time_utc": "2026-08-13T11:39:00+00:00",
+        "partition_sha256": "36efdbf98c0b9ee9e1e58c15ca291ac4ae989529b6f95ff624b5e94c786e126b",
+        "is_vaulted_oos": false
+      },
+      "tier_4_oos": {
+        "tier_name": "Tier 4: Protected Out-of-Sample",
+        "bar_count": 2000,
+        "percentage": 0.2,
+        "start_time_utc": "2026-08-13T11:40:00+00:00",
+        "end_time_utc": "2026-08-14T22:59:00+00:00",
+        "partition_sha256": "150b85755fcc9b1dee7e972b9073e415515314db6ec1aad423a967818965eafd",
+        "is_vaulted_oos": true
+      }
+    },
+    "source_metadata": {
+      "source": "MetaTrader5",
+      "symbol": "XAUUSD",
+      "timeframe": "M1",
+      "broker": "MetaQuotes Ltd.",
+      "terminal_build": 6104,
+      "digits": 2,
+      "point_size": 0.01,
+      "total_bars_fetched": 10000,
+      "acquisition_time_utc": "2026-08-15T02:57:57.532126+00:00"
+    },
+    "quality_approval_status": "APPROVED",
+    "git_commit_hash": "ea306eee425d9ace2743225319bc91fe800c4d2b",
+    "date_registered_utc": "2026-08-15T02:57:58.247490+00:00"
+  },
+  "QROS-DATA-XAUUSD-M5-v3.0.0": {
+    "dataset_id": "QROS-DATA-XAUUSD-M5-v3.0.0",
+    "asset": "XAUUSD",
+    "timeframe": "M5",
+    "dataset_version": "v3.0.0",
+    "total_bars": 10000,
+    "calendar_span_years": 0.14238725378355768,
+    "full_dataset_sha256": "849f9ae5595bc477c0d2c1dd49dee2050a8c905f1bcf249ddc2e5998248697e6",
+    "partitions": {
+      "tier_1_eda": {
+        "tier_name": "Tier 1: Discovery / EDA",
+        "bar_count": 2000,
+        "percentage": 0.2,
+        "start_time_utc": "2026-06-23T22:45:00+00:00",
+        "end_time_utc": "2026-07-03T13:20:00+00:00",
+        "partition_sha256": "1111d31edbe660008c451436cf16e8b2798e6c28ab7d3b76df2cb2bab223254e",
+        "is_vaulted_oos": false
+      },
+      "tier_2_train": {
+        "tier_name": "Tier 2: In-Sample Training",
+        "bar_count": 4000,
+        "percentage": 0.4,
+        "start_time_utc": "2026-07-03T13:25:00+00:00",
+        "end_time_utc": "2026-07-24T19:35:00+00:00",
+        "partition_sha256": "7eac25304f74228185cdc1e409dff6c17cef694f9c0cd1a083db7963b2936216",
+        "is_vaulted_oos": false
+      },
+      "tier_3_val": {
+        "tier_name": "Tier 3: Validation / Tuning",
+        "bar_count": 2000,
+        "percentage": 0.2,
+        "start_time_utc": "2026-07-24T19:40:00+00:00",
+        "end_time_utc": "2026-08-05T10:15:00+00:00",
+        "partition_sha256": "36d0b165d0165dae6e6c7e72345ec176f64bcdf3ed5cd732527219c4039548de",
+        "is_vaulted_oos": false
+      },
+      "tier_4_oos": {
+        "tier_name": "Tier 4: Protected Out-of-Sample",
+        "bar_count": 2000,
+        "percentage": 0.2,
+        "start_time_utc": "2026-08-05T10:20:00+00:00",
+        "end_time_utc": "2026-08-14T22:55:00+00:00",
+        "partition_sha256": "2fb5e64efa20af338c4e255cb950a712840d809c0c5332e575f87ebb2878ff5b",
+        "is_vaulted_oos": true
+      }
+    },
+    "source_metadata": {
+      "source": "MetaTrader5",
+      "symbol": "XAUUSD",
+      "timeframe": "M5",
+      "broker": "MetaQuotes Ltd.",
+      "terminal_build": 6104,
+      "digits": 2,
+      "point_size": 0.01,
+      "total_bars_fetched": 10000,
+      "acquisition_time_utc": "2026-08-15T02:57:58.394009+00:00"
+    },
+    "quality_approval_status": "APPROVED",
+    "git_commit_hash": "ea306eee425d9ace2743225319bc91fe800c4d2b",
+    "date_registered_utc": "2026-08-15T02:57:58.934649+00:00"
+  },
+  "QROS-DATA-XAUUSD-H1-v3.0.0": {
+    "dataset_id": "QROS-DATA-XAUUSD-H1-v3.0.0",
+    "asset": "XAUUSD",
+    "timeframe": "H1",
+    "dataset_version": "v3.0.0",
+    "total_bars": 10000,
+    "calendar_span_years": 1.7122975131188685,
+    "full_dataset_sha256": "380348c94b6a0f946b3bd63a3782d03498305efd1b3f70e59c516a3c5753bd32",
+    "partitions": {
+      "tier_1_eda": {
+        "tier_name": "Tier 1: Discovery / EDA",
+        "bar_count": 2000,
+        "percentage": 0.2,
+        "start_time_utc": "2024-11-27T12:00:00+00:00",
+        "end_time_utc": "2025-04-01T23:00:00+00:00",
+        "partition_sha256": "f5200ca8e8ba732fe76c116e7776cad972646853d5a3adbcc5e480b047bbdc37",
+        "is_vaulted_oos": false
+      },
+      "tier_2_train": {
+        "tier_name": "Tier 2: In-Sample Training",
+        "bar_count": 4000,
+        "percentage": 0.4,
+        "start_time_utc": "2025-04-02T01:00:00+00:00",
+        "end_time_utc": "2025-12-04T01:00:00+00:00",
+        "partition_sha256": "c73c8ddcd98f1431cb7acf186eadb9ab84577f9ff936a385906884e1c3dd9045",
+        "is_vaulted_oos": false
+      },
+      "tier_3_val": {
+        "tier_name": "Tier 3: Validation / Tuning",
+        "bar_count": 2000,
+        "percentage": 0.2,
+        "start_time_utc": "2025-12-04T02:00:00+00:00",
+        "end_time_utc": "2026-04-09T19:00:00+00:00",
+        "partition_sha256": "b1bbb699ee09c684ab645740396f11494eea6f474341548acf7214c4e0651bf1",
+        "is_vaulted_oos": false
+      },
+      "tier_4_oos": {
+        "tier_name": "Tier 4: Protected Out-of-Sample",
+        "bar_count": 2000,
+        "percentage": 0.2,
+        "start_time_utc": "2026-04-09T20:00:00+00:00",
+        "end_time_utc": "2026-08-14T22:00:00+00:00",
+        "partition_sha256": "66f4706c82723d4f8831d23dda18fd7a3b63ce06a1043cb584bc6c231fe18160",
+        "is_vaulted_oos": true
+      }
+    },
+    "source_metadata": {
+      "source": "MetaTrader5",
+      "symbol": "XAUUSD",
+      "timeframe": "H1",
+      "broker": "MetaQuotes Ltd.",
+      "terminal_build": 6104,
+      "digits": 2,
+      "point_size": 0.01,
+      "total_bars_fetched": 10000,
+      "acquisition_time_utc": "2026-08-15T02:57:59.083926+00:00"
+    },
+    "quality_approval_status": "APPROVED",
+    "git_commit_hash": "ea306eee425d9ace2743225319bc91fe800c4d2b",
+    "date_registered_utc": "2026-08-15T02:57:59.316485+00:00"
+  },
+  "QROS-DATA-XAUUSD-D1-v3.0.0": {
+    "dataset_id": "QROS-DATA-XAUUSD-D1-v3.0.0",
+    "asset": "XAUUSD",
+    "timeframe": "D1",
+    "dataset_version": "v3.0.0",
+    "total_bars": 4500,
+    "calendar_span_years": 17.45927446954141,
+    "full_dataset_sha256": "8a15183849f5d140024464d6ddedc27d0007c1a358d8d7dabec94db8d19c9831",
+    "partitions": {
+      "tier_1_eda": {
+        "tier_name": "Tier 1: Discovery / EDA",
+        "bar_count": 900,
+        "percentage": 0.2,
+        "start_time_utc": "2009-02-27T00:00:00+00:00",
+        "end_time_utc": "2012-08-30T00:00:00+00:00",
+        "partition_sha256": "0b6b9f1836870318d8b20fc2e48ca6ab23ea8463d8f2f6bd589809e7cee9fa88",
+        "is_vaulted_oos": false
+      },
+      "tier_2_train": {
+        "tier_name": "Tier 2: In-Sample Training",
+        "bar_count": 1800,
+        "percentage": 0.4,
+        "start_time_utc": "2012-08-31T00:00:00+00:00",
+        "end_time_utc": "2019-08-23T00:00:00+00:00",
+        "partition_sha256": "dc68bc4fecf58fa40d5f0015a24c69f5f728ccb0af4784d78a830360c432bed7",
+        "is_vaulted_oos": false
+      },
+      "tier_3_val": {
+        "tier_name": "Tier 3: Validation / Tuning",
+        "bar_count": 900,
+        "percentage": 0.2,
+        "start_time_utc": "2019-08-26T00:00:00+00:00",
+        "end_time_utc": "2023-02-17T00:00:00+00:00",
+        "partition_sha256": "579b1af5d562b1c64c98d9bafe0b444ff76766191394e6272798070603e51146",
+        "is_vaulted_oos": false
+      },
+      "tier_4_oos": {
+        "tier_name": "Tier 4: Protected Out-of-Sample",
+        "bar_count": 900,
+        "percentage": 0.2,
+        "start_time_utc": "2023-02-20T00:00:00+00:00",
+        "end_time_utc": "2026-08-14T00:00:00+00:00",
+        "partition_sha256": "5f18935753671efb8f2984be8c659d67d98c848b545dbbe8a8ed070cc3d87ba4",
+        "is_vaulted_oos": true
+      }
+    },
+    "source_metadata": {
+      "source": "MetaTrader5",
+      "symbol": "XAUUSD",
+      "timeframe": "D1",
+      "broker": "MetaQuotes Ltd.",
+      "terminal_build": 6104,
+      "digits": 2,
+      "point_size": 0.01,
+      "total_bars_fetched": 4500,
+      "acquisition_time_utc": "2026-08-15T02:58:04.600843+00:00"
+    },
+    "quality_approval_status": "APPROVED",
+    "git_commit_hash": "ea306eee425d9ace2743225319bc91fe800c4d2b",
+    "date_registered_utc": "2026-08-15T02:58:04.734346+00:00"
+  },
+  "xauusd_v4.0.0": {
+    "date_registered_utc": "2026-08-25T11:53:14.977455Z",
+    "source_metadata": {
+      "source": "Dukascopy Streaming Tick CSV"
+    },
+    "asset": "XAUUSD",
+    "timeframe": "M1-M5-H1-D1",
+    "total_bars": 611458,
+    "calendar_span_years": 6.15,
+    "full_dataset_sha256": "v4_full_sha256",
+    "quality_approval_status": "APPROVED",
+    "dataset_id": "xauusd_v4.0.0",
+    "dataset_version": "v4.0.0",
+    "git_commit_hash": "HEAD",
+    "partitions": {
+      "tier_1_eda": {
+        "tier_name": "Tier 1: Discovery / EDA",
+        "bar_count": 122291,
+        "percentage": 0.2,
+        "start_time_utc": "2020-07-01T12:00:00+00:00",
+        "end_time_utc": "2021-08-01T00:00:00+00:00",
+        "partition_sha256": "eda_sha_v4",
+        "is_vaulted_oos": false
+      }
+    }
+  }
+}

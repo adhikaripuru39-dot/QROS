@@ -1,0 +1,222 @@
+QROS: Institutional Algorithmic Trading Platform
+Research, Engineering, and Operations Handbook
+Volume I — Foundations of Quantitative Intelligence
+Part VIII — Statistical Modeling &amp; Forecasting
+Chapter 15 Statistical Modeling &amp; Forecasting
+Building Mathematical Models of Financial Markets
+Estimated Length: 280–350 Pages
+Chapter Objective
+By the end of this chapter, the reader will understand:
+What a statistical model is.
+Why statistical models remain essential in quantitative finance.
+The difference between descriptive and predictive modeling.
+Linear and non-linear relationships.
+Regression analysis.
+Time-series forecasting models.
+Model assumptions.
+Model diagnostics.
+Residual analysis.
+Forecast evaluation.
+Model governance within QROS.
+Opening Thought
+Imagine standing at the base of a mountain.
+Your goal is to predict tomorrow's weather.
+You have two options:
+Option A
+Use a black-box AI model with millions of parameters.
+Option B
+First understand:
+Temperature trends.
+Air pressure.
+Humidity.
+Wind direction.
+Seasonal behavior.
+Then decide whether a more advanced model is necessary.
+Professional quantitative researchers almost always begin with Option B.
+Markets deserve the same discipline.
+15.1 What Is a Statistical Model?
+A statistical model is a mathematical representation of relationships observed in data.
+Rather than attempting to recreate reality perfectly, a model simplifies reality while retaining the characteristics that are relevant to the research question.
+Examples:
+Relationship between volatility and trading volume.
+Relationship between interest rates and gold prices.
+Relationship between market regime and strategy performance.
+Every model is an approximation—not a perfect description of the market.
+15.2 Why Models Matter
+Models help researchers:
+Describe relationships.
+Explain historical behavior.
+Estimate unknown values.
+Forecast future observations.
+Quantify uncertainty.
+Test hypotheses.
+Within QROS, models support understanding before prediction.
+15.3 The Modeling Lifecycle
+Every statistical model should follow a structured process.
+Research Question
+│
+▼
+Data Collection
+│
+▼
+Exploratory Analysis
+│
+▼
+Model Selection
+│
+▼
+Parameter Estimation
+│
+▼
+Validation
+│
+▼
+Diagnostics
+│
+▼
+Forecast Evaluation
+│
+▼
+Deployment Decision
+Skipping stages increases the likelihood of unreliable conclusions.
+15.4 Descriptive vs Predictive Models
+Not all models aim to forecast.
+Descriptive Models
+Purpose:
+Explain relationships.
+Example:
+"How does volatility change during London trading hours?"
+Predictive Models
+Purpose:
+Estimate future values.
+Example:
+"What is the probability that gold will move more than 1% tomorrow?"
+Both approaches are valuable and often complement one another.
+15.5 Linear Regression
+Linear regression is one of the most widely used statistical tools.
+It estimates how one variable changes in relation to another.
+Example:
+Gold Return = f(U.S. Dollar Index Return)
+Possible uses:
+Measuring sensitivity.
+Estimating relationships.
+Feature screening.
+Baseline forecasting.
+Although financial markets are often non-linear, linear regression remains an important benchmark.
+15.6 Multiple Regression
+Many market phenomena depend on several variables simultaneously.
+Example:
+Gold Return =
+Dollar Index
+Treasury Yield
+Oil Price
+Volatility
+Inflation Expectations
+Multiple regression enables researchers to estimate the combined influence of several explanatory variables while controlling for the effects of others.
+15.7 Model Assumptions
+Statistical models rely on assumptions.
+Common assumptions include:
+Independent observations.
+Constant variance.
+Normally distributed residuals.
+Linear relationships.
+No severe multicollinearity.
+Financial data frequently violates these assumptions.
+Rather than ignoring this reality, QROS requires researchers to assess and document assumption validity.
+15.8 Residuals
+Residuals are the differences between observed values and model predictions.
+Residual analysis helps answer questions such as:
+Is the model systematically biased?
+Does unexplained variation remain?
+Are important variables missing?
+A well-performing model should leave residuals that behave approximately like random noise.
+15.9 Forecasting Models
+Forecasting extends descriptive models into future estimation.
+Common statistical forecasting families include:
+Autoregressive (AR)
+Future values depend on previous values.
+Moving Average (MA)
+Future estimates incorporate previous forecast errors.
+ARMA
+Combines autoregressive and moving-average components.
+ARIMA
+Extends ARMA by incorporating differencing to address non-stationary series.
+ARIMA remains a foundational forecasting approach in quantitative finance despite the growth of machine learning.
+15.10 Model Evaluation
+Forecast quality should be evaluated objectively.
+Common measures include:
+Mean Absolute Error (MAE).
+Root Mean Squared Error (RMSE).
+Mean Absolute Percentage Error (MAPE).
+R² (Coefficient of Determination).
+Directional Accuracy.
+Different metrics emphasize different aspects of performance.
+No single metric is sufficient in isolation.
+15.11 Overfitting
+A model that perfectly explains historical data may fail on new observations.
+This phenomenon is known as overfitting.
+Symptoms include:
+Exceptional in-sample performance.
+Poor out-of-sample performance.
+Excessive parameter complexity.
+QROS prioritizes generalization over historical perfection.
+15.12 Model Robustness
+A useful model should remain effective under changing conditions.
+Robustness testing includes:
+Different market regimes.
+Alternative sampling periods.
+Varying parameter values.
+Transaction costs.
+Structural breaks.
+The objective is to identify models that remain useful rather than those optimized for a single historical period.
+15.13 Forecast Uncertainty
+Forecasts are estimates, not certainties.
+Instead of reporting:
+"Tomorrow's price will be 3,450."
+Researchers should communicate uncertainty.
+Example:
+"There is a 70% probability that tomorrow's closing price will fall between 3,430 and 3,470."
+Expressing uncertainty aligns with the probabilistic philosophy established earlier in the handbook.
+15.14 Model Governance
+Every model entering QROS should include:
+Purpose.
+Mathematical formulation.
+Assumptions.
+Training dataset.
+Validation dataset.
+Performance metrics.
+Known limitations.
+Version history.
+Approval status.
+Governance transforms models from personal experiments into institutional assets.
+QROS Engineering Specification
+Model Acceptance Standard (MAS-1)
+Before deployment, a statistical model must:
+Address a clearly defined research question.
+Document assumptions.
+Demonstrate reproducible results.
+Pass out-of-sample validation.
+Include diagnostic analysis.
+Quantify forecast uncertainty.
+Undergo peer review.
+Receive formal approval.
+Models that fail these criteria remain experimental.
+Case Study
+A researcher develops a regression model suggesting that gold prices rise when the U.S. Dollar Index declines.
+Before accepting the model, the researcher:
+Tests the relationship across multiple market regimes.
+Examines residual behavior.
+Evaluates predictive accuracy on unseen data.
+Investigates whether the relationship changes during major macroeconomic events.
+Documents assumptions and limitations.
+Only after completing these steps does the model become eligible for integration into the broader research pipeline.
+Chapter Summary
+Statistical models provide a structured framework for describing, explaining, and forecasting financial markets. By emphasizing transparency, diagnostics, validation, and governance, QROS ensures that models contribute reliable evidence rather than merely fitting historical data.
+These methods form the bridge between exploratory research and advanced machine learning, providing interpretable baselines against which more complex approaches can be evaluated.
+Practical Exercise
+Using historical XAUUSD returns:
+Build a simple linear regression model relating gold returns to another explanatory variable (for example, U.S. Dollar Index returns).
+Examine residuals.
+Assess model assumptions.
+Evaluate predictive performance using a holdout dataset.
+Discuss limitations and possible improvements.

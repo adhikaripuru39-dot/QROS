@@ -1,0 +1,70 @@
+QROS INSTITUTIONAL QUANTITATIVE RESEARCH FRAMEWORK
+PART 7: RESEARCH PIPELINE &amp; STAGE QUALITY GATES15-Stage Research Workflow, Deliverables &amp; Review Protocols
+[PIPELINE GOVERNANCE MANDATE] The quantitative research pipeline is a linear, gatekeeper-controlled workflow. Transitioning between stages requires formal review, zero quality gate violations, and sign-off from the Lead Statistician and Head of Research.
+Chapter 1: The 15-Stage Institutional Research Workflow
+Stage #
+Pipeline Stage Name
+Required Outputs / Deliverables
+Quality Gate &amp; Sign-Off Requirement
+Stage 1
+Idea Generation
+Idea Note &amp; Initial Mechanism Description
+Peer Review Approval by QR Team.
+Stage 2
+Literature Review
+Annotated Bibliography &amp; Academic Matrix
+Verification of novel edge vs published papers.
+Stage 3
+Theory Formation
+Formal Economic/Behavioral Mechanism Spec
+Head of Research Mechanism Approval.
+Stage 4
+Hypothesis Creation
+Registered HYP Document (22 fields locked)
+SHA-256 Lock &amp; Registration in Registry.
+Stage 5
+Data Collection
+Data Acquisition Request &amp; Schema Spec
+Data Engineer Data Lineage Audit.
+Stage 6
+Data Cleaning
+Cleansed Data Snapshot &amp; Quality Metrics
+Zero Bad Tick &amp; Timestamp Audit Pass.
+Stage 7
+Feature Engineering
+Feature Store Extraction &amp; Stationarity Metrics
+ADF Test p-value &lt; 0.05 on all features.
+Stage 8
+Exploratory Analysis
+EDA Notebook &amp; Correlation Matrix
+Multicollinearity Check (VIF &lt; 10.0).
+Stage 9
+Statistical Testing
+In-Sample Hypothesis Test Report
+t-statistic &gt; 3.0, p-value &lt; 0.001.
+Stage 10
+Robustness Testing
+Parameter Sensitivity &amp; Stress Test Suite
+Stable performance across +/- 50% parameter shift.
+Stage 11
+Walk Forward Validation
+Out-of-Sample Walk-Forward Performance Matrix
+OOS Sharpe Ratio &gt; 2.0, Max DD &lt; 15%.
+Stage 12
+Replication
+Independent Code Base Replication
+Secondary QR Code Match (&gt;99.9% correlation).
+Stage 13
+Documentation
+Final Research Monograph &amp; Code Manual
+Peer Review Sign-off by Research Division.
+Stage 14
+Research Approval
+Investment Committee Presentation
+Formal IC Sign-Off (Head of Research + Risk).
+Stage 15
+Model Development
+Production Model Architecture Spec
+Hand-off to Quant Development Division.
+Chapter 2: Quality Gates &amp; Failure Protocols
+[QUALITY GATE FAILURE RULE] IF ANY STAGE VIOLATES QUALITY GATE CRITERIA:  ├── The project is immediately halted.  ├── The reason for failure is documented in the Experiment Registry.  └── The hypothesis is officially marked REJECTED or returned to Stage 3 for theoretical re-formulation. Retroactive threshold relaxation is strictly prohibited.

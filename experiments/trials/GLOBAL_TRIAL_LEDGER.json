@@ -1,0 +1,211 @@
+{
+  "total_hypotheses_generated": 0,
+  "total_hypotheses_tested": 122,
+  "total_feature_combinations_explored": 127,
+  "total_parameter_variations_evaluated": 226,
+  "total_hypotheses_rejected": 19,
+  "total_promising_hypotheses": 0,
+  "total_edge_candidates_promoted": 3,
+  "total_confirmed_edges_validated": 0,
+  "last_updated_timestamp": "",
+  "trial_records": {
+    "QROS-OBS-01": {
+      "parameter_variations": 1,
+      "feature_count": 1,
+      "outcome": "TESTED",
+      "cumulative_k": 36
+    },
+    "QROS-OBS-02": {
+      "parameter_variations": 1,
+      "feature_count": 1,
+      "outcome": "TESTED",
+      "cumulative_k": 37
+    },
+    "QROS-OBS-03": {
+      "parameter_variations": 1,
+      "feature_count": 1,
+      "outcome": "TESTED",
+      "cumulative_k": 38
+    },
+    "QROS-OBS-04": {
+      "parameter_variations": 1,
+      "feature_count": 1,
+      "outcome": "TESTED",
+      "cumulative_k": 39
+    },
+    "QROS-OBS-05": {
+      "parameter_variations": 1,
+      "feature_count": 1,
+      "outcome": "TESTED",
+      "cumulative_k": 40
+    },
+    "QROS-OBS-06": {
+      "parameter_variations": 1,
+      "feature_count": 1,
+      "outcome": "TESTED",
+      "cumulative_k": 41
+    },
+    "QROS-OBS-07": {
+      "parameter_variations": 1,
+      "feature_count": 1,
+      "outcome": "TESTED",
+      "cumulative_k": 42
+    },
+    "QROS-OBS-08": {
+      "parameter_variations": 1,
+      "feature_count": 1,
+      "outcome": "TESTED",
+      "cumulative_k": 43
+    },
+    "QROS-OBS-09": {
+      "parameter_variations": 1,
+      "feature_count": 1,
+      "outcome": "TESTED",
+      "cumulative_k": 44
+    },
+    "QROS-OBS-10": {
+      "parameter_variations": 1,
+      "feature_count": 1,
+      "outcome": "TESTED",
+      "cumulative_k": 45
+    },
+    "QROS-OBS-11": {
+      "parameter_variations": 1,
+      "feature_count": 1,
+      "outcome": "TESTED",
+      "cumulative_k": 46
+    },
+    "QROS-OBS-12": {
+      "parameter_variations": 1,
+      "feature_count": 1,
+      "outcome": "TESTED",
+      "cumulative_k": 47
+    },
+    "QROS-OBS-13": {
+      "parameter_variations": 1,
+      "feature_count": 1,
+      "outcome": "TESTED",
+      "cumulative_k": 48
+    },
+    "QROS-OBS-14": {
+      "parameter_variations": 1,
+      "feature_count": 1,
+      "outcome": "TESTED",
+      "cumulative_k": 49
+    },
+    "QROS-OBS-15": {
+      "parameter_variations": 1,
+      "feature_count": 1,
+      "outcome": "TESTED",
+      "cumulative_k": 50
+    },
+    "QROS-OBS-16": {
+      "parameter_variations": 1,
+      "feature_count": 1,
+      "outcome": "TESTED",
+      "cumulative_k": 51
+    },
+    "QROS-OBS-17": {
+      "parameter_variations": 1,
+      "feature_count": 1,
+      "outcome": "TESTED",
+      "cumulative_k": 52
+    },
+    "QROS-OBS-18": {
+      "parameter_variations": 1,
+      "feature_count": 1,
+      "outcome": "TESTED",
+      "cumulative_k": 53
+    },
+    "QROS-HYP-000001": {
+      "parameter_variations": 0,
+      "feature_count": 0,
+      "outcome": "DATA INSUFFICIENT",
+      "cumulative_k": 31
+    },
+    "QROS-HYP-000002": {
+      "parameter_variations": 0,
+      "feature_count": 0,
+      "outcome": "DATA INSUFFICIENT",
+      "cumulative_k": 33
+    },
+    "QROS-HYP-000003": {
+      "parameter_variations": 0,
+      "feature_count": 0,
+      "outcome": "REJECTED",
+      "cumulative_k": 35
+    },
+    "QROS-PAT-001": {
+      "parameter_variations": 1,
+      "feature_count": 1,
+      "outcome": "TESTED",
+      "cumulative_k": 54
+    },
+    "QROS-PAT-002": {
+      "parameter_variations": 1,
+      "feature_count": 1,
+      "outcome": "TESTED",
+      "cumulative_k": 55
+    },
+    "QROS-PAT-003": {
+      "parameter_variations": 1,
+      "feature_count": 1,
+      "outcome": "TESTED",
+      "cumulative_k": 56
+    },
+    "QROS-PAT-004": {
+      "parameter_variations": 1,
+      "feature_count": 1,
+      "outcome": "TESTED",
+      "cumulative_k": 57
+    },
+    "QROS-PAT-005": {
+      "parameter_variations": 1,
+      "feature_count": 1,
+      "outcome": "TESTED",
+      "cumulative_k": 58
+    },
+    "QROS-PAT-006": {
+      "parameter_variations": 1,
+      "feature_count": 1,
+      "outcome": "TESTED",
+      "cumulative_k": 59
+    },
+    "QROS-HYP-000004": {
+      "parameter_variations": 0,
+      "feature_count": 0,
+      "outcome": "REJECTED",
+      "cumulative_k": 83
+    },
+    "QROS-HYP-000005": {
+      "parameter_variations": 0,
+      "feature_count": 0,
+      "outcome": "REJECTED",
+      "cumulative_k": 101
+    },
+    "QROS-HYP-000006": {
+      "parameter_variations": 0,
+      "feature_count": 0,
+      "outcome": "DATA INSUFFICIENT",
+      "cumulative_k": 119
+    },
+    "QROS-HYP-000007": {
+      "parameter_variations": 1,
+      "feature_count": 1,
+      "outcome": "CANDIDATE_PROMOTED",
+      "cumulative_k": 120
+    },
+    "QROS-HYP-000010": {
+      "parameter_variations": 1,
+      "feature_count": 1,
+      "outcome": "CANDIDATE_PROMOTED",
+      "cumulative_k": 121
+    },
+    "QROS-BATTERY-INTRADAY-105": {
+      "parameter_variations": 105,
+      "feature_count": 6,
+      "outcome": "CANDIDATE_PROMOTED",
+      "cumulative_k": 226
+    }
+  }
+}

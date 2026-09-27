@@ -1,0 +1,69 @@
+experiment_id: QROS-EXP-000001
+hypothesis_id: QROS-HYP-000001
+dataset_version: v2.0.0
+dataset_hash: 3fa02a7df991ffc28c2a2b8b18cfb34db6de11b66d53197b727feeb7768369b8
+research_period: 2026-06-23T22:50:00+00:00 to 2026-07-24T19:30:00+00:00
+training_period: 'Non-OOS Research Partitions (Tier 1: EDA & Tier 2: Train)'
+validation_period: 'Non-OOS Validation Partition (Tier 3: Val)'
+test_period: Protected Tier-4 OOS (LOCKED - UNTOUCHED)
+feature_definitions:
+  timeframe: M5
+  market_condition: London Open Session (07:00-11:00 UTC) with Asian Range Compression
+  holding_window: 12 to 36 M5 bars (1.0 to 3.0 hours)
+signal_definition: Breakouts beyond the Asian session range (00:00-06:59 UTC high/low)
+  occurring during the London opening window (07:00-09:00 UTC) with above-average
+  volume exhibit positive directional momentum over a 60-180 minute holding horizon.
+entry_execution_rules: Close of M5 bar crosses above Asian Session High (or below
+  Asian Session Low) between 07:00 and 09:00 UTC, accompanied by M5 tick_volume >
+  1.5x 20-period moving average.
+exit_execution_rules: Fixed time exit at 11:00 UTC (pre-NY), or trailing volatility
+  stop at 1.5x ATR(14), or opposite session boundary touch.
+holding_period_stats:
+  mean_holding_bars: 18.0
+  total_trades: 5.0
+direct_costs_fees:
+  base_spread_points: 20.0
+  spread_multiplier: 2.0
+  point_value: 0.01
+slippage_assumptions:
+  slippage_stress_multiplier: 2.5
+  execution_latency_ms: 200.0
+position_sizing_rules: Fixed 1.0 unit position size per discrete trade event.
+evaluation_metrics:
+  gross_profit_factor: 1.220573742847365
+  net_profit_factor: 1.0762133998096863
+  net_annualized_sharpe: 0.40936700328418707
+  net_annualized_sortino: 0.6022257739349043
+  effective_sample_size_neff: 5.0
+  historical_var_99: 0.00393529504825185
+  expected_shortfall_cvar_99: 0.00393529504825185
+statistical_tests:
+  t_statistic: 0.05766304409518222
+  p_value: 0.956782648797489
+  dsr_score: 0.0
+  benchmark_sharpe_sr_star: 1.3999109942344505
+  bootstrap_ci_lower_95: -14.235720990036342
+  bootstrap_ci_upper_95: 9.268727842387689
+  cumulative_trial_k: 24
+result_summary:
+  passed_sample_power: false
+  passed_profit_factor: false
+  passed_sharpe: false
+  passed_dsr: false
+  passed_bootstrap_ci: false
+  overall_gate_pass: false
+  failure_reasons:
+  - 'Insufficient discrete trades: N=5 < 400'
+  - 'Insufficient effective trades: N_eff=5.0 < 200'
+  - 'Insufficient observations: T=5998 < 15000'
+  - 'Insufficient calendar span: Span=0.1y < 3.0y'
+  - 'Net Profit Factor failed: PF=1.08 < 1.35'
+  - 'Net Sharpe failed: SR=0.41 < 1.40'
+  - 'DSR score failed: DSR=0.000 < 0.950 (K=24)'
+  - 'Bootstrap 95% CI lower bound is non-positive: CI_lower=-14.236 <= 0.0'
+conclusion: INCONCLUSIVE
+git_commit_hash: HEAD
+random_seed: 42
+author: QROS Quantitative Research Agent
+date_executed: 2026-08-15 02:47:26 UTC
+custom_metadata: {}

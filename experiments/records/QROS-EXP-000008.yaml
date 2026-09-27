@@ -1,0 +1,65 @@
+experiment_id: QROS-EXP-000008
+hypothesis_id: QROS-HYP-000005
+dataset_version: v3.0.0
+dataset_hash: SHA-256-REGISTERED
+research_period: 2009-02-27T00:00:00+00:00 to 2023-02-17T00:00:00+00:00
+training_period: 'Non-OOS Research Partitions (Tier 1: EDA & Tier 2: Train)'
+validation_period: 'Non-OOS Validation Partition (Tier 3: Val)'
+test_period: Protected Tier-4 OOS (LOCKED - UNTOUCHED)
+feature_definitions:
+  timeframe: D1
+  market_condition: Multi-day volatility compression regime where Daily True Range
+    is the narrowest of the last 4 days (NR4)
+  holding_window: 3 to 8 D1 bars (3 to 8 trading days)
+signal_definition: Directional breakouts from a 4-day range compression (NR4) on D1
+  continue in the direction of the initial daily breakout over a 3 to 8 day holding
+  window.
+entry_execution_rules: Daily True Range < Min(True Range of prior 3 days) [NR4], followed
+  on day t+1 by price breaking above NR4 High (Long) or below NR4 Low (Short).
+exit_execution_rules: Exit after 5 D1 bars (5 trading days), or upon 1.5x ATR(20)
+  trailing stop loss.
+holding_period_stats:
+  mean_holding_bars: 4.4525139664804465
+  total_trades: 358.0
+direct_costs_fees:
+  base_spread_points: 20.0
+  spread_multiplier: 1.5
+  point_value: 0.01
+slippage_assumptions:
+  slippage_stress_multiplier: 1.5
+  execution_latency_ms: 0.0
+position_sizing_rules: Fixed 1.0 unit position size per discrete trade event.
+evaluation_metrics:
+  gross_profit_factor: 1.002621837923867
+  net_profit_factor: 0.9643360603366206
+  net_annualized_sharpe: -0.23235861844454714
+  net_annualized_sortino: -0.24917601793448296
+  effective_sample_size_neff: 358.0
+  historical_var_99: 0.034333409409926706
+  expected_shortfall_cvar_99: 0.036059627563492194
+statistical_tests:
+  t_statistic: -0.27694914486777683
+  p_value: 0.7819794396167035
+  dsr_score: 0.0
+  benchmark_sharpe_sr_star: 1.6670618324383997
+  bootstrap_ci_lower_95: -1.922235642249723
+  bootstrap_ci_upper_95: 1.3294770101156461
+  cumulative_trial_k: 62
+result_summary:
+  passed_sample_power: true
+  passed_profit_factor: false
+  passed_sharpe: false
+  passed_dsr: false
+  passed_bootstrap_ci: false
+  overall_gate_pass: false
+  failure_reasons:
+  - 'Net Profit Factor failed: PF=0.96 < 1.50'
+  - 'Net Sharpe failed: SR=-0.23 < 1.00'
+  - 'DSR score failed: DSR=0.000 < 0.900 (K=62)'
+  - 'Bootstrap 95% CI lower bound is non-positive: CI_lower=-1.922 <= 0.0'
+conclusion: REJECTED
+git_commit_hash: HEAD
+random_seed: 42
+author: QROS Quantitative Research Agent
+date_executed: 2026-08-15 04:50:46 UTC
+custom_metadata: {}

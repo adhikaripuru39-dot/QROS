@@ -1,0 +1,77 @@
+QROS INSTITUTIONAL QUANTITATIVE RESEARCH FRAMEWORK
+PART 5: RESEARCH HYPOTHESIS MANAGEMENTHypothesis Registration, Economic Rationale &amp; Institutional Specifications
+[HYPOTHESIS MANAGEMENT MANDATE] Quantitative research without a prior economic hypothesis is data mining. Every research project must submit a formal, immutable Hypothesis Document before analyzing backtest results.
+Chapter 1: Institutional Hypothesis Architecture &amp; Mandatory Template
+All alpha research projects must formally register a 22-field Hypothesis Document into the institutional Research Registry.
+Field ID
+Field Name
+Institutional Requirement / Specification
+HYP-01
+Hypothesis ID
+Globally unique identifier (e.g., HYP-EQUITY-MICROSTRUCTURE-2026-0042).
+HYP-02
+Research Question
+Precise scientific question (e.g., Does high L2 order book imbalance predict 5-minute forward returns?).
+HYP-03
+Market Logic
+Microstructural mechanism or market mechanics driving the phenomenon.
+HYP-04
+Economic Theory
+Underlying economic equilibrium or risk compensation theory.
+HYP-05
+Behavioral Theory
+Cognitive bias, loss aversion, or institutional constraint causing market mispricing.
+HYP-06
+Expected Edge
+Quantified expected edge capacity, direction, and decay half-life.
+HYP-07
+Market Conditions
+Specific market regimes (e.g., High Volatility, Elevated Spread) where edge manifests.
+HYP-08
+Assumptions
+Core assumptions regarding liquidity, execution costs, and market impact.
+HYP-09
+Independent Variables
+Primary predictive features (e.g., Order Flow Imbalance, VPIN).
+HYP-10
+Dependent Variables
+Target return metric (e.g., 5-minute mid-price forward return).
+HYP-11
+Control Variables
+Confounding market factors held constant (e.g., Sector Return, Market Beta).
+HYP-12
+Expected Direction
+Theoretical sign of the relationship (Positive / Negative correlation).
+HYP-13
+Supporting Literature
+Academic papers or empirical industry research validating the mechanism.
+HYP-14
+Contradicting Literature
+Academic arguments against the persistence of the anomaly.
+HYP-15
+Alternative Explanations
+Competing hypotheses (e.g., risk premium vs behavioral mispricing vs noise).
+HYP-16
+Data Requirements
+Required dataset snapshot versions, depth levels, and sample frequency.
+HYP-17
+Testing Requirements
+Statistical tests (e.g., t-stat, Deflated Sharpe Ratio, Walk-Forward CV).
+HYP-18
+Acceptance Criteria
+Strict thresholds (e.g., OOS Sharpe Ratio &gt; 2.0, t-stat &gt; 3.0, DSR p-value &lt; 0.01).
+HYP-19
+Rejection Criteria
+Conditions triggering immediate hypothesis rejection (e.g., t-stat &lt; 2.0).
+HYP-20
+Confidence Level
+Required statistical significance level (e.g., 99.5% confidence).
+HYP-21
+Replication Requirements
+Independent replication by a secondary Quant Researcher.
+HYP-22
+Retirement Criteria
+Performance decay triggers for retiring a live production alpha factor.
+Chapter 2: Governance &amp; Hypothesis Approval Workflow
+• Pre-Testing Approval: Quant Researcher submits HYP document; Head of Research and Lead Statistician must approve before code execution.
+• Immutable Versioning: Hypothesis text is locked upon submission (SHA-256 registered). Modifying hypotheses post-test to fit data is grounds for immediate termination.

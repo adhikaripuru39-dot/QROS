@@ -1,0 +1,223 @@
+Chapter 7 Statistics for Quantitative Trading
+Measuring Markets Instead of Guessing Them
+Estimated Length: 100–120 pages
+Chapter Objective
+By the end of this chapter, the reader will be able to:
+Understand descriptive and inferential statistics.
+Summarize market behavior objectively.
+Measure variability and uncertainty.
+Distinguish meaningful signals from random fluctuations.
+Evaluate statistical significance.
+Understand why many backtests produce misleading conclusions.
+Build the statistical foundation required for all future QROS research.
+7.1 Why Statistics Matters
+Markets generate an enormous amount of data every second:
+Prices
+Volumes
+Bid–ask spreads
+Volatility
+Order flow
+Economic announcements
+Sentiment indicators
+Without statistics, these observations remain isolated facts.
+Statistics transforms data into evidence.
+Instead of asking:
+"Did the strategy make money?"
+QROS asks:
+How consistent were the returns?
+How uncertain are the results?
+Could randomness explain the observed performance?
+How likely is this edge to persist?
+Statistics allows us to answer these questions objectively.
+7.2 Data Is Not Knowledge
+Many beginners assume that collecting more data automatically improves understanding.
+It does not.
+QROS recognizes four stages of analytical maturity:
+Raw Data
+↓
+Processed Data
+↓
+Statistical Evidence
+↓
+Decision
+Raw prices alone do not create knowledge.
+Knowledge emerges only after careful analysis.
+7.3 Descriptive Statistics
+Descriptive statistics summarize what has already happened.
+They do not explain why it happened or predict what will happen next.
+Important measures include:
+Mean (Average)
+Represents the central value.
+Useful for estimating long-term tendencies.
+Limitation:
+Sensitive to extreme observations.
+Median
+The middle observation after sorting.
+Advantages:
+Less affected by outliers.
+Often provides a better description of financial returns.
+Mode
+The most frequently occurring value.
+Although less commonly used in trading, it can help identify frequently observed spread sizes or price increments.
+Minimum and Maximum
+Describe the observed range.
+Useful for:
+Risk analysis.
+Stress testing.
+Identifying unusual events.
+Percentiles
+Percentiles divide observations into ordered groups.
+Example:
+The 95th percentile of daily volatility means that only 5% of observations exceeded that value.
+Percentiles are often more informative than averages when studying financial risk.
+7.4 Measuring Variability
+Average returns alone provide an incomplete picture.
+Two strategies with identical average profits may expose investors to very different levels of uncertainty.
+Key measures include:
+Variance
+Measures the average squared deviation from the mean.
+Useful mathematically but expressed in squared units.
+Standard Deviation
+The square root of variance.
+Advantages:
+Easier to interpret.
+Common measure of volatility.
+Higher standard deviation generally indicates greater variability.
+Interquartile Range (IQR)
+Measures the spread of the middle 50% of observations.
+Advantages:
+Less sensitive to extreme events.
+Useful when returns contain outliers.
+7.5 Outliers
+Financial markets occasionally experience extreme events.
+Examples:
+Flash crashes.
+Major geopolitical shocks.
+Unexpected central bank announcements.
+Removing these observations simply because they appear unusual may produce misleading conclusions.
+Instead, QROS asks:
+Was the observation genuine?
+Was it caused by bad data?
+Does it represent an important risk scenario?
+Outliers should be investigated before being excluded.
+7.6 Correlation
+Correlation measures how two variables move relative to one another.
+Examples relevant to QROS:
+Gold and the U.S. Dollar Index.
+Gold and Treasury yields.
+Gold and inflation expectations.
+Correlation values range approximately between:
++1 (move together)
+0 (little linear relationship)
+–1 (move in opposite directions)
+Important Principle
+Correlation does not imply causation.
+Two variables may move together for reasons unrelated to one another.
+7.7 Sampling
+No researcher observes every possible market event.
+Instead, we analyze samples.
+A sample should:
+Represent the broader market.
+Include multiple market regimes.
+Cover different volatility environments.
+Avoid selection bias.
+Testing a strategy using only a favorable bull market is unlikely to produce reliable conclusions.
+7.8 Statistical Significance
+Suppose a strategy produced unusually high returns during testing.
+We must ask:
+Could this have happened purely by chance?
+Statistical significance provides a structured way to evaluate that question.
+It does not prove a strategy is profitable.
+It simply estimates whether the observed result is unlikely to be explained by randomness alone.
+QROS uses significance testing as one component of a broader validation framework, never as the sole basis for approval.
+7.9 Confidence Intervals
+A single estimate rarely tells the full story.
+Instead of stating:
+"Average return = 1.2%"
+A confidence interval might state:
+"The average return is estimated to lie between 0.8% and 1.6% with a specified level of confidence."
+Confidence intervals communicate uncertainty more effectively than point estimates.
+7.10 Hypothesis Testing
+Every research project begins with a hypothesis.
+Example:
+"Gold volatility is higher during the London–New York overlap."
+Hypothesis testing follows a structured process:
+Define the null hypothesis.
+Define the alternative hypothesis.
+Select an appropriate statistical test.
+Analyze the evidence.
+Interpret the results.
+Document limitations.
+Importantly, failing to reject the null hypothesis does not prove it is true. It simply indicates that the available evidence was insufficient to support the alternative.
+7.11 Multiple Testing
+Imagine testing 500 different indicators.
+By chance alone, some may appear highly profitable.
+This is known as the multiple testing problem.
+QROS addresses this by:
+Recording every experiment.
+Correcting for repeated testing where appropriate.
+Prioritizing out-of-sample validation.
+Preferring simple, explainable models over complex ones with marginal improvements.
+7.12 Common Statistical Mistakes
+QROS explicitly guards against:
+Overfitting
+Optimizing models until they memorize historical data rather than learning durable relationships.
+Look-Ahead Bias
+Using information that would not have been available at the time a trading decision was made.
+Survivorship Bias
+Studying only assets or strategies that survived while ignoring failures.
+Selection Bias
+Choosing data that supports a preferred conclusion.
+Data Snooping
+Repeatedly searching the same dataset until a seemingly profitable pattern appears.
+These errors often produce impressive backtests that fail in live trading.
+7.13 QROS Statistical Workflow
+Every research project should follow a consistent analytical process:
+Research Question
+↓
+Data Collection
+↓
+Data Validation
+↓
+Exploratory Data Analysis
+↓
+Descriptive Statistics
+↓
+Hypothesis Testing
+↓
+Robustness Analysis
+↓
+Independent Validation
+↓
+Research Report
+This workflow ensures that statistical analysis is systematic and reproducible.
+Case Study: Evaluating a Gold Strategy
+Suppose a new XAUUSD strategy reports:
+18% annual return.
+1.9 Sharpe ratio.
+64% win rate.
+Rather than approving the strategy immediately, QROS asks:
+Was the sample sufficiently large?
+Were multiple market regimes included?
+How stable are the returns?
+What is the confidence interval around the Sharpe ratio?
+Were transaction costs modeled realistically?
+Was the strategy tested out-of-sample?
+How many alternative models were evaluated before selecting this one?
+Only after answering these questions can the reported performance be interpreted responsibly.
+Chapter Summary
+Statistics transforms market observations into measurable evidence. By describing data, estimating uncertainty, and testing hypotheses, it allows QROS to evaluate trading ideas objectively rather than relying on intuition or isolated examples.
+A robust quantitative platform does not ask whether a strategy "looks good." It asks whether the evidence supporting that strategy is strong, reproducible, and likely to generalize beyond the historical data used during development.
+Practical Exercise
+Using one year of XAUUSD daily returns:
+Calculate:
+Mean
+Median
+Standard deviation
+Minimum
+Maximum
+25th, 50th, and 75th percentiles
+Plot the distribution of returns.
+Identify any outliers and investigate their causes.
+Compute the rolling 30-day volatility.
+Compare the statistical characteristics before and after major macroeconomic events.

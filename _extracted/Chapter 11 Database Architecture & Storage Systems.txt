@@ -1,0 +1,271 @@
+QROS Engineering Standard
+QES-001
+"No subsystem shall be designed independently. Every subsystem must integrate into the complete platform architecture."
+This becomes our first engineering standard.
+Every future chapter must show:
+Inputs
+Outputs
+Dependencies
+Risks
+Interfaces
+Quality Metrics
+QROS Institutional Algorithmic Trading Platform
+Volume I — Foundations of Quantitative Intelligence
+Part V — Data Engineering Foundations
+Chapter 11 Database Architecture &amp; Storage Systems
+Designing the Long-Term Memory of QROS
+Estimated Length: 180–220 Pages
+Chapter Objective
+By the end of this chapter, the reader should understand:
+Why databases are more than storage systems.
+Different database technologies.
+Why one database is insufficient for an institutional platform.
+The database architecture of QROS.
+Data partitioning.
+Indexing.
+Time-series optimization.
+Backup and disaster recovery.
+Long-term scalability.
+Opening Thought
+Imagine trying to build a library.
+Books are arriving every second.
+Some books are updated.
+Some become obsolete.
+Some are borrowed constantly.
+Some are archived forever.
+Without an organized catalog,
+the library becomes useless.
+A database performs exactly the same function for software.
+It is not merely a place to save information.
+It is the memory of the entire organization.
+11.1 Why Databases Matter
+Every decision inside QROS depends on historical information.
+Questions such as:
+What happened during the last FOMC meeting?
+How did Strategy 17 perform?
+What features were used in Model Version 4?
+Which datasets generated this signal?
+Who approved deployment?
+all require reliable storage.
+Without databases,
+institutional research becomes impossible.
+11.2 Data Is Not Just Data
+QROS stores many fundamentally different kinds of information.
+Examples include:
+Market Prices
+Tick Data
+Economic Calendar
+Research Papers
+Machine Learning Models
+Risk Reports
+Trade Logs
+Execution Logs
+Feature Store
+User Accounts
+System Logs
+Audit Trails
+Attempting to store all of these in one database would create unnecessary complexity and reduce performance.
+11.3 Polyglot Persistence
+Professional platforms often use polyglot persistence, meaning different storage technologies are selected based on the characteristics of the data.
+Instead of asking:
+"Which database is best?"
+QROS asks:
+"Which database is best for this type of information?"
+This principle guides the storage architecture.
+11.4 The QROS Database Architecture
+QROS Storage Layer
+┌──────────────────────────┐
+│     Data Lake            │
+│  Raw Historical Data     │
+└─────────────┬────────────┘
+│
+┌─────────────▼────────────┐
+│   Time-Series Database   │
+│ Prices • Ticks • Bars    │
+└─────────────┬────────────┘
+│
+┌───────────────────────┼──────────────────────┐
+▼                       ▼                      ▼
+Relational DB          Feature Store         Object Storage
+Users • Trades         Indicators            Models • Reports
+Research               AI Features           Documents • Images
+Configurations         Regime Labels         Backups
+│
+▼
+Analytics Warehouse
+This architecture balances performance, scalability, and maintainability.
+11.5 Storage Components
+1. Data Lake
+Purpose:
+Store raw, immutable data exactly as received.
+Characteristics:
+Never edited.
+Compressed.
+Versioned.
+Serves as the source of truth.
+2. Time-Series Database
+Optimized for chronological data such as:
+Tick prices.
+OHLCV bars.
+Bid/ask quotes.
+Spreads.
+Time-series databases provide efficient storage and retrieval for high-frequency market data.
+3. Relational Database
+Used for structured information:
+Research projects.
+Strategies.
+Trades.
+Users.
+Configuration settings.
+Risk limits.
+Relational databases excel when relationships between entities are important.
+4. Feature Store
+Stores engineered variables such as:
+ATR.
+VWAP.
+RSI.
+Volatility measures.
+Liquidity metrics.
+Regime classifications.
+Rather than recalculating features repeatedly, QROS serves them from this centralized repository.
+5. Object Storage
+Designed for large files:
+Machine learning models.
+PDFs.
+Reports.
+Images.
+Backups.
+Experiment artifacts.
+Object storage provides durability and cost-effective scalability.
+6. Analytics Warehouse
+Optimized for complex analytical queries.
+Examples:
+Multi-year performance reports.
+Portfolio analytics.
+Cross-strategy comparisons.
+Executive dashboards.
+The warehouse is built for insight rather than transaction processing.
+11.6 Database Selection Criteria
+When selecting a storage technology, QROS evaluates:
+Data volume.
+Query patterns.
+Write frequency.
+Read frequency.
+Latency requirements.
+Scalability.
+Reliability.
+Operational complexity.
+Backup capabilities.
+Ecosystem support.
+Technology choices should follow these requirements rather than current trends.
+11.7 Data Partitioning
+As datasets grow, performance can decline.
+Partitioning divides large datasets into manageable segments.
+Examples:
+By instrument:
+XAUUSD
+EURUSD
+GBPUSD
+By timeframe:
+Tick
+M1
+H1
+Daily
+By year:
+2024
+2025
+2026
+Partitioning improves retrieval speed and simplifies maintenance.
+11.8 Indexing
+Indexes accelerate searches.
+Without indexes:
+Finding one trade among millions requires scanning the entire dataset.
+With indexes:
+The database navigates directly to the required records.
+Common indexing fields include:
+Timestamp.
+Instrument.
+Strategy ID.
+Trade ID.
+Research Project ID.
+Dataset Version.
+Well-designed indexes dramatically improve performance but require careful planning because excessive indexing increases storage requirements and write overhead.
+11.9 Backup Strategy
+Backups are not optional.
+QROS adopts the 3-2-1 Backup Rule:
+Three copies of important data.
+Stored on two different types of media.
+One copy kept off-site or in a separate environment.
+Backups should be:
+Automated.
+Regularly tested.
+Versioned.
+Encrypted where appropriate.
+A backup that has never been restored successfully should not be assumed to be reliable.
+11.10 Disaster Recovery
+Potential failure scenarios include:
+Disk corruption.
+Hardware failure.
+Accidental deletion.
+Software bugs.
+Power outages.
+Cybersecurity incidents.
+Recovery planning should define:
+Recovery Time Objective (RTO): How quickly systems should be restored.
+Recovery Point Objective (RPO): How much data loss is acceptable.
+These objectives guide infrastructure and backup design.
+11.11 Database Security
+Security protects the integrity and confidentiality of information.
+Key practices include:
+Role-based access control.
+Encryption at rest and in transit.
+Audit logging.
+Least-privilege access.
+Multi-factor authentication for administrative functions.
+Regular security reviews.
+Security should be integrated into the architecture rather than added after deployment.
+11.12 Database Governance
+Every database should have:
+A documented owner.
+Defined access policies.
+Data retention rules.
+Archival procedures.
+Validation schedules.
+Performance monitoring.
+Governance ensures that the storage layer remains reliable as the platform evolves.
+QROS Engineering Specification
+Database Acceptance Standard (DBA-1)
+A production database must:
+Support automated backups.
+Maintain audit logs.
+Enforce access controls.
+Preserve historical versions where required.
+Meet defined RTO and RPO targets.
+Demonstrate acceptable query performance under expected workloads.
+Only databases meeting these standards may be used in production.
+Case Study
+Suppose a researcher accidentally deletes a processed dataset that supports a critical trading strategy.
+In a poorly designed system:
+The dataset is lost.
+Research must be repeated.
+Production may be disrupted.
+In QROS:
+The deletion is logged.
+Access controls limit accidental deletion.
+A previous version remains available.
+The dataset is restored from backup.
+The incident is documented and reviewed to improve processes.
+The emphasis is not on preventing every error, but on ensuring the system can recover safely and transparently.
+Chapter Summary
+Databases form the long-term memory of QROS. By matching storage technologies to data characteristics, implementing governance, and designing for resilience, the platform ensures that information remains reliable, accessible, and secure throughout its lifecycle.
+A well-designed storage architecture supports not only efficient operation today but also the long-term accumulation of institutional knowledge.
+Practical Exercise
+Design the storage architecture for the initial QROS implementation.
+For each category of information, specify:
+Storage type.
+Primary purpose.
+Retention policy.
+Backup frequency.
+Recovery priority.
+Access permissions.
+Explain why each storage decision supports the long-term goals of the platform.

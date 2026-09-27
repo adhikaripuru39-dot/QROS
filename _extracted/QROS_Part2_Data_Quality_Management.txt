@@ -1,0 +1,75 @@
+QROS INSTITUTIONAL QUANTITATIVE RESEARCH FRAMEWORK
+PART 2: DATA QUALITY MANAGEMENT HANDBOOKData Anomaly Mitigation, Bias Elimination &amp; Cleaning Protocol
+[DATA QUALITY FIREWALL MANDATE] Data quality management is the absolute firewall between raw exchange feeds and downstream alpha research. This handbook defines detection, correction, and prevention specifications for 21 core data quality challenges and research biases.
+Chapter 1: Anomaly Detection &amp; Data Cleaning Standards
+Raw market data is contaminated by exchange outages, network packet jitter, bad quotes, and vendor discrepancies. Every anomaly must be systematically detected, corrected, and logged.
+1.1 Missing Values (Intraday &amp; Interday Gaps)
+• Detection Methods: Grid continuity audit comparing expected exchange session trading minutes against observed timestamp records.
+• Correction Methods: For illiquid quote series, forward-fill last available quote (Zero-Order Hold). For trade volume, set missing bar volume strictly to 0. Linear interpolation is strictly prohibited for price series as it introduces future price leakage.
+• Prevention Methods: Redundant dual-feed streaming handlers with automatic TCP gap-fill retransmission.
+• Validation Procedures: Automated missingness matrix reporting; alert if missing bar fraction exceeds 0.05% of daily universe.
+1.2 Outliers &amp; Bad Ticks (Flash Crashes vs. Malformed Quotes)
+• Detection Methods: Rolling Median Absolute Deviation (MAD) filter and Z-score volatility thresholds ($|P_t - M_{med}| / MAD &gt; 8.0$). Cross-venue arbitration against secondary independent feed.
+• Correction Methods: Replace bad tick with previous valid bid-ask midpoint. Flag record in Metadata Store as BAD_TICK_SUPPRESSED.
+• Prevention Methods: Exchange trade condition code filtering (exclude Form-T, out-of-sequence, and canceled trade codes).
+1.3 Duplicate Candles &amp; Stale Quotes
+• Detection Methods: Multi-column hash uniqueness check across (Symbol, Timestamp, Open, High, Low, Close, Volume).
+• Correction Methods: Deduplicate by retaining the record with the latest hardware receive timestamp.
+1.4 Timezone Normalization, Market Session Adjustment, Holidays &amp; DST
+• Standard: Store all timestamps in UTC Nanoseconds (Unix Epoch nanoseconds). Conversion to local exchange time occurs purely at rendering time.
+• Session Boundaries: Maintain explicit venue session calendars (e.g., CME Futures 17:00-16:00 CT vs. NYSE Equity 09:30-16:00 EST).
+• DST Transition: Handle Daylight Saving Time switches (US Eastern vs UTC 4h/5h offset) using IANA time zone database definitions (America/New_York).
+• Holidays: Integrate exchange holiday calendars; eliminate half-day session volatility skew by flagging partial trading days.
+1.5 Vendor Discrepancies &amp; Price Reconciliation
+• Detection Methods: Automated daily cross-vendor price reconciliation engine comparing primary feed (e.g., Direct Exchange ITCH) against secondary (e.g., Bloomberg B-PIPE).
+• Threshold: Flag any close price discrepancy exceeding 1 basis point ($0.01\%$).
+1.6 Corporate Actions &amp; Futures Instrument Rollovers
+• Corporate Actions: Apply point-in-time adjustment factors for Stock Splits, Reverse Splits, Stock Dividends, and Cash Dividends. Maintain both Raw Unadjusted and Adjusted series.
+• Futures Rollovers: Support 4 continuous contract construction methodologies: Open Interest Roll, Volume Roll, Expiration Date Roll, and Ratio-Adjusted Back-Adjustment to prevent artificial price jumps.
+Chapter 2: Quantitative Research Bias Elimination Handbook
+Biases in market datasets create phantom alpha during backtesting that collapses in production execution. The division enforces rigorous bias elimination protocols.
+Bias Type
+Root Cause in Market Data
+Detection Method
+Institutional Mitigation Protocol
+Survivorship Bias
+Excluding delisted, bankrupt, or acquired firms from historical index constituents.
+Compare historical ticker universe against SEC EDGAR / Permno delisting database.
+Use point-in-time survivor-inclusive index universes including all historical delisted assets.
+Look-Ahead Bias
+Using data at timestamp t that was not publicly available until timestamp t+k (e.g., macro revisions, earnings releases).
+Audit timestamp alignment: Verify Knowledge_Timestamp &lt;= Backtest_Execution_Timestamp.
+Enforce bitemporal point-in-time database schema. Restrict signal engine to Knowledge Time.
+Selection Bias
+Selecting assets based on post-hoc performance criteria (e.g., testing only top 50 market cap stocks today).
+Cross-sectional universe turnover audit.
+Define universe dynamically at every point-in-time t using lagged market capitalization.
+Execution Bias
+Assuming fills occur at mid-price or bar close without modeling order book depth and latency.
+Simulated vs. actual market impact deviation.
+Incorporate Level 2 order book depth, queue priority delay, and square-root market impact modeling.
+Sampling Bias
+Sampling data during unique market regimes (e.g., low volatility bull markets) and generalizing results.
+Regime stability test across stress periods.
+Enforce multi-decade backtest spans encompassing 2008, 2011, 2020, and 2022 market crises.
+Data Snooping / Mining
+Testing thousands of parameter combinations until a statistically significant backtest emerges by chance.
+Deflated Sharpe Ratio (DSR) &amp; P-Hacking test.
+Track all trial iterations in Experiment Registry; penalize p-values using Family-Wise Error Rate (FWER).
+Publication Lag Bias
+Assuming macro indicators (e.g., CPI, GDP) are available on the observation end date rather than release date.
+Lag audit comparing Event Date vs Release Date.
+Strictly map macro indicators to Release Date and hour (e.g., CPI release date + 8:30 AM EST).
+Revision Bias
+Using final revised macroeconomic prints instead of first-print historical values.
+Revision discrepancy audit against initial prints.
+Store full macroeconomic revision histories; query initial print for historical signal generation.
+Chapter 3: Data Quality Automation &amp; Governance
+3.1 Automated Data Pipeline Auditing
+All incoming data batches are automatically evaluated by an automated Great Expectations / Soda SQL data validation engine prior to entering the production Feature Store.
+3.2 Quality Control Checklists &amp; Sign-Off Rules
+[ ] Zero Unhandled Missing Values: All missing data fields resolved via explicit Zero-Order Hold or Null flags.
+[ ] Timestamp Epoch Consistency: All event timestamps verified in UTC Nanoseconds.
+[ ] Delisting Universe Active: Delisted ticker data included in historical universe queries.
+[ ] Bitemporal Point-in-Time Verified: Knowledge timestamps strictly lag or match event timestamps.
+[ ] Corporate Action Verification: Split and dividend adjustment factors signed off by Data Engineer and DGO.

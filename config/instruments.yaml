@@ -1,0 +1,13 @@
+# Instrument DEFAULTS. The executor overrides contract specs (tick value, volume
+# limits, stop level) from the broker's symbol_info when connected. Tick values
+# for non-USD-quoted pairs vary with price; the values here are approximations
+# for an USD account and are only used when no broker data is available
+# (paper/offline research). Live sizing ALWAYS uses broker values.
+instruments:
+  - {symbol: XAUUSD, enabled: true, asset_class: metal, base: XAU, quote: USD, max_spread_points: 50,  contract_size: 100,    tick_size: 0.01,    tick_value_per_lot: 1.0,  point: 0.01,    min_stop_points: 0}
+  - {symbol: EURUSD, enabled: true, asset_class: fx,    base: EUR, quote: USD, max_spread_points: 15,  contract_size: 100000, tick_size: 0.00001, tick_value_per_lot: 1.0,  point: 0.00001, min_stop_points: 0}
+  - {symbol: GBPUSD, enabled: true, asset_class: fx,    base: GBP, quote: USD, max_spread_points: 20,  contract_size: 100000, tick_size: 0.00001, tick_value_per_lot: 1.0,  point: 0.00001, min_stop_points: 0}
+  - {symbol: USDJPY, enabled: true, asset_class: fx,    base: USD, quote: JPY, max_spread_points: 18,  contract_size: 100000, tick_size: 0.001,   tick_value_per_lot: 0.67, point: 0.001,   min_stop_points: 0}
+  - {symbol: USDCHF, enabled: false, asset_class: fx,    base: USD, quote: CHF, max_spread_points: 20,  contract_size: 100000, tick_size: 0.00001, tick_value_per_lot: 1.12, point: 0.00001, min_stop_points: 0}
+  - {symbol: USDCAD, enabled: true, asset_class: fx,    base: USD, quote: CAD, max_spread_points: 20,  contract_size: 100000, tick_size: 0.00001, tick_value_per_lot: 0.73, point: 0.00001, min_stop_points: 0}
+  - {symbol: AUDUSD, enabled: false, asset_class: fx,    base: AUD, quote: USD, max_spread_points: 15,  contract_size: 100000, tick_size: 0.00001, tick_value_per_lot: 1.0,  point: 0.00001, min_stop_points: 0}

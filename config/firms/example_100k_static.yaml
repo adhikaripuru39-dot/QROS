@@ -1,0 +1,34 @@
+# EXAMPLE firm profile — NOT the published rules of any specific firm.
+# Replace every value with your firm's actual rules before trading.
+id: example_100k_static
+name: "Example 2-Step Challenge $100k (static DD)"
+is_example: true
+currency: USD
+initial_balance: 100000
+daily_loss:
+  pct: 5.0
+  anchor: start_of_day_max        # conservative: max(balance, equity) at reset
+  amount_basis: initial_balance   # 5% of initial balance = $5,000
+  measure: equity                 # floating losses count
+max_loss:
+  pct: 10.0
+  drawdown_type: static
+  measure: equity
+  trail_lock_at_initial: true
+daily_reset:
+  timezone: Europe/Prague
+  time: "00:00"
+profit_target_pct: 10.0
+min_trading_days: 4
+consistency_max_day_share: null
+news:
+  enabled: true
+  minutes_before: 2
+  minutes_after: 2
+overnight_allowed: true
+weekend_allowed: false
+max_lots_per_order: 20
+max_total_lots: 50
+max_leverage: 100
+automated_trading_allowed: true
+commission_per_lot_round_turn: 7.0

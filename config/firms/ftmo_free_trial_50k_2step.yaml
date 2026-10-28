@@ -1,0 +1,35 @@
+# Programme confirmed by account owner on 2026-10-23.
+# Published sources and assumptions: docs/FTMO_ACCOUNT_RULES.md.
+id: ftmo_free_trial_50k_2step
+name: FTMO 2-Step Free Trial $50,000
+is_example: false
+currency: USD
+initial_balance: 50000
+daily_loss:
+  pct: 5.0
+  anchor: start_of_day_balance
+  amount_basis: initial_balance
+  measure: equity
+max_loss:
+  pct: 10.0
+  drawdown_type: static
+  measure: equity
+  trail_lock_at_initial: false
+daily_reset:
+  timezone: Europe/Prague
+  time: "00:00"
+profit_target_pct: 5.0
+min_trading_days: 2
+consistency_max_day_share: null
+news:
+  enabled: true
+  minutes_before: 10
+  minutes_after: 10
+  flatten_before_news: true
+  cancel_pending_before_news: true
+overnight_allowed: true
+weekend_allowed: true
+max_leverage: 100
+automated_trading_allowed: true
+# Conservative research assumption, NOT a verified fee schedule.
+commission_per_lot_round_turn: 7.0

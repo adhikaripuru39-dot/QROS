@@ -1,0 +1,34 @@
+# EXAMPLE firm profile with trailing (intraday, equity high-water-mark) drawdown.
+# Replace every value with your firm's actual rules before trading.
+id: example_100k_trailing
+name: "Example 1-Step $100k (intraday trailing DD)"
+is_example: true
+currency: USD
+initial_balance: 100000
+daily_loss:
+  pct: 4.0
+  anchor: start_of_day_balance
+  amount_basis: anchor
+  measure: equity
+max_loss:
+  pct: 6.0
+  drawdown_type: trailing_intraday
+  measure: equity
+  trail_lock_at_initial: true
+daily_reset:
+  timezone: America/New_York
+  time: "17:00"
+profit_target_pct: 10.0
+min_trading_days: 3
+consistency_max_day_share: 0.5
+news:
+  enabled: true
+  minutes_before: 5
+  minutes_after: 5
+overnight_allowed: true
+weekend_allowed: false
+max_lots_per_order: 10
+max_total_lots: 30
+max_leverage: 50
+automated_trading_allowed: true
+commission_per_lot_round_turn: 6.0

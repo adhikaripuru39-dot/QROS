@@ -1,0 +1,22 @@
+# Seed values for the settings store on first start. After seeding, the database
+# is the source of truth (edited through the dashboard, validated + audited).
+active_firm_id: example_100k_static
+internal_limits:
+  risk_per_trade_pct: 0.50
+  daily_warning_pct: 1.0
+  daily_stop_pct: 1.5
+  total_stop_pct: 7.0
+  max_open_positions: 3
+  max_risk_per_instrument_pct: 0.50
+  max_total_open_risk_pct: 1.50
+  max_currency_risk_pct: 1.00
+  max_session_loss_pct: 1.5
+  max_trades_per_day: 100
+  max_stale_quote_seconds: 10
+  slippage_buffer_points: 5
+  min_free_margin_pct: 50
+trading_hours:
+  timezone: Europe/Prague
+  sessions:
+    - {start: "08:00", end: "20:00", days: [0, 1, 2, 3, 4]}
+  flat_before_weekend_minutes: 30

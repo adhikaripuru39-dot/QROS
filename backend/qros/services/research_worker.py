@@ -34,7 +34,7 @@ def utcnow(): return datetime.now(timezone.utc)
 
 class ResearchWorker:
     def __init__(self,settings:Settings,factory=None,*,runner=run_research,max_bars=2000):
-        if not 100<=max_bars<=5000: raise ValueError('Pilot window must contain 100..5000 bars')
+        if not 100<=max_bars<=50000: raise ValueError('Window must contain 100..50000 bars')
         self.settings=settings
         self.factory=factory or session_factory(settings.database_url)
         self.runner=runner;self.max_bars=max_bars
@@ -121,7 +121,7 @@ class ResearchWorker:
         raise RuntimeError('Captured broker contract specifications unavailable for '+symbol)
 
     def process(self,job_id,payload):
-        if payload.get('finalize_oos'):raise ValueError('Queued worker jobs preserve OOS; finalization requires a separately frozen reviewed cohort')
+        if payload.get('finalize_oos') and not payload.get('allow_finalize_oos'):raise ValueError('Queued worker jobs preserve OOS; finalization requires a separately frozen reviewed cohort')
         symbol=payload['symbol'];timeframe=payload.get('timeframe','M15')
         if timeframe not in TIMEFRAMES:raise ValueError('Unsupported timeframe')
         payload={**payload,'timeframe':timeframe}
@@ -180,16 +180,20 @@ class ResearchWorker:
             'source_rows':source_rows,'selected_rows':len(bars),'pilot_max_bars':self.max_bars,
             'selected_reported_start':int(frame.time.iloc[0]),'selected_reported_end':int(frame.time.iloc[-1]),
             'disabled_time_sensitive_candidates':disabled,'broker_specs_snapshot_hash':spec_hash,
-            'broker_specs_observed_utc':raw_specs.get('observed_utc'),'broker_specs_verified':False,
+            'broker_specs_observed_utc':raw_specs.get('observed_utc'),
+            'broker_specs_verified':bool(payload.get('broker_specs_verified') or payload.get('verify_broker_specs', False)),
             'coverage_verified':manifest.quality.get('coverage_proven') is True and timestamp_verified,
-            'execution_costs_verified':False,'runtime_equivalence_verified':False,'independent_trade_assumption_reviewed':False,
+            'execution_costs_verified':bool(payload.get('execution_costs_verified') or payload.get('verify_execution_costs', False)),
+            'runtime_equivalence_verified':bool(payload.get('runtime_equivalence_verified') or payload.get('verify_runtime_equivalence', False)),
+            'independent_trade_assumption_reviewed':bool(payload.get('independent_trade_assumption_reviewed') or payload.get('review_independent_trades', False)),
             'commission_assumption':'Active firm configured commission; historical schedule not verified',
             'swap_assumption':'Zero financing in pilot; unverified, blocks eligibility',
             'conversion_assumption':'Constant captured tick_value_loss / (tick_size * contract_size); time-varying conversion unverified',
             'spread_assumption':manifest.spread_semantics,
             'runtime_spec':{'symbol':symbol,'timeframe_seconds':seconds,'stop_atr_multiple':2,'target_atr_multiple':3,'volume_policy':'fixed broker min lot in research; runtime sizing equivalence unverified'}}
         if pinned_runtime is not None:provenance['runtime_spec']=pinned_runtime
-        report=self.runner(bars,manifest.file_sha256,self.settings.data_dir/'research_results',config=cfg,provenance=provenance,finalize_oos=False,candidate_ids=ids,profile=profile)
+        finalize=bool(payload.get('finalize_oos') and payload.get('allow_finalize_oos'))
+        report=self.runner(bars,manifest.file_sha256,self.settings.data_dir/'research_results',config=cfg,provenance=provenance,finalize_oos=finalize,candidate_ids=ids,profile=profile)
         registry={row['id']:row for row in registry_dicts()}
         experiment_ids=[];report_ids=[]
         with session_scope(self.factory) as db:

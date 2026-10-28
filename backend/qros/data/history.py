@@ -203,7 +203,7 @@ class HistoryStore:
     def ingest_mt5(self, mt5, symbol: str, timeframe: str, start: datetime, end: datetime,
                    point: float, *, price_basis: str, expected_times=None,
                    now: datetime | None = None, timestamp_metadata=None,
-                   request_axis_offset_seconds=0) -> DatasetManifest:
+                   request_axis_offset_seconds=0, session_policy: str | None = None) -> DatasetManifest:
         """Read-only history calls; caller initializes the terminal. End is exclusive.
 
         price_basis must be supplied from instrument/chart knowledge (bid or last).
@@ -236,6 +236,17 @@ class HistoryStore:
         # Only completed bars are eligible. No sorting/deduplication hides source defects.
         frame = frame[frame.time + TIMEFRAMES[timeframe] <= request_now.timestamp()].reset_index(drop=True)
         quality = validate_bars(frame, timeframe, start, end, expected_times)
+        if session_policy == "ftmo" and expected_times is None and len(frame):
+            # Session-aware coverage replaces the 24/7 grid, which flags every weekend.
+            from .sessions import classify_gaps
+            gaps = classify_gaps(frame.time.tolist(), TIMEFRAMES[timeframe],
+                                 metal=symbol.upper().startswith(("XAU", "XAG")))
+            core_ok = bool(not quality["invalid_rows"] and not quality["duplicate_times"] and quality["monotonic"]
+                           and not quality["out_of_range"] and not quality["large_return_review_flags"])
+            quality.update({"calendar": "ftmo_session_policy", "session_gaps": gaps,
+                            "missing_expected_bars": gaps["unexplained_missing_bars"], "unexpected_bars": 0,
+                            "usable": core_ok and gaps["within_tolerance"],
+                            "coverage_proven": core_ok and gaps["within_tolerance"]})
         quality["missing_sample_reported_axis"]=quality.pop("missing_sample_utc",[])
         quality["timestamp_verified"]=timestamp_verified
         quality["calendar_coverage_on_reported_axis"]=quality.get("coverage_proven",False)

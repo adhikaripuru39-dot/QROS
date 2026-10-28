@@ -9,7 +9,7 @@ from .history import HistoryStore, TIMEFRAMES, _utc
 
 
 def sync_history(mt5, root, symbols, start, end, timeframes=tuple(TIMEFRAMES), *, include_ticks=False,
-                 timestamp_metadata=None,request_axis_offset_seconds=0):
+                 timestamp_metadata=None,request_axis_offset_seconds=0,session_policy=None):
     """Caller owns terminal connection. Every sync creates new immutable versions.
 
     Failures are returned individually; quality and market closures are never
@@ -34,7 +34,8 @@ def sync_history(mt5, root, symbols, start, end, timeframes=tuple(TIMEFRAMES), *
                 end_aligned=datetime.fromtimestamp(int(end.timestamp())//seconds*seconds,timezone.utc)
                 start_aligned=datetime.fromtimestamp(int(start.timestamp())//seconds*seconds,timezone.utc)
                 result=store.ingest_mt5(mt5,symbol,timeframe,start_aligned,end_aligned,spec.point,price_basis=basis,
-                    timestamp_metadata=timestamp_metadata,request_axis_offset_seconds=request_axis_offset_seconds)
+                    timestamp_metadata=timestamp_metadata,request_axis_offset_seconds=request_axis_offset_seconds,
+                    session_policy=session_policy)
                 report["datasets"].append({"symbol":symbol,"timeframe":timeframe,"version":result.version,
                                             "rows":result.rows,"sha256":result.file_sha256,"quality":result.quality})
             except Exception as exc:

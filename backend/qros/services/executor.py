@@ -285,12 +285,20 @@ class Executor:
             ctrl=self._state(db)
             if ctrl.run_state!='running' or ctrl.kill_switch:return
             limits=st.internal_limits(db);firm=st.active_firm(db)
+            base_eq = min(self.snapshot['account'].balance, self.snapshot['account'].equity)
+            hwm = max(firm.initial_balance, self.snapshot['account'].balance, self.snapshot['account'].equity, getattr(self, '_hwm_equity', firm.initial_balance))
+            self._hwm_equity = hwm
+            dd_pct = (hwm - self.snapshot['account'].equity) / hwm * 100.0 if hwm > 0 else 0.0
+            risk_factor = 1.0 if dd_pct <= 0.75 else (0.60 if dd_pct <= 1.50 else (0.30 if dd_pct <= 2.25 else 0.0))
+            dynamic_risk = base_eq * (limits.risk_per_trade_pct * risk_factor / 100.0)
+            if dynamic_risk <= 0:
+                return
             for sid in ctrl.active_strategy_ids or []:
                 strategy=db.get(Strategy,sid)
                 if strategy is None or strategy_eligibility(db,strategy,ctrl.trading_mode):continue
                 cfg=strategy.spec.get('runtime',{})
                 if cfg.get('symbol') is None:continue
-                runtime=StrategyRuntime(strategy.id,strategy.hypothesis_id,cfg['symbol'],strategy.status,int(cfg.get('timeframe_seconds',900)),min(self.snapshot['account'].balance,self.snapshot['account'].equity)*limits.risk_per_trade_pct/100,True,TradingMode(ctrl.trading_mode),atr_period=int(cfg.get('atr_period',14)),stop_atr_multiple=float(cfg.get('stop_atr_multiple',2)),target_atr_multiple=float(cfg.get('target_atr_multiple',3)),commission_round_turn_per_lot=firm.commission_per_lot_round_turn,adverse_slippage_points=limits.slippage_buffer_points)
+                runtime=StrategyRuntime(strategy.id,strategy.hypothesis_id,cfg['symbol'],strategy.status,int(cfg.get('timeframe_seconds',900)),dynamic_risk,True,TradingMode(ctrl.trading_mode),atr_period=int(cfg.get('atr_period',14)),stop_atr_multiple=float(cfg.get('stop_atr_multiple',2)),target_atr_multiple=float(cfg.get('target_atr_multiple',3)),commission_round_turn_per_lot=firm.commission_per_lot_round_turn,adverse_slippage_points=limits.slippage_buffer_points)
                 candidates.append(runtime)
         busy_symbols={pos.symbol for pos in (self.snapshot.get('positions') or [])}
         priority={'failed_breakout':0,'trend_pullback':1,'momentum':2,'mean_reversion':3,'squeeze':4}

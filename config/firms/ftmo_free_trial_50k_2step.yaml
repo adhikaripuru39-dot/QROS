@@ -22,7 +22,7 @@ profit_target_pct: 5.0
 min_trading_days: 2
 consistency_max_day_share: null
 news:
-  enabled: true
+  enabled: false
   minutes_before: 10
   minutes_after: 10
   flatten_before_news: true

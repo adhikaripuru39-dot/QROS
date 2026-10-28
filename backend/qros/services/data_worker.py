@@ -153,10 +153,17 @@ class DataWorker:
                 'historical_timestamp_verified':False,'current_clock_calibration':calibration,
                 'raw_timestamp_semantics':'broker-reported epoch; historical UTC/DST mapping unverified',
                 'request_offset_purpose':'current API request selection only; never historical normalization'}
+            extra={}
+            if str(account.server).upper().startswith('FTMO'):
+                # Published FTMO server-time rule, accepted only if the live offset agrees with it.
+                from qros.data.sessions import ftmo_timestamp_metadata
+                rule=ftmo_timestamp_metadata(self.current_offset,self.clock())
+                metadata={**metadata,**rule,'current_clock_calibration':calibration}
+                extra['session_policy']='ftmo'
             self.phase='syncing';self.heartbeat();end=self.clock()
             captured=self.syncer(adapter._mt5,self.store.root,symbols,end-timedelta(days=self.lookback_days),end,
                 tuple(TIMEFRAMES),include_ticks=False,timestamp_metadata=metadata,
-                request_axis_offset_seconds=self.current_offset)
+                request_axis_offset_seconds=self.current_offset,**extra)
             report['datasets']=captured.get('datasets',[])
             report['errors']=[self._safe(item) for item in captured.get('errors',[])]
             report['bar_sync_report_path']=captured.get('report_path')

@@ -36,6 +36,11 @@ def reconcile(db,adapter,now,mode):
     # A checkpoint overlaps query windows; deal IDs make overlap idempotent.
     checkpoint=db.get(SystemState,'reconcile_checkpoint:'+key)
     since=max(earliest-timedelta(days=1),datetime.fromisoformat(checkpoint.data['since'])-timedelta(days=1)) if checkpoint else earliest-timedelta(days=1)
+    if getattr(adapter,'clock_verified',True) is False:
+        # Distinguish a transient/closed-market calibration gap from a failed broker query.
+        from qros.risk.calendar import is_weekend_market_closed
+        unavailable('BROKER_CLOCK_NOT_VERIFIED_MARKET_CLOSED' if is_weekend_market_closed(now) else 'BROKER_CLOCK_NOT_YET_VERIFIED')
+        return
     deals=adapter.historical_deals(since)
     if deals is None:
         unavailable('DEAL_HISTORY_QUERY_FAILED');return

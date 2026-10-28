@@ -19,3 +19,4 @@ COPY_MANIFEST.json
 *.db-shm
 *.parquet
 var.*/
+*.zip

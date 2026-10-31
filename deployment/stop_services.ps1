@@ -36,3 +36,4 @@ foreach ($ld in $lockDirs) {
 }
 
 Write-Host "QROS shutdown complete.`n" -ForegroundColor Green
+

@@ -7,3 +7,4 @@ echo.
 powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0deployment\deploy_vps.ps1"
 echo.
 pause
+

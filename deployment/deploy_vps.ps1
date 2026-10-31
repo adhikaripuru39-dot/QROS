@@ -119,3 +119,4 @@ Write-Host "3. Attach 'QROSCalendarExport' EA to any single chart."
 Write-Host "4. Start QROS services: .\deployment\start_services.ps1"
 Write-Host "5. Open Dashboard: http://127.0.0.1:8000"
 Write-Host "============================================================`n"
+

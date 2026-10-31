@@ -146,3 +146,4 @@ The system will dynamically recalculate all daily loss anchors, the 2.25% anti-r
 3. [ ] **Supervisors Active:** API, Data Worker, and Executor command windows are running.
 4. [ ] **Heartbeats & Risk:** Dashboard indicates `risk_within_limits: PASS` and `news_calendar_coverage: PASS`.
 5. [ ] **Audit Trail:** Backups are written daily to `C:\QROS-Runtime\backups\`.
+

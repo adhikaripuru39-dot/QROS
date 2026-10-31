@@ -36,3 +36,4 @@ Write-Host "`nAll 3 services successfully launched under supervision." -Foregrou
 Write-Host "Web Dashboard available at: http://127.0.0.1:8000"
 Write-Host "Logs are continuously streaming to: C:\QROS-Runtime\var\logs"
 Write-Host "To cleanly stop all services, run: .\deployment\stop_services.ps1`n"
+

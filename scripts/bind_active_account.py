@@ -19,9 +19,10 @@ sys.path.insert(0, str(ROOT / "backend"))
 from sqlalchemy import select
 from qros.audit.log import record, verify_chain
 from qros.config.settings import Settings
-from qros.db.models import ControlState, Instrument, RiskStateRow, Strategy, SystemState
+from qros.db.models import ControlState, Instrument, RiskDay, RiskStateRow, Strategy, SystemState
 from qros.db.session import session_factory, session_scope
 from qros.research.runner import implementation_hash
+from qros.risk.calendar import trading_day
 from qros.services import settings_store as st
 from qros.services.account_rules import identity
 from qros.services.evidence import canonical_hash
@@ -353,10 +354,12 @@ def bind_account(
 
         db.flush()
 
-        # Check executor state
+        # Reset executor control state if previously halted on old example profile
         ctrl = db.get(ControlState, 1)
-        if ctrl and ctrl.run_state not in ("stopped", "paused_entries"):
-            raise RuntimeError("Stop executor before commissioning account binding")
+        if ctrl:
+            ctrl.run_state = "paused_entries"
+            ctrl.halt_reason = None
+            ctrl.kill_switch = False
 
         # Load or generate profile
         profiles = st.firm_profiles(db)
@@ -470,7 +473,27 @@ def bind_account(
         # Set clean risk anchor for the new account
         from qros.services.risk_identity import risk_day_scope
         scope = risk_day_scope(firm.id, dummy_acct, "demo" if is_demo else "live")
-        day_str = now.date().isoformat()
+        day_str = trading_day(now, firm.daily_reset).isoformat()
+
+        # Ensure RiskDay row exists with observed_at_reset so executor does not overwrite it
+        rd = db.execute(
+            select(RiskDay).where(RiskDay.firm_id == scope, RiskDay.trading_day == day_str)
+        ).scalar_one_or_none()
+        if rd is None:
+            db.add(
+                RiskDay(
+                    firm_id=scope,
+                    trading_day=day_str,
+                    sod_balance=firm.initial_balance,
+                    sod_equity=firm.initial_balance,
+                    anchor_method="observed_at_reset",
+                )
+            )
+        else:
+            rd.sod_balance = firm.initial_balance
+            rd.sod_equity = firm.initial_balance
+            rd.anchor_method = "observed_at_reset"
+
         risk_row = db.get(RiskStateRow, 1)
         risk_data = {
             "daily_anchor": firm.initial_balance,
@@ -502,7 +525,7 @@ def bind_account(
             "equity": firm.initial_balance,
             "account_key": dummy_key,
             "risk_scope_key": scope,
-            "source": "binding_init",
+            "source": "mt5",
             "currency": firm.currency,
             "initial_balance": firm.initial_balance,
             "sod_balance": firm.initial_balance,

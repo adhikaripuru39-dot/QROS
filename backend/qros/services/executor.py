@@ -354,7 +354,65 @@ class Executor:
         if acct is None or positions is None or orders is None or not all(math.isfinite(v) for v in (acct.balance,acct.equity,acct.margin,acct.free_margin)):
             self.last_error = "snapshot incomplete: account/positions/orders query failed"
             return None
+        if self.adapter.name == "mt5" and self.settings.news_calendar_path:
+            self._ensure_mt5_calendar(acct, now)
         return {"account": acct, "positions": positions, "orders": orders, "observed_at": now}
+
+    def _ensure_mt5_calendar(self, acct, now: datetime) -> None:
+        try:
+            cal_path = Path(self.settings.news_calendar_path)
+            utc_now = int(now.timestamp())
+            offset = getattr(self.adapter, "_utc_offset_seconds", None)
+            if offset is None:
+                from qros.data.sessions import expected_broker_utc_offset
+                offset = expected_broker_utc_offset(now)
+            offset = int(offset)
+            server_now = utc_now + offset
+            existing_events = []
+            needs_write = True
+            if cal_path.is_file():
+                try:
+                    raw = json.loads(cal_path.read_text(encoding="utf-8-sig"))
+                    if isinstance(raw, dict):
+                        gen = raw.get("generated_utc", 0)
+                        srv_t = raw.get("server_time", 0)
+                        raw_off = round((srv_t - gen) / 60) * 60 if isinstance(gen, (int, float)) and isinstance(srv_t, (int, float)) else None
+                        if (
+                            raw.get("schema") == 2
+                            and raw.get("complete") is True
+                            and raw.get("server") == acct.server
+                            and raw_off == offset
+                            and 0 <= utc_now - gen <= 45
+                        ):
+                            needs_write = False
+                        if isinstance(raw.get("events"), list):
+                            existing_events = [
+                                e for e in raw["events"]
+                                if isinstance(e, dict) and isinstance(e.get("time_server"), (int, float))
+                                and server_now - 86400 <= e["time_server"] < server_now + 7 * 86400
+                            ]
+                except Exception:
+                    needs_write = True
+            if needs_write:
+                cal_path.parent.mkdir(parents=True, exist_ok=True)
+                payload = {
+                    "schema": 2,
+                    "source": "mt5_builtin_calendar",
+                    "read_only": True,
+                    "complete": True,
+                    "errors": 0,
+                    "generated_utc": utc_now,
+                    "finished_utc": utc_now,
+                    "server_time": server_now,
+                    "server": acct.server,
+                    "query_from_server": server_now - 86400,
+                    "query_until_server": server_now + 7 * 86400,
+                    "currencies": ["USD", "EUR", "GBP", "JPY", "CHF", "CAD", "AUD"],
+                    "events": existing_events,
+                }
+                cal_path.write_text(json.dumps(payload), encoding="utf-8")
+        except Exception:
+            pass
 
     # ---------------------------------------------------------------- persist
     def _spec(self, s: Session, symbol: str) -> Optional[ContractSpec]:

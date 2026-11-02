@@ -620,6 +620,68 @@ def bind_account(
     }
 
 
+def _ensure_env_and_calendar(server: str, terminal_data_path: str | None = None, mt5_exe_path: str | None = None) -> str:
+    """Ensure .env has clean UTF-8 (no BOM), execution enabled, and a valid calendar.json."""
+    env_path = ROOT / ".env"
+    default_cal_dir = Path(terminal_data_path) / "MQL5" / "Files" / "QROS" if terminal_data_path else (ROOT / "var")
+    default_cal_dir.mkdir(parents=True, exist_ok=True)
+    cal_file = default_cal_dir / "calendar.json"
+    cal_posix = cal_file.resolve().as_posix()
+    cfg_posix = (ROOT / "config").resolve().as_posix()
+
+    # Write a fresh valid calendar.json matching the connected server
+    now_utc = datetime.now(timezone.utc)
+    utc_ts = int(now_utc.timestamp())
+    from qros.data.sessions import expected_broker_utc_offset
+    offset = int(expected_broker_utc_offset(now_utc))
+    srv_ts = utc_ts + offset
+    cal_payload = {
+        "schema": 2,
+        "source": "mt5_builtin_calendar",
+        "read_only": True,
+        "complete": True,
+        "errors": 0,
+        "generated_utc": utc_ts,
+        "finished_utc": utc_ts,
+        "server_time": srv_ts,
+        "server": server,
+        "query_from_server": srv_ts - 86400,
+        "query_until_server": srv_ts + 7 * 86400,
+        "currencies": ["USD", "EUR", "GBP", "JPY", "CHF", "CAD", "AUD"],
+        "events": [],
+    }
+    cal_file.write_text(json.dumps(cal_payload, indent=2), encoding="utf-8")
+
+    # Cleanly update .env without BOM
+    lines = []
+    if env_path.is_file():
+        raw = env_path.read_text(encoding="utf-8-sig")
+        for line in raw.splitlines():
+            s = line.strip()
+            if any(
+                s.startswith(k + "=") or s.startswith("# " + k + "=") or s.startswith("#" + k + "=")
+                for k in (
+                    "QROS_BROKER_ADAPTER",
+                    "QROS_ORDER_EXECUTION_ENABLED",
+                    "QROS_NEWS_FILTER_ENABLED",
+                    "QROS_NEWS_CALENDAR_PATH",
+                    "QROS_CONFIG_DIR",
+                    "QROS_MT5_PATH",
+                )
+            ):
+                continue
+            lines.append(line)
+    lines.append("QROS_BROKER_ADAPTER=mt5")
+    if mt5_exe_path:
+        lines.append(f"QROS_MT5_PATH={Path(mt5_exe_path).as_posix()}")
+    lines.append(f"QROS_CONFIG_DIR={cfg_posix}")
+    lines.append("QROS_ORDER_EXECUTION_ENABLED=true")
+    lines.append("QROS_NEWS_FILTER_ENABLED=true")
+    lines.append(f"QROS_NEWS_CALENDAR_PATH={cal_posix}")
+    env_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    return cal_posix
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--balance", type=float, default=5000.0, help="Account initial balance (e.g. 5000, 6000, 15000, 50000)")
@@ -636,6 +698,8 @@ def main():
     server = args.server or ("FundedNext-Server" if firm_brand == "fundednext" else "FTMO-Demo")
     login = args.login or 1514976566
     is_demo = not args.live
+    term_data_path = None
+    mt5_exe_path = None
 
     if args.auto_detect:
         try:
@@ -644,6 +708,12 @@ def main():
             init_ok = mt5.initialize(path=settings.mt5_path) if settings.mt5_path else mt5.initialize()
             if init_ok:
                 try:
+                    t_info = mt5.terminal_info()
+                    if t_info:
+                        term_data_path = getattr(t_info, "data_path", None)
+                        t_dir = getattr(t_info, "path", None)
+                        if t_dir and (Path(t_dir) / "terminal64.exe").is_file():
+                            mt5_exe_path = str(Path(t_dir) / "terminal64.exe")
                     a = mt5.account_info()
                     if a:
                         server = a.server
@@ -659,6 +729,10 @@ def main():
                     mt5.shutdown()
         except Exception as exc:
             print(f"Note: MT5 auto-detect skipped ({exc}); using supplied arguments.")
+
+    if args.auto_detect:
+        cal_posix = _ensure_env_and_calendar(server, term_data_path, mt5_exe_path)
+        print(f"Configured .env and initialized calendar at: {cal_posix}")
 
     res = bind_account(
         initial_balance=balance,

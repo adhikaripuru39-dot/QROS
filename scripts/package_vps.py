@@ -92,9 +92,19 @@ if __name__ == "__main__":
     target1 = root / "QROS-PROP-VPS-Deployment.zip"
     build_deployment_zip(root, target1)
 
-    # Target 2: On Desktop for direct user transfer
-    desktop_dir = Path(os.path.expanduser("~")) / "Desktop"
-    if desktop_dir.is_dir():
-        target2 = desktop_dir / "QROS-PROP-VPS-Deployment.zip"
-        shutil.copy2(target1, target2)
-        print(f"Copied deployment zip directly to Desktop: {target2}")
+    # Determine all candidate Desktop and workspace locations
+    candidate_dirs = [
+        root.parent,  # Parent workspace folder: QROS-PROP Anti-Complete-2026-10-24
+        Path(os.environ.get("USERPROFILE", "")) / "OneDrive" / "Desktop",  # OneDrive synced Desktop (Visible on screen)
+        Path(os.path.expanduser("~")) / "Desktop",  # Local user Desktop
+    ]
+
+    for candidate in candidate_dirs:
+        if candidate.is_dir():
+            dest = candidate / "QROS-PROP-VPS-Deployment.zip"
+            try:
+                shutil.copy2(target1, dest)
+                print(f"Copied deployment zip directly to: {dest}")
+            except Exception as e:
+                print(f"Could not copy to {dest}: {e}")
+

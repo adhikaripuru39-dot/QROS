@@ -827,6 +827,18 @@ def main():
     )
     print(json.dumps(res, indent=2))
 
+    try:
+        from qros.services.readiness import readiness
+        settings = Settings()
+        with session_scope(session_factory(settings.database_url)) as db:
+            r = readiness(db, settings)
+            print("\nStatic readiness (executor/broker checks refresh once services restart):")
+            for c in r.get("checks", []):
+                tag = "[PASS]" if c["passed"] else "[BLOCKED]"
+                print(f"  {tag:9} {c['name']:32} {c['detail']}")
+    except Exception as exc:
+        print(f"Readiness preview skipped: {exc}")
+
 
 if __name__ == "__main__":
     main()

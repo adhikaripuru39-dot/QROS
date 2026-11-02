@@ -61,6 +61,7 @@ Write-Host "  Storage paths initialized: data, logs, backups." -ForegroundColor 
 # 4. Generate or Validate .env Configuration
 Write-Host "`n[4/6] Checking .env configuration..." -ForegroundColor Yellow
 $envPath = Join-Path $root '.env'
+$configDirPosix = (Join-Path $root 'config').Replace('\', '/')
 if (-not (Test-Path -LiteralPath $envPath -PathType Leaf)) {
     Write-Host "  Creating new .env from .env.vps.template..."
     $templatePath = Join-Path $root '.env.vps.template'
@@ -71,20 +72,27 @@ if (-not (Test-Path -LiteralPath $envPath -PathType Leaf)) {
     }
     
     # Generate secure 64-character token
-    $genToken = & $venvPython -c "import secrets; print(secrets.token_hex(32))"
-    $envContent = $envContent.Replace("REPLACE_WITH_YOUR_64_CHAR_HEX_TOKEN", $genToken.Trim())
-    $envContent = $envContent.Replace("change-me", $genToken.Trim())
+    $genToken = (& $venvPython -c "import secrets; print(secrets.token_hex(32))").Trim()
+    $envContent = $envContent.Replace("REPLACE_WITH_YOUR_64_CHAR_HEX_TOKEN", $genToken)
+    $envContent = $envContent.Replace("change-me", $genToken)
     
     # Update default database and directory paths
     $dbUrl = "sqlite:///" + (Join-Path $RuntimeDir 'var\qros.db').Replace('\', '/')
     $envContent = $envContent -replace 'QROS_DATABASE_URL=.*', "QROS_DATABASE_URL=$dbUrl"
-    $envContent = $envContent -replace 'QROS_DATA_DIR=.*', "QROS_DATA_DIR=$varData"
-    $envContent = $envContent -replace 'QROS_LOG_DIR=.*', "QROS_LOG_DIR=$varLogs"
+    $envContent = $envContent -replace 'QROS_DATA_DIR=.*', "QROS_DATA_DIR=$($varData.Replace('\', '/'))"
+    $envContent = $envContent -replace 'QROS_LOG_DIR=.*', "QROS_LOG_DIR=$($varLogs.Replace('\', '/'))"
+    $envContent = $envContent -replace 'QROS_CONFIG_DIR=.*', "QROS_CONFIG_DIR=$configDirPosix"
     
     Set-Content -LiteralPath $envPath -Value $envContent -Encoding UTF8
-    Write-Host "  Generated fresh .env with a cryptographic 64-char API token." -ForegroundColor Green
+    Set-Content -LiteralPath (Join-Path $root 'DASHBOARD_LOGIN_PRIVATE.txt') -Value "QROS PRIVATE OWNER LOGIN`n`nDashboard URL: http://127.0.0.1:8000/`nAPI Bearer Token: $genToken`n" -Encoding UTF8
+    Write-Host "  Generated fresh .env and DASHBOARD_LOGIN_PRIVATE.txt with 64-char token." -ForegroundColor Green
 } else {
-    Write-Host "  Found existing .env file." -ForegroundColor Green
+    Write-Host "  Found existing .env file; verifying QROS_CONFIG_DIR path..." -ForegroundColor Green
+    $existingEnv = Get-Content -LiteralPath $envPath -Raw
+    if ($existingEnv -match 'QROS_CONFIG_DIR=') {
+        $existingEnv = $existingEnv -replace 'QROS_CONFIG_DIR=.*', "QROS_CONFIG_DIR=$configDirPosix"
+        Set-Content -LiteralPath $envPath -Value $existingEnv -Encoding UTF8
+    }
 }
 
 # 5. Initialize & Bind Active Account ($5,000 Baseline)

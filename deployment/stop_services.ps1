@@ -24,11 +24,13 @@ if ($psProcs) {
     }
 }
 
-# 2. Terminate Python microservices
+# 2. Terminate Python microservices (by command line, venv path, or port 8000)
+$venvPython = (Resolve-Path -LiteralPath (Join-Path (Split-Path -Parent $PSScriptRoot) 'backend\.venv\Scripts\python.exe') -ErrorAction SilentlyContinue)
 $procList = Get-CimInstance Win32_Process | Where-Object { 
     $_.CommandLine -like "*qros.services*" -or 
     $_.CommandLine -like "*qros.api*" -or 
-    $_.CommandLine -like "*uvicorn*qros*" 
+    $_.CommandLine -like "*uvicorn*qros*" -or
+    ($venvPython -and $_.ExecutablePath -eq $venvPython.Path)
 }
 
 if ($procList) {
@@ -39,6 +41,16 @@ if ($procList) {
     Write-Host "All QROS Python microservices stopped." -ForegroundColor Green
 } else {
     Write-Host "No active QROS Python workers detected." -ForegroundColor Gray
+}
+
+# Also ensure nothing is still holding port 8000
+$port8000 = Get-NetTCPConnection -LocalPort 8000 -State Listen -ErrorAction SilentlyContinue
+if ($port8000) {
+    foreach ($conn in $port8000) {
+        if ($conn.OwningProcess -gt 4) {
+            Stop-Process -Id $conn.OwningProcess -Force -ErrorAction SilentlyContinue
+        }
+    }
 }
 
 # 3. Release any orphaned lock files in runtime directory

@@ -18,8 +18,17 @@ sys.path.insert(0, str(ROOT / "backend"))
 
 from sqlalchemy import select
 from qros.audit.log import record, verify_chain
-from qros.config.settings import Settings
-from qros.db.models import ControlState, Instrument, RiskDay, RiskStateRow, Strategy, SystemState
+from qros.config.settings import Settings, load_firm_profiles
+from qros.db.models import (
+    AccountSnapshot,
+    ControlState,
+    RiskDay,
+    RiskStateRow,
+    ServiceHeartbeat,
+    Setting,
+    Strategy,
+    SystemState,
+)
 from qros.db.session import session_factory, session_scope
 from qros.research.runner import implementation_hash
 from qros.risk.calendar import trading_day
@@ -29,6 +38,16 @@ from qros.services.evidence import canonical_hash
 from qros.services.execution import account_key, set_state
 
 ACTIVE_FIVE_SYMBOLS = {"XAUUSD", "EURUSD", "GBPUSD", "USDJPY", "USDCAD"}
+STANDARD_TIERS = (5000.0, 6000.0, 10000.0, 15000.0, 25000.0, 50000.0, 100000.0, 200000.0)
+
+
+def _snap_initial_balance(observed_balance: float) -> float:
+    if observed_balance <= 0:
+        return 5000.0
+    closest = min(STANDARD_TIERS, key=lambda t: abs(observed_balance - t) / t)
+    if abs(observed_balance - closest) / closest <= 0.12:
+        return closest
+    return float(round(observed_balance / 1000.0) * 1000.0) or float(observed_balance)
 
 S_TIER_STRATEGIES = [
     {
@@ -301,13 +320,15 @@ S_TIER_STRATEGIES = [
 def bind_account(
     initial_balance: float = 5000.0,
     server: str = "FundedNext-Server",
-    login: int = 1514976566,
+    login: int | str = 1514976566,
     is_demo: bool = True,
     firm_brand: str = "fundednext",
     profile_id: str | None = None,
     risk_per_trade_pct: float = 0.60,
     daily_stop_pct: float = 1.80,
     max_open_positions: int = 3,
+    observed_balance: float | None = None,
+    observed_equity: float | None = None,
 ) -> dict:
     settings = Settings()
     now = datetime.now(timezone.utc)
@@ -333,9 +354,22 @@ def bind_account(
     with session_scope(session_factory(settings.database_url)) as db:
         st.seed_if_empty(db, settings.config_dir)
 
-        # Ensure only the 5 core instruments are enabled in the active DB
-        for inst in db.execute(select(Instrument)).scalars():
-            inst.enabled = inst.symbol in ACTIVE_FIVE_SYMBOLS
+        # Sync any newly added YAML firm profiles from config/firms into the DB settings store
+        existing_profiles = st.firm_profiles(db)
+        for yaml_id, yaml_prof in load_firm_profiles(settings.config_dir).items():
+            if yaml_id not in existing_profiles:
+                st.upsert_firm_profile(db, yaml_prof.model_dump(mode="json"), "owner-binding")
+
+        # Clear any stale manual account_anchors override so hwm_equity cannot inherit old 100k values
+        stale_anchors = db.get(Setting, "account_anchors")
+        if stale_anchors is not None:
+            db.delete(stale_anchors)
+
+        # Ensure only the 5 core instruments are enabled in the active DB settings store
+        for inst in st.instruments(db):
+            want_enabled = inst.symbol in ACTIVE_FIVE_SYMBOLS
+            if inst.enabled != want_enabled:
+                st.set_instrument_enabled(db, inst.symbol, want_enabled, "owner-binding")
 
         # Ensure all 12 S-Tier strategies are present in the database
         for s_def in S_TIER_STRATEGIES:
@@ -351,13 +385,16 @@ def bind_account(
                         spec=s_def["spec"],
                     )
                 )
+            else:
+                existing.status = s_def["status"]
+                existing.spec = s_def["spec"]
 
         db.flush()
 
         # Reset executor control state if previously halted on old example profile
         ctrl = db.get(ControlState, 1)
         if ctrl:
-            ctrl.run_state = "paused_entries"
+            ctrl.run_state = "stopped"
             ctrl.halt_reason = None
             ctrl.kill_switch = False
 
@@ -410,9 +447,6 @@ def bind_account(
             )
             st.upsert_firm_profile(db, prof.model_dump(mode="json"), "owner-binding")
 
-        # Activate firm
-        firm = st.set_active_firm(db, profile_id, "owner-binding")
-
         # Internal limits (percentage-based)
         limits_data = {
             "risk_per_trade_pct": risk_per_trade_pct,
@@ -430,6 +464,10 @@ def bind_account(
             "min_free_margin_pct": 50.0,
         }
         st.set_internal_limits(db, limits_data, "owner-binding")
+
+        # Activate firm
+        firm = st.set_active_firm(db, profile_id, "owner-binding")
+        limits = st.internal_limits(db)
 
         # Account binding
         acct_id = identity(server, login)
@@ -471,9 +509,14 @@ def bind_account(
         )
 
         # Set clean risk anchor for the new account
+        from qros.risk.drawdown import AccountState, evaluate
         from qros.services.risk_identity import risk_day_scope
         scope = risk_day_scope(firm.id, dummy_acct, "demo" if is_demo else "live")
         day_str = trading_day(now, firm.daily_reset).isoformat()
+        cur_bal = float(observed_balance) if observed_balance is not None and observed_balance > 0 else firm.initial_balance
+        cur_eq = float(observed_equity) if observed_equity is not None and observed_equity > 0 else cur_bal
+        sod_bal = max(firm.initial_balance, cur_bal)
+        sod_eq = max(firm.initial_balance, cur_eq)
 
         # Ensure RiskDay row exists with observed_at_reset so executor does not overwrite it
         rd = db.execute(
@@ -484,58 +527,45 @@ def bind_account(
                 RiskDay(
                     firm_id=scope,
                     trading_day=day_str,
-                    sod_balance=firm.initial_balance,
-                    sod_equity=firm.initial_balance,
+                    sod_balance=sod_bal,
+                    sod_equity=sod_eq,
                     anchor_method="observed_at_reset",
                 )
             )
         else:
-            rd.sod_balance = firm.initial_balance
-            rd.sod_equity = firm.initial_balance
+            rd.sod_balance = sod_bal
+            rd.sod_equity = sod_eq
             rd.anchor_method = "observed_at_reset"
+
+        acct_state = AccountState(
+            balance=cur_bal,
+            equity=cur_eq,
+            initial_balance=firm.initial_balance,
+            sod_balance=sod_bal,
+            sod_equity=sod_eq,
+            hwm_equity=max(firm.initial_balance, cur_eq, cur_bal),
+            hwm_eod_balance=max(firm.initial_balance, cur_bal),
+        )
+        dd = evaluate(firm, limits, acct_state)
 
         risk_row = db.get(RiskStateRow, 1)
         risk_data = {
-            "daily_anchor": firm.initial_balance,
-            "daily_limit_amount": firm.initial_balance * 0.05,
-            "daily_floor": firm.initial_balance * 0.95,
-            "daily_measured": firm.initial_balance,
-            "daily_used": 0.0,
-            "daily_used_pct_of_limit": 0.0,
-            "firm_daily_breached": False,
-            "total_base": firm.initial_balance,
-            "total_limit_amount": firm.initial_balance * 0.10,
-            "total_floor": firm.initial_balance * 0.90,
-            "total_measured": firm.initial_balance,
-            "total_used": 0.0,
-            "total_used_pct_of_limit": 0.0,
-            "firm_total_breached": False,
-            "internal_measured": firm.initial_balance,
-            "internal_daily_warning_floor": firm.initial_balance - (firm.initial_balance * (limits_data["daily_warning_pct"] / 100)),
-            "internal_daily_stop_floor": firm.initial_balance - (firm.initial_balance * (limits_data["daily_stop_pct"] / 100)),
-            "internal_total_stop_floor": firm.initial_balance - (firm.initial_balance * (limits_data["total_stop_pct"] / 100)),
-            "internal_daily_warning": False,
-            "internal_daily_stop": False,
-            "internal_total_stop": False,
-            "effective_floor": firm.initial_balance - (firm.initial_balance * (limits_data["daily_stop_pct"] / 100)),
-            "remaining_to_effective_floor": firm.initial_balance * (limits_data["daily_stop_pct"] / 100),
-            "halt_required": False,
-            "halt_reasons": [],
-            "balance": firm.initial_balance,
-            "equity": firm.initial_balance,
+            **dd.to_dict(),
+            "balance": cur_bal,
+            "equity": cur_eq,
             "account_key": dummy_key,
             "risk_scope_key": scope,
             "source": "mt5",
             "currency": firm.currency,
             "initial_balance": firm.initial_balance,
-            "sod_balance": firm.initial_balance,
-            "sod_equity": firm.initial_balance,
+            "sod_balance": sod_bal,
+            "sod_equity": sod_eq,
             "anchor_method": "observed_at_reset",
             "open_risk": 0.0,
             "unprotected_tickets": [],
             "currency_exposure": {},
-            "limits_version": 1,
-            "firm_version": 1,
+            "limits_version": st.version_of(db, "internal_limits"),
+            "firm_version": st.version_of(db, "firm_profiles"),
         }
         if risk_row is None:
             db.add(
@@ -545,8 +575,8 @@ def bind_account(
                     firm_id=firm.id,
                     trading_day=day_str,
                     data=risk_data,
-                    hwm_equity=firm.initial_balance,
-                    hwm_eod_balance=firm.initial_balance,
+                    hwm_equity=acct_state.hwm_equity,
+                    hwm_eod_balance=acct_state.hwm_eod_balance,
                 )
             )
         else:
@@ -554,8 +584,8 @@ def bind_account(
             risk_row.firm_id = firm.id
             risk_row.trading_day = day_str
             risk_row.data = risk_data
-            risk_row.hwm_equity = firm.initial_balance
-            risk_row.hwm_eod_balance = firm.initial_balance
+            risk_row.hwm_equity = acct_state.hwm_equity
+            risk_row.hwm_eod_balance = acct_state.hwm_eod_balance
 
         # Demo grants for active strategies
         c_hash = implementation_hash()
@@ -613,6 +643,8 @@ def bind_account(
         "firm_id": profile_id,
         "firm_name": firm.name,
         "initial_balance": initial_balance,
+        "observed_balance": cur_bal,
+        "observed_equity": cur_eq,
         "server": server,
         "login": login,
         "bound_strategies_count": len(bound_strategies),
@@ -620,10 +652,25 @@ def bind_account(
     }
 
 
+def _discover_terminal_data_path(explicit_path: str | None = None) -> Path | None:
+    if explicit_path and Path(explicit_path).is_dir():
+        return Path(explicit_path)
+    vps_known = Path(r"C:\Users\Administrator\AppData\Roaming\MetaQuotes\Terminal\D0E8209F77C8CF37AD8BF550E51FF075")
+    if vps_known.is_dir():
+        return vps_known
+    appdata = Path.home() / "AppData" / "Roaming" / "MetaQuotes" / "Terminal"
+    if appdata.is_dir():
+        for child in sorted(appdata.iterdir()):
+            if child.is_dir() and (child / "MQL5").is_dir():
+                return child
+    return None
+
+
 def _ensure_env_and_calendar(server: str, terminal_data_path: str | None = None, mt5_exe_path: str | None = None) -> str:
     """Ensure .env has clean UTF-8 (no BOM), execution enabled, and a valid calendar.json."""
     env_path = ROOT / ".env"
-    default_cal_dir = Path(terminal_data_path) / "MQL5" / "Files" / "QROS" if terminal_data_path else (ROOT / "var")
+    term_dir = _discover_terminal_data_path(terminal_data_path)
+    default_cal_dir = (term_dir / "MQL5" / "Files" / "QROS") if term_dir else (ROOT / "var")
     default_cal_dir.mkdir(parents=True, exist_ok=True)
     cal_file = default_cal_dir / "calendar.json"
     cal_posix = cal_file.resolve().as_posix()
@@ -684,22 +731,25 @@ def _ensure_env_and_calendar(server: str, terminal_data_path: str | None = None,
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--balance", type=float, default=5000.0, help="Account initial balance (e.g. 5000, 6000, 15000, 50000)")
+    parser.add_argument("--balance", type=float, default=None, help="Account initial balance (e.g. 5000, 6000, 15000, 50000)")
     parser.add_argument("--firm", choices=["fundednext", "ftmo"], default="fundednext", help="Prop firm brand")
     parser.add_argument("--server", default=None, help="Broker server name (auto-detected if MT5 is running)")
     parser.add_argument("--login", type=int, default=None, help="MT5 login number (auto-detected if MT5 is running)")
     parser.add_argument("--live", action="store_true", help="Bind as live/funded account")
     parser.add_argument("--auto-detect", action="store_true", default=True, help="Auto-detect server, login, and balance from running MT5")
     parser.add_argument("--no-auto-detect", dest="auto_detect", action="store_false", help="Disable MT5 auto-detection")
+    parser.add_argument("--skip-env", action="store_true", help="Skip updating .env and calendar.json")
     args = parser.parse_args()
 
-    balance = args.balance
     firm_brand = args.firm
     server = args.server or ("FundedNext-Server" if firm_brand == "fundednext" else "FTMO-Demo")
     login = args.login or 1514976566
     is_demo = not args.live
     term_data_path = None
     mt5_exe_path = None
+    observed_balance: float | None = None
+    observed_equity: float | None = None
+    detected = False
 
     if args.auto_detect:
         try:
@@ -718,19 +768,51 @@ def main():
                     if a:
                         server = a.server
                         login = a.login
-                        if args.balance == 5000.0 and a.balance > 0:
-                            # Round to nearest 1,000 tier for initial balance anchor
-                            balance = float(round(a.balance / 1000.0) * 1000.0) or float(a.balance)
+                        observed_balance = float(a.balance)
+                        observed_equity = float(a.equity)
                         is_demo = (a.trade_mode == mt5.ACCOUNT_TRADE_MODE_DEMO)
-                        print(f"Auto-detected MT5 Account: Server={server} | Login={login} | Balance=${balance:,.2f} | Demo={is_demo}")
+                        detected = True
+                        print(f"Auto-detected MT5 Account: Server={server} | Login={login} | Balance=${observed_balance:,.2f} | Equity=${observed_equity:,.2f} | Demo={is_demo}")
                         for sym in ACTIVE_FIVE_SYMBOLS:
                             mt5.symbol_select(sym, True)
                 finally:
                     mt5.shutdown()
         except Exception as exc:
-            print(f"Note: MT5 auto-detect skipped ({exc}); using supplied arguments.")
+            print(f"Note: Direct MT5 auto-detect skipped ({exc}); checking database snapshot fallback.")
 
-    if args.auto_detect:
+        if not detected:
+            try:
+                settings = Settings()
+                with session_scope(session_factory(settings.database_url)) as db:
+                    hb = db.get(ServiceHeartbeat, "executor")
+                    snap = db.execute(select(AccountSnapshot).order_by(AccountSnapshot.id.desc())).scalars().first()
+                    if snap and snap.server and snap.login:
+                        server = snap.server
+                        login = snap.login
+                        observed_balance = float(snap.balance)
+                        observed_equity = float(snap.equity)
+                        if snap.is_demo is not None:
+                            is_demo = bool(snap.is_demo)
+                        detected = True
+                        print(f"Auto-detected from DB Snapshot: Server={server} | Login={login} | Balance=${observed_balance:,.2f} | Demo={is_demo}")
+                    elif hb and hb.broker_detail.get("server") and hb.broker_detail.get("login"):
+                        server = hb.broker_detail["server"]
+                        login = hb.broker_detail["login"]
+                        if hb.broker_detail.get("is_demo") is not None:
+                            is_demo = bool(hb.broker_detail["is_demo"])
+                        detected = True
+                        print(f"Auto-detected from Executor Heartbeat: Server={server} | Login={login} | Demo={is_demo}")
+            except Exception as exc:
+                print(f"Note: DB snapshot fallback skipped ({exc}).")
+
+    if args.balance is not None:
+        balance = float(args.balance)
+    elif observed_balance is not None and observed_balance > 0:
+        balance = _snap_initial_balance(observed_balance)
+    else:
+        balance = 5000.0
+
+    if not args.skip_env:
         cal_posix = _ensure_env_and_calendar(server, term_data_path, mt5_exe_path)
         print(f"Configured .env and initialized calendar at: {cal_posix}")
 
@@ -740,6 +822,8 @@ def main():
         login=login,
         is_demo=is_demo,
         firm_brand=firm_brand,
+        observed_balance=observed_balance,
+        observed_equity=observed_equity,
     )
     print(json.dumps(res, indent=2))
 

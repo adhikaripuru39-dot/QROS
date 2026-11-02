@@ -154,8 +154,8 @@ class DataWorker:
                 'raw_timestamp_semantics':'broker-reported epoch; historical UTC/DST mapping unverified',
                 'request_offset_purpose':'current API request selection only; never historical normalization'}
             extra={}
-            if str(account.server).upper().startswith('FTMO'):
-                # Published FTMO server-time rule, accepted only if the live offset agrees with it.
+            if str(account.server).upper().startswith(('FTMO','FUNDEDNEXT','GROWTHNEXT','INCENTECO')):
+                # Published GMT+2/GMT+3 prop-firm server-time rule, accepted only if the live offset agrees with it.
                 from qros.data.sessions import ftmo_timestamp_metadata
                 rule=ftmo_timestamp_metadata(self.current_offset,self.clock())
                 metadata={**metadata,**rule,'current_clock_calibration':calibration}

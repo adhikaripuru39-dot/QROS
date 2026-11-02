@@ -1,0 +1,36 @@
+# FundedNext Stellar 2-Step / Free Trial $5,000 Profile
+id: fundednext_5k_2step
+name: "FundedNext Stellar 2-Step $5,000"
+is_example: false
+currency: USD
+initial_balance: 5000
+daily_loss:
+  pct: 5.0
+  anchor: start_of_day_max        # conservative: max(balance, equity) at server reset
+  amount_basis: initial_balance   # 5% of initial balance = $250
+  measure: equity                 # floating losses count
+max_loss:
+  pct: 10.0
+  drawdown_type: static
+  measure: equity
+  trail_lock_at_initial: true
+daily_reset:
+  timezone: Europe/Athens         # GMT+2 winter / GMT+3 summer (MT5 Server 00:00)
+  time: "00:00"
+profit_target_pct: 8.0
+min_trading_days: 5
+consistency_max_day_share: null
+news:
+  enabled: true
+  minutes_before: 10
+  minutes_after: 10
+  flatten_before_news: true
+  cancel_pending_before_news: true
+overnight_allowed: true
+weekend_allowed: true
+max_lots_per_order: 5
+max_total_lots: 10
+max_leverage: 100
+automated_trading_allowed: true
+commission_per_lot_round_turn: 7.0
+

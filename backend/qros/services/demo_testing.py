@@ -25,7 +25,7 @@ def grant_errors(db, strategy, mode, now=None, account=None, settings=None):
         end = datetime.fromisoformat(g['expires_at'])
         if start.tzinfo is None or end.tzinfo is None or not start <= now < end or (end-start).total_seconds() > 8*86400:
             errors.append('DEMO_TEST_GRANT_EXPIRED_OR_INVALID')
-        if g['actor_kind'] != 'owner' or g['programme'] not in ('2-Step Free Trial', 'FTMO 2-Step Evaluation $5,000') or g['funded'] is not False:
+        if g['actor_kind'] != 'owner' or not isinstance(g.get('programme'), str) or not g['programme'].strip() or g['funded'] is not False:
             errors.append('DEMO_TEST_OWNER_SCOPE_INVALID')
         if g['strategy_hash'] != canonical_hash({'hypothesis':strategy.hypothesis_id,'runtime':strategy.spec.get('runtime',{})}):
             errors.append('DEMO_TEST_RUNTIME_CHANGED')
